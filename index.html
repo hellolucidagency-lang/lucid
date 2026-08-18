@@ -1,515 +1,1491 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lucid Agency — AI-Driven Business & Commerce</title>
-<meta name="description" content="Lucid Agency: AI-driven business automation and smart commerce solutions.">
+<title>لوسِد أجنسي — أتمتة بالذكاء الاصطناعي وإنتاج بصري</title>
+<meta name="description" content="لوسِد أجنسي تبني أنظمة أتمتة بالذكاء الاصطناعي وإنتاجًا بصريًا فاخرًا للعلامات التجارية التي ترفض أن تكون عادية.">
 
-<!-- Tailwind CDN -->
-<script src="https://cdn.tailwindcss.com"></script>
-
-<!-- Fonts: Space Grotesk (display/EN), Tajawal (AR), Inter (body) -->
+<!-- Fonts: Space Grotesk (display/EN), Inter (body/EN), Cairo (Arabic) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          void: '#08080C',
-          panel: '#101018',
-          panel2: '#15151F',
-          hairline: '#22222E',
-          neonblue: '#3B82F6',
-          neonblue2: '#5EA1FF',
-          neonpurple: '#8B5CF6',
-          neonpurple2: '#B48CFF',
-          muted: '#8A8A9A',
-        },
-        fontFamily: {
-          display: ['"Space Grotesk"', 'sans-serif'],
-          arabic: ['Tajawal', 'sans-serif'],
-          body: ['Inter', 'sans-serif'],
-        },
-      },
-    },
-  }
-</script>
+<!-- FontAwesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
-  :root{
-    --blue: #3B82F6;
-    --purple: #8B5CF6;
-  }
-  html { scroll-behavior: smooth; }
-  body {
-    background: #08080C;
-    background-image:
-      radial-gradient(circle at 15% 8%, rgba(59,130,246,0.10), transparent 40%),
-      radial-gradient(circle at 85% 15%, rgba(139,92,246,0.10), transparent 40%);
-  }
+/* ============================================================
+   LUCID AGENCY — Design System
+   Deep space dark, glassmorphism, electric blue + deep purple,
+   neon green for results. Bilingual (EN/AR) typography.
+   ============================================================ */
 
-  ::selection { background: rgba(94,161,255,0.35); color: #fff; }
+:root{
+  /* --- Color tokens --- */
+  --bg-void:        #06060a;
+  --bg-deep:        #0a0a12;
+  --bg-panel:       #0e0e18;
+  --glass-fill:     rgba(255,255,255,0.045);
+  --glass-fill-hi:  rgba(255,255,255,0.08);
+  --glass-border:   rgba(255,255,255,0.09);
+  --glass-border-hi:rgba(255,255,255,0.18);
 
-  /* Custom scrollbar */
-  ::-webkit-scrollbar { width: 8px; }
-  ::-webkit-scrollbar-track { background: #08080C; }
-  ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--blue), var(--purple)); border-radius: 8px; }
+  --electric:       #4d8dff;
+  --electric-soft:  #7fb0ff;
+  --purple:         #8b5cf6;
+  --purple-soft:    #b794ff;
+  --neon-green:     #4dffa0;
 
-  .ar { direction: rtl; unicode-bidi: isolate; }
+  --text-hi:        #f2f2f7;
+  --text-mid:       #b7b7c9;
+  --text-low:       #74748a;
 
-  /* Glow utilities */
-  .text-glow-blue { text-shadow: 0 0 18px rgba(94,161,255,0.55), 0 0 44px rgba(59,130,246,0.25); }
-  .glow-border { box-shadow: 0 0 0 1px rgba(94,161,255,0.18), 0 0 30px -8px rgba(139,92,246,0.35); }
+  /* --- Type --- */
+  --f-display: 'Space Grotesk', 'Cairo', sans-serif;
+  --f-body:    'Inter', 'Cairo', sans-serif;
+  --f-arabic:  'Cairo', 'Inter', sans-serif;
 
-  .btn-glow {
-    background: linear-gradient(90deg, #3B82F6, #8B5CF6);
-    box-shadow: 0 0 20px -4px rgba(94,161,255,0.7), 0 0 44px -10px rgba(139,92,246,0.6);
-    transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
-  }
-  .btn-glow:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 28px -2px rgba(94,161,255,0.9), 0 0 60px -6px rgba(139,92,246,0.75);
-    filter: brightness(1.06);
-  }
+  /* --- Layout --- */
+  --maxw: 1240px;
+  --radius-lg: 22px;
+  --radius-md: 14px;
+  --radius-sm: 8px;
+  --ease: cubic-bezier(.16,.8,.24,1);
+}
 
-  /* Grid backdrop */
-  .grid-veil {
-    background-image:
-      linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
-    background-size: 44px 44px;
-    -webkit-mask-image: radial-gradient(ellipse 70% 55% at 50% 30%, black 10%, transparent 72%);
-    mask-image: radial-gradient(ellipse 70% 55% at 50% 30%, black 10%, transparent 72%);
-  }
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
 
-  /* Orb */
-  .orb {
-    position: absolute;
-    border-radius: 9999px;
-    filter: blur(80px);
-    opacity: 0.55;
-    animation: float 12s ease-in-out infinite;
-  }
-  @keyframes float {
-    0%, 100% { transform: translate(0,0) scale(1); }
-    50% { transform: translate(18px,-26px) scale(1.06); }
-  }
+body{
+  background:var(--bg-void);
+  color:var(--text-hi);
+  font-family:var(--f-body);
+  font-size:16px;
+  line-height:1.6;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
 
-  /* Nav underline */
-  .nav-link { position: relative; }
-  .nav-link::after {
-    content:'';
-    position:absolute; left:0; bottom:-4px;
-    width:0; height:1px;
-    background: linear-gradient(90deg, var(--blue), var(--purple));
-    transition: width .25s ease;
-  }
-  .nav-link:hover::after { width: 100%; }
+/* Auto-switch to Arabic-friendly stack whenever content is RTL */
+[dir="rtl"], .ar{
+  font-family:var(--f-arabic);
+}
 
-  /* Reveal on scroll */
-  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
-  .reveal.in { opacity: 1; transform: translateY(0); }
+img{ max-width:100%; display:block; }
+a{ color:inherit; text-decoration:none; }
+ul{ list-style:none; }
+button{ font-family:inherit; cursor:pointer; }
 
-  /* Service card */
-  .service-card {
-    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
-    border: 1px solid rgba(255,255,255,0.07);
-    transition: border-color .3s ease, transform .3s ease, box-shadow .3s ease;
-  }
-  .service-card:hover {
-    transform: translateY(-6px);
-    border-color: rgba(94,161,255,0.4);
-    box-shadow: 0 20px 50px -20px rgba(59,130,246,0.35);
-  }
-  .icon-badge {
-    background: linear-gradient(135deg, rgba(59,130,246,0.18), rgba(139,92,246,0.18));
-    border: 1px solid rgba(148,163,255,0.25);
-  }
+.container{
+  max-width:var(--maxw);
+  margin:0 auto;
+  padding:0 32px;
+}
 
-  /* Before/After slider */
-  .ba-wrap { position: relative; overflow: hidden; touch-action: none; user-select: none; }
-  .ba-after { position: absolute; inset: 0; overflow: hidden; }
-  .ba-handle {
-    position: absolute; top: 0; bottom: 0;
-    width: 2px; background: linear-gradient(180deg, var(--blue), var(--purple));
-    box-shadow: 0 0 16px rgba(94,161,255,0.8);
-    cursor: ew-resize;
+::selection{ background:var(--electric); color:#fff; }
+
+/* Scrollbar */
+::-webkit-scrollbar{ width:10px; }
+::-webkit-scrollbar-track{ background:var(--bg-void); }
+::-webkit-scrollbar-thumb{ background:#1e1e2c; border-radius:10px; }
+::-webkit-scrollbar-thumb:hover{ background:#2a2a3c; }
+
+/* ============================================================
+   AMBIENT BACKGROUND — soft moving nebula glows, fixed behind all
+   ============================================================ */
+.ambient{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  overflow:hidden;
+}
+.orb{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(120px);
+  opacity:.35;
+  will-change:transform;
+}
+.orb--blue{
+  width:620px; height:620px;
+  background:var(--electric);
+  top:-200px; left:-120px;
+  animation:drift1 26s ease-in-out infinite alternate;
+}
+.orb--purple{
+  width:560px; height:560px;
+  background:var(--purple);
+  bottom:-260px; right:-140px;
+  animation:drift2 30s ease-in-out infinite alternate;
+}
+.orb--green{
+  width:340px; height:340px;
+  background:var(--neon-green);
+  top:45%; left:60%;
+  opacity:.14;
+  animation:drift3 34s ease-in-out infinite alternate;
+}
+@keyframes drift1{ from{ transform:translate(0,0);} to{ transform:translate(80px,60px);} }
+@keyframes drift2{ from{ transform:translate(0,0);} to{ transform:translate(-70px,-50px);} }
+@keyframes drift3{ from{ transform:translate(0,0) scale(1);} to{ transform:translate(-40px,40px) scale(1.15);} }
+
+.grain{
+  position:fixed; inset:0; z-index:1; pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity:.5;
+}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav{
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  padding:20px 0;
+  transition:background .4s var(--ease), border-color .4s var(--ease), padding .4s var(--ease);
+  border-bottom:1px solid transparent;
+}
+.nav.scrolled{
+  background:rgba(6,6,10,0.72);
+  backdrop-filter:blur(18px) saturate(140%);
+  -webkit-backdrop-filter:blur(18px) saturate(140%);
+  border-bottom:1px solid var(--glass-border);
+  padding:14px 0;
+}
+.nav .container{ display:flex; align-items:center; justify-content:space-between; }
+
+.logo{
+  font-family:'Space Grotesk', sans-serif; /* brand name stays Latin in both languages */
+  font-weight:600;
+  font-size:1.25rem;
+  letter-spacing:.01em;
+  display:flex; align-items:center; gap:10px;
+  direction:ltr; /* keep "Lucid Agency" reading left-to-right even in RTL layout */
+}
+.logo .dot{
+  width:9px; height:9px; border-radius:50%;
+  background:linear-gradient(135deg,var(--electric),var(--purple));
+  box-shadow:0 0 14px 2px var(--electric);
+}
+
+/* --- Inline SVG brand mark --- */
+.logo-mark{
+  display:inline-flex; width:26px; height:26px; flex-shrink:0;
+  filter:drop-shadow(0 0 8px rgba(77,141,255,.55));
+  transition:filter .3s var(--ease), transform .4s var(--ease);
+}
+.logo-mark svg{ width:100%; height:100%; }
+.logo:hover .logo-mark{
+  filter:drop-shadow(0 0 14px rgba(139,92,246,.75));
+  transform:rotate(8deg);
+}
+
+.nav-links{ display:flex; align-items:center; gap:36px; }
+.nav-links a{
+  font-size:.92rem; color:var(--text-mid); font-weight:500;
+  position:relative; transition:color .25s var(--ease);
+}
+.nav-links a::after{
+  content:''; position:absolute; left:0; bottom:-6px; width:0; height:1px;
+  background:var(--electric-soft); transition:width .3s var(--ease);
+}
+.nav-links a:hover{ color:var(--text-hi); }
+.nav-links a:hover::after{ width:100%; }
+
+.nav-cta{
+  padding:10px 20px;
+  border-radius:100px;
+  font-size:.86rem; font-weight:600;
+  background:var(--glass-fill);
+  border:1px solid var(--glass-border-hi);
+  backdrop-filter:blur(10px);
+  transition:all .3s var(--ease);
+}
+.nav-cta:hover{ border-color:var(--electric-soft); box-shadow:0 0 22px -4px var(--electric); }
+
+.nav-toggle{ display:none; }
+
+/* --- Language toggle pill --- */
+.lang-switch{
+  display:flex; align-items:center;
+  padding:3px; border-radius:100px;
+  background:var(--glass-fill);
+  border:1px solid var(--glass-border-hi);
+  backdrop-filter:blur(10px);
+  gap:2px;
+}
+.lang-btn{
+  border:none; background:transparent;
+  padding:6px 13px; border-radius:100px;
+  font-family:'Space Grotesk', sans-serif;
+  font-size:.76rem; font-weight:700; letter-spacing:.03em;
+  color:var(--text-low);
+  transition:all .3s var(--ease);
+}
+.lang-btn.active{
+  color:#04040a;
+  background:linear-gradient(100deg,var(--electric-soft),var(--purple-soft));
+  box-shadow:0 0 16px -2px rgba(77,141,255,.6);
+}
+.lang-btn:not(.active):hover{ color:var(--text-hi); }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  position:relative; z-index:2;
+  min-height:100vh;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center;
+  padding:160px 32px 100px;
+}
+.eyebrow{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:7px 16px;
+  border-radius:100px;
+  border:1px solid var(--glass-border-hi);
+  background:var(--glass-fill);
+  font-size:.78rem; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--electric-soft); font-weight:600;
+  margin-bottom:28px;
+  backdrop-filter:blur(10px);
+}
+.eyebrow i{ font-size:.72rem; }
+
+.hero h1{
+  font-family:var(--f-display);
+  font-weight:600;
+  font-size:clamp(2.4rem, 6vw, 5.2rem);
+  line-height:1.06;
+  letter-spacing:-.02em;
+  max-width:920px;
+  background:linear-gradient(180deg,#ffffff 30%, #b9b9d4 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.hero h1 .cursor{
+  display:inline-block; width:3px; margin-inline-start:4px;
+  background:var(--electric-soft);
+  animation:blink 1s step-end infinite;
+  transform:translateY(2px);
+}
+
+/* Arabic display type: kill the tight Latin letter-spacing, it reads badly on Cairo */
+[dir="rtl"] .hero h1,
+[dir="rtl"] .section-head h2,
+[dir="rtl"] .cta-banner h2,
+[dir="rtl"] .case-info h3{
+  letter-spacing:0;
+}
+[dir="rtl"] body{ font-family:var(--f-arabic); }
+@keyframes blink{ 50%{ opacity:0; } }
+
+.hero h1 .grad{
+  background:linear-gradient(100deg,var(--electric-soft),var(--purple-soft));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+
+.hero p{
+  margin-top:26px;
+  max-width:600px;
+  color:var(--text-mid);
+  font-size:1.08rem;
+  line-height:1.7;
+}
+
+.hero-actions{
+  margin-top:44px;
+  display:flex; align-items:center; gap:20px; flex-wrap:wrap;
+  justify-content:center;
+}
+
+.btn-primary{
+  position:relative;
+  padding:17px 34px;
+  border-radius:100px;
+  border:none;
+  font-weight:600; font-size:.98rem;
+  color:#04040a;
+  background:linear-gradient(100deg,var(--electric-soft),var(--purple-soft));
+  box-shadow:0 0 0 1px rgba(255,255,255,.08) inset;
+  display:inline-flex; align-items:center; gap:10px;
+  animation:pulseGlow 2.6s ease-in-out infinite;
+  transition:transform .3s var(--ease);
+}
+.btn-primary:hover{ transform:translateY(-2px) scale(1.015); }
+@keyframes pulseGlow{
+  0%,100%{ box-shadow:0 0 0 1px rgba(255,255,255,.08) inset, 0 0 18px 0px rgba(77,141,255,.55), 0 0 40px -6px rgba(139,92,246,.4); }
+  50%{ box-shadow:0 0 0 1px rgba(255,255,255,.08) inset, 0 0 34px 6px rgba(77,141,255,.75), 0 0 60px 4px rgba(139,92,246,.55); }
+}
+
+.btn-ghost{
+  padding:16px 30px;
+  border-radius:100px;
+  font-weight:600; font-size:.95rem;
+  color:var(--text-hi);
+  background:var(--glass-fill);
+  border:1px solid var(--glass-border-hi);
+  backdrop-filter:blur(10px);
+  display:inline-flex; align-items:center; gap:10px;
+  transition:all .3s var(--ease);
+}
+.btn-ghost:hover{ background:var(--glass-fill-hi); border-color:var(--purple-soft); box-shadow:0 0 24px -8px var(--purple); }
+
+.hero-stats{
+  margin-top:88px;
+  display:flex; gap:64px; flex-wrap:wrap; justify-content:center;
+}
+.hero-stats .stat b{
+  display:block; font-family:var(--f-display); font-size:2rem; font-weight:600;
+  background:linear-gradient(100deg,var(--electric-soft),var(--purple-soft));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.hero-stats .stat span{ font-size:.82rem; color:var(--text-low); letter-spacing:.02em; }
+
+/* ============================================================
+   GLASS CARD base
+   ============================================================ */
+.glass{
+  background:var(--glass-fill);
+  border:1px solid var(--glass-border);
+  backdrop-filter:blur(22px) saturate(140%);
+  -webkit-backdrop-filter:blur(22px) saturate(140%);
+  border-radius:var(--radius-lg);
+}
+
+/* ============================================================
+   SECTION shell + reveal utility
+   ============================================================ */
+.section{ position:relative; z-index:2; padding:120px 0; }
+.section-head{ text-align:center; max-width:640px; margin:0 auto 64px; }
+.section-head h2{
+  font-family:var(--f-display); font-weight:600;
+  font-size:clamp(1.9rem,3.6vw,2.9rem);
+  letter-spacing:-.01em;
+  margin-top:16px;
+}
+.section-head p{ color:var(--text-mid); margin-top:16px; font-size:1.02rem; }
+
+.reveal{ opacity:0; transform:translateY(28px); transition:opacity .9s var(--ease), transform .9s var(--ease); }
+.reveal.is-visible{ opacity:1; transform:translateY(0); }
+
+/* ============================================================
+   SERVICES STRIP
+   ============================================================ */
+.services{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+.service-card{
+  padding:30px 26px;
+  transition:transform .35s var(--ease), border-color .35s var(--ease), box-shadow .35s var(--ease);
+}
+.service-card:hover{
+  transform:translateY(-6px);
+  border-color:var(--glass-border-hi);
+  box-shadow:0 20px 50px -20px rgba(77,141,255,.35);
+}
+.service-card .icon{
+  width:46px; height:46px; border-radius:12px;
+  display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(135deg, rgba(77,141,255,.18), rgba(139,92,246,.18));
+  border:1px solid var(--glass-border-hi);
+  color:var(--electric-soft);
+  font-size:1.15rem;
+  margin-bottom:20px;
+}
+.service-card h3{ font-family:var(--f-display); font-size:1.08rem; font-weight:600; margin-bottom:10px; }
+.service-card p{ color:var(--text-mid); font-size:.92rem; line-height:1.65; }
+
+/* ============================================================
+   CASE STUDIES — dynamic cards from CSV
+   ============================================================ */
+.case-loading{
+  display:flex; align-items:center; justify-content:center; gap:12px;
+  padding:60px 0; color:var(--text-low); font-size:.9rem;
+}
+.spinner{
+  width:16px; height:16px; border-radius:50%;
+  border:2px solid var(--glass-border-hi); border-top-color:var(--electric-soft);
+  animation:spin .8s linear infinite;
+}
+@keyframes spin{ to{ transform:rotate(360deg); } }
+
+.case-list{ display:flex; flex-direction:column; gap:32px; }
+
+/* --- Skeleton loading state (shown while the CSV fetch is in flight) --- */
+.skeleton-card{ display:grid; grid-template-columns:1.1fr .9fr; padding:0; overflow:hidden; }
+.skeleton-media{ aspect-ratio:4/3.1; }
+.skeleton-card .case-info{ padding:44px; display:flex; flex-direction:column; gap:14px; }
+.skeleton-line{ height:14px; border-radius:6px; }
+.shimmer{
+  background:linear-gradient(100deg,
+    rgba(255,255,255,.04) 8%,
+    rgba(255,255,255,.10) 18%,
+    rgba(255,255,255,.04) 33%);
+  background-size:200% 100%;
+  animation:shimmer 1.6s ease-in-out infinite;
+}
+@keyframes shimmer{
+  0%{ background-position:150% 0; }
+  100%{ background-position:-50% 0; }
+}
+
+/* --- Inline notice shown when the live CSV can't be reached --- */
+.case-notice{
+  display:flex; align-items:center; gap:10px;
+  padding:14px 18px; margin-bottom:24px;
+  border-radius:var(--radius-md);
+  background:rgba(255,180,80,.06);
+  border:1px solid rgba(255,180,80,.25);
+  color:#ffcf8a; font-size:.85rem;
+}
+.case-notice i{ flex-shrink:0; }
+
+.case-card{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  overflow:hidden;
+  padding:0;
+}
+.case-card:nth-child(even){ grid-template-columns:.9fr 1.1fr; }
+.case-card:nth-child(even) .case-media{ order:2; }
+.case-card:nth-child(even) .case-info{ order:1; }
+
+.case-media{ position:relative; }
+
+/* --- Before/After slider --- */
+.ba-slider{
+  position:relative;
+  width:100%; aspect-ratio:4/3.1;
+  overflow:hidden;
+  cursor:ew-resize;
+  user-select:none;
+  background:var(--bg-panel);
+}
+.ba-slider img{
+  position:absolute; inset:0;
+  width:100%; height:100%; object-fit:cover;
+  pointer-events:none;
+  -webkit-user-drag:none;
+}
+.ba-slider .ba-after{ z-index:1; }
+/* Graceful fallback if an image URL from the sheet fails to load */
+.ba-slider.img-fallback{
+  background:linear-gradient(135deg, rgba(77,141,255,.12), rgba(139,92,246,.12));
+}
+.ba-slider.img-fallback::after{
+  content:'\f03e';
+  font-family:'Font Awesome 6 Free'; font-weight:900;
+  position:absolute; inset:0; z-index:3;
+  display:flex; align-items:center; justify-content:center;
+  font-size:2rem; color:var(--glass-border-hi);
+}
+.ba-slider .ba-before-wrap{
+  position:absolute; inset:0; z-index:2;
+  overflow:hidden;
+  width:50%; /* driven by JS */
+}
+.ba-slider .ba-before-wrap img{ width:var(--wfix,100%); max-width:none; height:100%; }
+
+.ba-tag{
+  position:absolute; top:14px; z-index:4;
+  padding:5px 12px; border-radius:100px;
+  font-size:.68rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+  background:rgba(6,6,10,.55); backdrop-filter:blur(6px);
+  border:1px solid var(--glass-border-hi);
+}
+.ba-tag.before{ left:14px; color:var(--text-mid); }
+.ba-tag.after{ right:14px; color:var(--neon-green); }
+
+.ba-handle{
+  position:absolute; top:0; bottom:0; left:50%; z-index:5;
+  width:2px;
+  background:linear-gradient(180deg, var(--electric-soft), var(--purple-soft));
+  box-shadow:0 0 16px 1px rgba(139,92,246,.7);
+  transform:translateX(-1px);
+  pointer-events:none;
+}
+.ba-handle::before{
+  content:'';
+  position:absolute; top:50%; left:50%;
+  width:42px; height:42px;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:rgba(10,10,18,.75);
+  border:1px solid var(--glass-border-hi);
+  backdrop-filter:blur(6px);
+}
+.ba-handle::after{
+  content:'\f337'; /* fa-arrows-left-right */
+  font-family:'Font Awesome 6 Free'; font-weight:900;
+  position:absolute; top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  color:var(--text-hi); font-size:.85rem;
+}
+
+.case-info{ padding:44px; display:flex; flex-direction:column; }
+.case-tags{ display:flex; gap:10px; margin-bottom:18px; flex-wrap:wrap; }
+.case-tag{
+  font-size:.7rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase;
+  padding:5px 12px; border-radius:100px;
+  border:1px solid var(--glass-border-hi);
+  color:var(--purple-soft);
+  background:rgba(139,92,246,.08);
+}
+.case-tag.industry{ color:var(--electric-soft); background:rgba(77,141,255,.08); }
+
+.case-info h3{
+  font-family:var(--f-display); font-weight:600;
+  font-size:1.5rem; line-height:1.25; margin-bottom:22px;
+}
+
+.case-block{ margin-bottom:18px; }
+.case-block .label{
+  display:flex; align-items:center; gap:8px;
+  font-size:.74rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase;
+  color:var(--text-low); margin-bottom:6px;
+}
+.case-block .label i{ color:var(--electric-soft); width:14px; }
+.case-block p{ color:var(--text-mid); font-size:.93rem; line-height:1.65; }
+
+.case-result{
+  margin-top:auto;
+  padding:18px 20px;
+  border-radius:var(--radius-md);
+  background:rgba(77,255,160,.06);
+  border:1px solid rgba(77,255,160,.28);
+}
+.case-result .label{ color:var(--neon-green); opacity:.85; }
+.case-result .label i{ color:var(--neon-green); }
+.case-result p{
+  color:var(--neon-green);
+  font-weight:600; font-size:1rem;
+  text-shadow:0 0 18px rgba(77,255,160,.45);
+}
+
+/* ============================================================
+   PROCESS
+   ============================================================ */
+.process{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px; counter-reset:step; }
+.process-step{ padding:30px 26px; position:relative; }
+.process-step .num{
+  font-family:var(--f-display); font-size:.82rem; font-weight:700;
+  color:var(--text-low); letter-spacing:.05em; margin-bottom:22px; display:block;
+}
+.process-step h3{ font-family:var(--f-display); font-size:1.05rem; margin-bottom:10px; }
+.process-step p{ color:var(--text-mid); font-size:.9rem; line-height:1.6; }
+
+/* ============================================================
+   CTA BANNER
+   ============================================================ */
+.cta-banner{
+  position:relative; z-index:2;
+  margin:0 32px 120px;
+  max-width:calc(var(--maxw) - 0px);
+  margin-left:auto; margin-right:auto;
+  padding:70px 40px;
+  text-align:center;
+  overflow:hidden;
+}
+.cta-banner::before{
+  content:'';
+  position:absolute; inset:-40%;
+  background:radial-gradient(circle at 50% 40%, rgba(77,141,255,.22), transparent 60%);
+  pointer-events:none;
+}
+.cta-banner h2{
+  font-family:var(--f-display); font-weight:600;
+  font-size:clamp(1.8rem,3.4vw,2.6rem);
+  max-width:640px; margin:0 auto 18px;
+  position:relative;
+}
+.cta-banner p{ color:var(--text-mid); margin-bottom:36px; position:relative; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer{
+  position:relative; z-index:2;
+  border-top:1px solid var(--glass-border);
+  padding:80px 0 32px;
+  background:linear-gradient(180deg, transparent, rgba(255,255,255,.015));
+}
+.footer-grid{
+  display:grid;
+  grid-template-columns:1.4fr 1fr 1fr 1.2fr;
+  gap:48px;
+  padding-bottom:56px;
+}
+.footer-brand p{ color:var(--text-low); font-size:.9rem; margin-top:16px; max-width:280px; line-height:1.7; }
+.footer-col h4{
+  font-size:.78rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--text-low); margin-bottom:18px;
+}
+.footer-col ul{ display:flex; flex-direction:column; gap:12px; }
+.footer-col a{
+  font-size:.9rem; color:var(--text-mid);
+  transition:color .25s var(--ease);
+  display:inline-flex; align-items:center; gap:9px;
+}
+.footer-col a:hover{ color:var(--electric-soft); }
+.footer-col a i{ width:14px; color:var(--text-low); font-size:.85rem; }
+.footer-col a:hover i{ color:var(--electric-soft); }
+
+.footer-social{ display:flex; gap:12px; margin-top:20px; }
+.footer-social a{
+  width:38px; height:38px; border-radius:10px;
+  display:flex; align-items:center; justify-content:center;
+  background:var(--glass-fill); border:1px solid var(--glass-border-hi);
+  transition:all .3s var(--ease);
+}
+.footer-social a:hover{ border-color:var(--electric-soft); box-shadow:0 0 18px -4px var(--electric); transform:translateY(-2px); }
+
+.footer-bottom{
+  border-top:1px solid var(--glass-border);
+  padding-top:28px;
+  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;
+}
+.footer-bottom p{ color:var(--text-low); font-size:.82rem; }
+.footer-bottom-links{ display:flex; gap:24px; }
+.footer-bottom-links a{ font-size:.82rem; color:var(--text-low); }
+.footer-bottom-links a:hover{ color:var(--text-hi); }
+
+/* ============================================================
+   SIMPLE LEGAL PAGES (privacy / terms / about)
+   ============================================================ */
+.legal-hero{ padding:180px 0 60px; position:relative; z-index:2; }
+.legal-hero h1{ font-family:var(--f-display); font-size:clamp(2rem,4vw,3rem); font-weight:600; }
+.legal-hero p{ color:var(--text-low); margin-top:12px; }
+.legal-body{ position:relative; z-index:2; padding-bottom:120px; }
+.legal-body .container{ max-width:820px; }
+.legal-body h2{ font-family:var(--f-display); font-size:1.3rem; margin:40px 0 14px; }
+.legal-body p, .legal-body li{ color:var(--text-mid); font-size:.96rem; line-height:1.8; margin-bottom:8px; }
+.legal-body ul{ padding-inline-start:20px; list-style:disc; margin-bottom:16px; }
+.legal-body a{ color:var(--electric-soft); }
+.back-link{ display:inline-flex; align-items:center; gap:8px; color:var(--electric-soft); font-size:.9rem; margin-bottom:24px; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:960px){
+  .services{ grid-template-columns:repeat(2,1fr); }
+  .process{ grid-template-columns:repeat(2,1fr); }
+  .footer-grid{ grid-template-columns:1fr 1fr; }
+  .case-card, .case-card:nth-child(even){ grid-template-columns:1fr; }
+  .case-card:nth-child(even) .case-media{ order:0; }
+  .case-card:nth-child(even) .case-info{ order:0; }
+}
+
+@media (max-width:720px){
+  .nav-links{
+    position:fixed; top:0; right:0; height:100vh; width:78%;
+    background:rgba(8,8,14,.97); backdrop-filter:blur(20px);
+    flex-direction:column; align-items:flex-start; justify-content:center;
+    gap:28px; padding:40px; transform:translateX(100%);
+    transition:transform .4s var(--ease);
+    border-left:1px solid var(--glass-border);
   }
-  .ba-knob {
-    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
-    width: 44px; height: 44px; border-radius: 9999px;
-    background: #101018; border: 1px solid rgba(148,163,255,0.4);
-    box-shadow: 0 0 20px rgba(94,161,255,0.6);
+  .nav-links.open{ transform:translateX(0); }
+  .nav-toggle{
     display:flex; align-items:center; justify-content:center;
+    width:40px; height:40px; border-radius:10px;
+    background:var(--glass-fill); border:1px solid var(--glass-border-hi);
+    font-size:1rem; z-index:200;
   }
+  .hero{ padding:140px 22px 80px; }
+  .hero-stats{ gap:36px; }
+  .services{ grid-template-columns:1fr; }
+  .process{ grid-template-columns:1fr; }
+  .footer-grid{ grid-template-columns:1fr; gap:36px; }
+  .case-info{ padding:28px; }
+  .cta-banner{ margin:0 16px 90px; padding:50px 24px; }
+}
 
-  .glass {
-    background: rgba(8,8,12,0.55);
-    backdrop-filter: blur(14px) saturate(140%);
-    -webkit-backdrop-filter: blur(14px) saturate(140%);
-  }
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
+}
 
-  @media (prefers-reduced-motion: reduce) {
-    * { animation: none !important; transition: none !important; }
-  }
 </style>
 </head>
+<body>
 
-<body class="bg-void text-gray-200 font-body antialiased overflow-x-hidden">
+<!-- Ambient background glows -->
+<div class="ambient">
+  <div class="orb orb--blue"></div>
+  <div class="orb orb--purple"></div>
+  <div class="orb orb--green"></div>
+</div>
+<div class="grain"></div>
 
-<!-- ======================= NAVBAR ======================= -->
-<header id="navbar" class="fixed top-0 inset-x-0 z-50 transition-all duration-300">
-  <div class="max-w-7xl mx-auto px-5 md:px-8">
-    <div class="flex items-center justify-between h-[72px]">
-
-      <!-- SVG Logo -->
-      <a href="#home" class="flex items-center shrink-0" aria-label="Lucid Agency home">
-        <svg width="190" height="34" viewBox="0 0 190 34" xmlns="http://www.w3.org/2000/svg">
+<!-- ============================================================
+     NAVIGATION
+     ============================================================ -->
+<nav class="nav" id="nav">
+  <div class="container">
+    <a href="index.html" class="logo">
+      <!-- Inline SVG mark — no external image dependency -->
+      <span class="logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <linearGradient id="lucidGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#5EA1FF"/>
-              <stop offset="100%" stop-color="#B48CFF"/>
+            <linearGradient id="lucidGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="var(--electric-soft)"/>
+              <stop offset="100%" stop-color="var(--purple-soft)"/>
             </linearGradient>
-            <filter id="lucidGlow" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="3.2" result="blur"/>
-              <feMerge>
-                <feMergeNode in="blur"/>
-                <feMergeNode in="SourceGraphic"/>
-              </feMerge>
-            </filter>
           </defs>
-          <circle cx="12" cy="17" r="6" fill="none" stroke="url(#lucidGrad)" stroke-width="1.6" filter="url(#lucidGlow)"/>
-          <circle cx="12" cy="17" r="2" fill="#5EA1FF" filter="url(#lucidGlow)"/>
-          <text x="28" y="23" font-family="'Space Grotesk', sans-serif" font-weight="600" font-size="19" fill="#F5F6FA" filter="url(#lucidGlow)">Lucid</text>
-          <text x="82" y="23" font-family="'Space Grotesk', sans-serif" font-weight="500" font-size="19" fill="url(#lucidGrad)" filter="url(#lucidGlow)">Agency</text>
+          <polygon points="20,2 36,11 36,29 20,38 4,29 4,11" fill="none" stroke="url(#lucidGrad)" stroke-width="1.6"/>
+          <polygon points="20,10 29,15.5 29,24.5 20,30 11,24.5 11,15.5" fill="url(#lucidGrad)" opacity="0.16"/>
+          <path d="M20 10 L20 30 M11 15.5 L29 24.5 M29 15.5 L11 24.5" stroke="url(#lucidGrad)" stroke-width="1.1" opacity="0.85"/>
+          <circle cx="20" cy="20" r="2.6" fill="url(#lucidGrad)"/>
         </svg>
-      </a>
+      </span>
+      Lucid Agency
+    </a>
 
-      <!-- Desktop Nav -->
-      <nav class="hidden md:flex items-center gap-9 text-sm text-gray-300">
-        <a href="#about" class="nav-link hover:text-white transition-colors">About</a>
-        <a href="#services" class="nav-link hover:text-white transition-colors">Services</a>
-        <a href="#visuals" class="nav-link hover:text-white transition-colors">AI Visuals</a>
-        <a href="#contact" class="nav-link hover:text-white transition-colors">Contact</a>
-      </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
 
-      <a href="https://wa.me/201146199077" target="_blank" rel="noopener"
-         class="hidden md:inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-white btn-glow">
-        Book a Call
-      </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#services" data-i18n="nav_services">خدماتنا</a></li>
+      <li><a href="#work" data-i18n="nav_work">دراسات الحالة</a></li>
+      <li><a href="#process" data-i18n="nav_process">منهجية العمل</a></li>
+      <li><a href="about.html" data-i18n="nav_about">من نحن</a></li>
+      <li><a href="#contact" class="nav-cta" data-i18n="nav_cta">احجز استشارتك</a></li>
+      <li class="lang-switch" role="group" aria-label="Language">
+        <button type="button" class="lang-btn" data-lang="ar" id="langBtnAr">AR</button>
+        <button type="button" class="lang-btn" data-lang="en" id="langBtnEn">EN</button>
+      </li>
+    </ul>
+  </div>
+</nav>
 
-      <!-- Mobile toggle -->
-      <button id="menuBtn" class="md:hidden p-2 text-gray-200" aria-label="Toggle menu">
-        <svg id="iconOpen" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
-        <svg id="iconClose" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" class="hidden"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
-      </button>
-    </div>
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<header class="hero">
+  <div class="eyebrow"><i class="fa-solid fa-wand-magic-sparkles"></i> <span data-i18n="hero_eyebrow">أتمتة بالذكاء الاصطناعي · إنتاج بصري</span></div>
+
+  <h1 id="typedHeadline"></h1>
+
+  <p data-i18n="hero_desc">لوسِد لا تكتفي ببناء أنظمة أتمتة ذكية لعملياتك، بل تصمم لهويتك البصرية حضورًا يليق بمكانتك — لتعمل أعمالك بذكاء، وتظهر بثقة.</p>
+
+  <div class="hero-actions">
+    <a href="#contact" class="btn-primary"><i class="fa-solid fa-calendar-check"></i> <span data-i18n="hero_btn_primary">احجز استشارتك المجانية</span></a>
+    <a href="#work" class="btn-ghost"><i class="fa-solid fa-play"></i> <span data-i18n="hero_btn_ghost">استعرض أعمالنا</span></a>
   </div>
 
-  <!-- Mobile menu -->
-  <div id="mobileMenu" class="md:hidden hidden glass border-t border-hairline">
-    <div class="px-6 py-6 flex flex-col gap-5 text-gray-200">
-      <a href="#about" class="mobile-link">About</a>
-      <a href="#services" class="mobile-link">Services</a>
-      <a href="#visuals" class="mobile-link">AI Visuals</a>
-      <a href="#contact" class="mobile-link">Contact</a>
-      <a href="https://wa.me/201146199077" target="_blank" rel="noopener" class="btn-glow text-center rounded-full py-3 font-medium text-white mt-2">Book a Call</a>
-    </div>
+  <div class="hero-stats reveal">
+    <div class="stat"><b data-i18n="stat1_num">+120</b><span data-i18n="stat1_label">نظام تمت أتمتته</span></div>
+    <div class="stat"><b data-i18n="stat2_num">4.6×</b><span data-i18n="stat2_label">متوسط الارتفاع في الكفاءة</span></div>
+    <div class="stat"><b data-i18n="stat3_num">+30</b><span data-i18n="stat3_label">علامة تجارية تم تطويرها</span></div>
   </div>
 </header>
 
-<!-- ======================= HERO ======================= -->
-<section id="home" class="relative min-h-[100svh] flex items-center pt-28 pb-20 px-5 md:px-8 overflow-hidden">
-  <div class="absolute inset-0 grid-veil"></div>
-  <div class="orb w-[420px] h-[420px] bg-neonblue/40 -top-20 -left-24"></div>
-  <div class="orb w-[380px] h-[380px] bg-neonpurple/40 top-1/3 -right-16" style="animation-delay:3s"></div>
-
-  <div class="relative max-w-5xl mx-auto text-center">
-    <div class="inline-flex items-center gap-2 rounded-full border border-hairline bg-panel/70 px-4 py-1.5 text-xs text-muted mb-8 reveal">
-      <span class="w-1.5 h-1.5 rounded-full bg-neonblue2 shadow-[0_0_10px_2px_rgba(94,161,255,0.8)]"></span>
-      AI Systems for Growing Brands
+<!-- ============================================================
+     SERVICES
+     ============================================================ -->
+<section class="section" id="services">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow" data-i18n="services_eyebrow">ماذا نقدم</div>
+      <h2 data-i18n="services_title">تخصصان، واستوديو واحد.</h2>
+      <p data-i18n="services_desc">لا نكتفي بتسليمك تقريرًا ثم نختفي. نبني الأنظمة والمرئيات التي تُشغّل علامتك التجارية، ونبقى معك حتى تعمل بكفاءة.</p>
     </div>
 
-    <h1 class="reveal font-display font-semibold text-5xl sm:text-6xl md:text-7xl leading-[1.05] tracking-tight text-white">
-      AI-Driven Business
-      <span class="block bg-gradient-to-r from-neonblue2 to-neonpurple2 bg-clip-text text-transparent text-glow-blue">& Commerce</span>
-    </h1>
-
-    <p dir="rtl" class="ar reveal mt-8 text-xl md:text-2xl font-arabic font-medium text-gray-300 max-w-3xl mx-auto leading-relaxed">
-      مشروعك يستحق واجهة <span class="text-neonblue2">Premium</span>. نحول أعمالك لمنظومة رقمية تعمل ذاتياً وتضاعف أرباحك.
-    </p>
-
-    <div class="reveal mt-11 flex flex-col sm:flex-row items-center justify-center gap-4">
-      <a href="https://wa.me/201146199077" target="_blank" rel="noopener"
-         class="btn-glow inline-flex items-center gap-2 rounded-full px-8 py-4 text-white font-medium text-base">
-        Book Your Free Strategy Call
-        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 5l7 7-7 7M5 12h15"/></svg>
-      </a>
-      <a href="#services" class="inline-flex items-center gap-2 rounded-full px-8 py-4 border border-hairline text-gray-300 hover:text-white hover:border-neonblue2/50 transition-colors text-base">
-        Explore Services
-      </a>
-    </div>
-  </div>
-
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-muted animate-bounce reveal">
-    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7-7-7M12 21V3"/></svg>
-  </div>
-</section>
-
-<!-- ======================= ABOUT ======================= -->
-<section id="about" class="relative py-28 px-5 md:px-8 border-t border-hairline">
-  <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-14 items-center">
-    <div class="reveal">
-      <span class="text-xs tracking-[0.25em] text-neonblue2 uppercase font-medium">Who We Are</span>
-      <h2 class="mt-4 font-display text-4xl md:text-5xl font-semibold text-white leading-tight">
-        نحن لوسيد
-        <span class="block text-2xl md:text-3xl mt-2 text-muted font-normal">About Lucid</span>
-      </h2>
-      <p dir="rtl" class="ar mt-7 text-lg md:text-xl font-arabic text-gray-300 leading-loose">
-        فريقنا ليس تقليدياً: نحن نجمع بين العقل البشري المبتكر وأدوات الذكاء الاصطناعي لتقديم حلول خارج الصندوق، بسرعة فائقة وتكلفة ذكية.
-      </p>
-    </div>
-
-    <div class="reveal grid grid-cols-2 gap-5">
-      <div class="service-card rounded-2xl p-6">
-        <div class="icon-badge w-11 h-11 rounded-xl flex items-center justify-center mb-4">
-          <svg width="20" height="20" fill="none" stroke="#5EA1FF" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-        </div>
-        <p class="text-white font-display font-semibold text-2xl">10x</p>
-        <p class="text-sm text-muted mt-1">Faster Delivery</p>
+    <div class="services">
+      <div class="service-card glass reveal">
+        <div class="icon"><i class="fa-solid fa-robot"></i></div>
+        <h3 data-i18n="service1_title">أتمتة تدفقات العمل بالذكاء الاصطناعي</h3>
+        <p data-i18n="service1_desc">وكلاء وأنظمة مخصصة تُلغي العمل اليدوي المتكرر في المبيعات والدعم والعمليات.</p>
       </div>
-      <div class="service-card rounded-2xl p-6 mt-8">
-        <div class="icon-badge w-11 h-11 rounded-xl flex items-center justify-center mb-4">
-          <svg width="20" height="20" fill="none" stroke="#B48CFF" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-        </div>
-        <p class="text-white font-display font-semibold text-2xl">24/7</p>
-        <p class="text-sm text-muted mt-1">AI-Powered Ops</p>
+      <div class="service-card glass reveal">
+        <div class="icon"><i class="fa-solid fa-diagram-project"></i></div>
+        <h3 data-i18n="service2_title">تكامل الأنظمة</h3>
+        <p data-i18n="service2_desc">نربط أدوات إدارة العملاء وقواعد بياناتك ضمن بنية واحدة متكاملة تعمل من تلقاء نفسها.</p>
       </div>
-      <div class="service-card rounded-2xl p-6 col-span-2">
-        <div class="icon-badge w-11 h-11 rounded-xl flex items-center justify-center mb-4">
-          <svg width="20" height="20" fill="none" stroke="#5EA1FF" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m6-1.13a4 4 0 10-4-4 4 4 0 004 4zm0 0v0"/></svg>
-        </div>
-        <p class="text-white font-display font-semibold text-lg">Human Creativity + AI Precision</p>
-        <p class="text-sm text-muted mt-1">A hybrid team built for speed and quality.</p>
+      <div class="service-card glass reveal">
+        <div class="icon"><i class="fa-solid fa-camera-retro"></i></div>
+        <h3 data-i18n="service3_title">الإنتاج البصري</h3>
+        <p data-i18n="service3_desc">تصوير فوتوغرافي وفيديو ومرئيات معززة بالذكاء الاصطناعي، مصممة لتحقيق نتائج لا لمجرد الزينة.</p>
+      </div>
+      <div class="service-card glass reveal">
+        <div class="icon"><i class="fa-solid fa-chart-line"></i></div>
+        <h3 data-i18n="service4_title">استراتيجية النمو</h3>
+        <p data-i18n="service4_desc">تموضع وتوجيه إبداعي مبني على البيانات — بحيث يخدم كل عنصر بصري هدفًا تجاريًا واضحًا.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ======================= SERVICES ======================= -->
-<section id="services" class="relative py-28 px-5 md:px-8 border-t border-hairline">
-  <div class="max-w-6xl mx-auto">
-    <div class="text-center mb-16 reveal">
-      <span class="text-xs tracking-[0.25em] text-neonblue2 uppercase font-medium">What We Build</span>
-      <h2 class="mt-4 font-display text-4xl md:text-5xl font-semibold text-white">Our Services</h2>
+<!-- ============================================================
+     CASE STUDIES — dynamically generated from Google Sheet CSV
+     ============================================================ -->
+<section class="section" id="work">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow" data-i18n="work_eyebrow">نتائج لا وعود</div>
+      <h2 data-i18n="work_title">تحوّلات حقيقية، اسحبها لتراها بنفسك.</h2>
+      <p data-i18n="work_desc">اسحب الفاصل داخل كل شريحة لمشاهدة ما قبل وبعد. كل نتيجة أدناه مستمدة مباشرة من سجل دراسات حالتنا.</p>
     </div>
 
-    <div class="grid md:grid-cols-2 gap-6">
-      <!-- Business Automation -->
-      <div class="service-card reveal rounded-2xl p-8">
-        <div class="icon-badge w-14 h-14 rounded-2xl flex items-center justify-center mb-6">
-          <svg width="26" height="26" fill="none" stroke="#5EA1FF" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+    <!-- Skeleton placeholder shown while the CSV loads -->
+    <div class="case-list" id="caseSkeletons">
+      <div class="case-card glass skeleton-card">
+        <div class="skeleton-media shimmer"></div>
+        <div class="case-info">
+          <div class="skeleton-line shimmer" style="width:40%;height:20px;margin-bottom:22px;"></div>
+          <div class="skeleton-line shimmer" style="width:80%;"></div>
+          <div class="skeleton-line shimmer" style="width:65%;"></div>
+          <div class="skeleton-line shimmer" style="width:90%;margin-top:20px;height:50px;border-radius:12px;"></div>
         </div>
-        <h3 class="font-display text-2xl font-semibold text-white mb-1">Business Automation</h3>
-        <p class="text-sm text-neonblue2/80 font-arabic mb-4">أتمتة الأعمال</p>
-        <p dir="rtl" class="ar font-arabic text-gray-300 leading-loose">
-          بناء مساعدين أذكياء للرد على العملاء 24/7، وربط المنصات لتوفير الوقت وتصفية العملاء.
-        </p>
       </div>
+    </div>
 
-      <!-- Smart Commerce -->
-      <div class="service-card reveal rounded-2xl p-8">
-        <div class="icon-badge w-14 h-14 rounded-2xl flex items-center justify-center mb-6">
-          <svg width="26" height="26" fill="none" stroke="#B48CFF" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m-10 4a1 1 0 100-2 1 1 0 000 2zm10 0a1 1 0 100-2 1 1 0 000 2z"/></svg>
-        </div>
-        <h3 class="font-display text-2xl font-semibold text-white mb-1">Smart Commerce</h3>
-        <p class="text-sm text-neonpurple2/80 font-arabic mb-4">التجارة الذكية</p>
-        <p dir="rtl" class="ar font-arabic text-gray-300 leading-loose">
-          بناء كتالوجات رقمية سريعة التحويل ومسارات بيع ذكية مع توثيق الخرائط.
-        </p>
+    <div class="case-list" id="caseList"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROCESS
+     ============================================================ -->
+<section class="section" id="process">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow" data-i18n="process_eyebrow">كيف نعمل</div>
+      <h2 data-i18n="process_title">من التشخيص إلى التشغيل الذاتي.</h2>
+    </div>
+
+    <div class="process">
+      <div class="process-step glass reveal">
+        <span class="num" data-i18n="step1_label">استكشاف</span>
+        <h3 data-i18n="step1_title">مكالمة استراتيجية</h3>
+        <p data-i18n="step1_desc">نحلل تدفقات عملك الحالية وأصولك البصرية لتحديد أعلى نقاط التأثير.</p>
+      </div>
+      <div class="process-step glass reveal">
+        <span class="num" data-i18n="step2_label">تصميم</span>
+        <h3 data-i18n="step2_title">مخطط النظام</h3>
+        <p data-i18n="step2_desc">تحصل على خطة واضحة: ما الذي سيُؤتمت، وما الذي سيُصوَّر، وأثر ذلك على عملك.</p>
+      </div>
+      <div class="process-step glass reveal">
+        <span class="num" data-i18n="step3_label">بناء</span>
+        <h3 data-i18n="step3_title">سباق الإنتاج</h3>
+        <p data-i18n="step3_desc">يبني فريقنا الأنظمة وينتج المرئيات ضمن مراحل عمل مركزة وسريعة.</p>
+      </div>
+      <div class="process-step glass reveal">
+        <span class="num" data-i18n="step4_label">توسّع</span>
+        <h3 data-i18n="step4_title">تحسين ومتابعة</h3>
+        <p data-i18n="step4_desc">نراقب الأداء ونُطوّر النظام باستمرار مع نمو علامتك التجارية.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ======================= AI VISUALS ======================= -->
-<section id="visuals" class="relative py-28 px-5 md:px-8 border-t border-hairline overflow-hidden">
-  <div class="orb w-[360px] h-[360px] bg-neonpurple/25 top-10 right-0"></div>
-  <div class="max-w-5xl mx-auto relative">
-    <div class="text-center mb-14 reveal">
-      <span class="text-xs tracking-[0.25em] text-neonblue2 uppercase font-medium">AI Visual Production</span>
-      <h2 class="mt-4 font-display text-4xl md:text-5xl font-semibold text-white">
-        الإنتاج البصري الذكي
-      </h2>
-      <p dir="rtl" class="ar mt-6 font-arabic text-lg text-gray-300 max-w-2xl mx-auto leading-loose">
-        تحسين صور المنتجات وتصميم هويات بصرية جذابة ترفع من القيمة السوقية لعلامتك التجارية.
-      </p>
-    </div>
+<!-- ============================================================
+     CTA BANNER
+     ============================================================ -->
+<section class="cta-banner glass reveal" id="contact">
+  <h2 data-i18n="cta_title">هل أنت مستعد لعمل يُدار من تلقاء نفسه — وبحضور بصري استثنائي؟</h2>
+  <p data-i18n="cta_desc">مكالمة واحدة، بلا التزام. خطة واضحة لما يجب أتمتته وما يجب تصويره أولًا.</p>
+  <a href="https://wa.me/201146199077" target="_blank" rel="noopener" class="btn-primary">
+    <i class="fa-solid fa-calendar-check"></i> <span data-i18n="cta_btn">احجز استشارتك المجانية</span>
+  </a>
+</section>
 
-    <!-- Before / After slider -->
-    <div class="reveal max-w-2xl mx-auto">
-      <div id="baWrap" class="ba-wrap rounded-2xl glow-border aspect-[4/3]">
-        <!-- BEFORE (base layer) -->
-        <div class="absolute inset-0 flex flex-col items-center justify-center bg-panel2">
-          <svg width="72" height="72" fill="none" stroke="#4b4b5c" stroke-width="1.3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14M4 8h16M4 4h16v16H4V4z"/></svg>
-          <span class="mt-4 text-sm tracking-widest text-gray-500 uppercase">Before</span>
-        </div>
-        <!-- AFTER (clipped layer) -->
-        <div id="baAfter" class="ba-after" style="width:50%;">
-          <div class="absolute inset-0 flex flex-col items-center justify-center" style="width:200%;background:linear-gradient(135deg, rgba(59,130,246,0.18), rgba(139,92,246,0.22));">
-            <svg width="72" height="72" fill="none" stroke="#5EA1FF" stroke-width="1.3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
-            <span class="mt-4 text-sm tracking-widest text-neonblue2 uppercase">After</span>
-          </div>
-        </div>
-        <!-- Handle -->
-        <div id="baHandle" class="ba-handle" style="left:50%;">
-          <div class="ba-knob">
-            <svg width="16" height="16" fill="none" stroke="#5EA1FF" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg>
-          </div>
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">
+          <span class="logo-mark" aria-hidden="true">
+            <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+              <polygon points="20,2 36,11 36,29 20,38 4,29 4,11" fill="none" stroke="url(#lucidGrad)" stroke-width="1.6"/>
+              <polygon points="20,10 29,15.5 29,24.5 20,30 11,24.5 11,15.5" fill="url(#lucidGrad)" opacity="0.16"/>
+              <path d="M20 10 L20 30 M11 15.5 L29 24.5 M29 15.5 L11 24.5" stroke="url(#lucidGrad)" stroke-width="1.1" opacity="0.85"/>
+              <circle cx="20" cy="20" r="2.6" fill="url(#lucidGrad)"/>
+            </svg>
+          </span>
+          Lucid Agency
+        </a>
+        <p data-i18n="footer_brand_desc">أتمتة بالذكاء الاصطناعي وإنتاج بصري للعلامات التجارية التي تنوي قيادة مجالها، لا اللحاق به.</p>
+        <div class="footer-social">
+          <a href="https://wa.me/201146199077" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="mailto:info@hellolucidagency.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+          <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
         </div>
       </div>
-      <p class="text-center text-xs text-muted mt-4">Drag to compare — sample preview</p>
-    </div>
-  </div>
-</section>
 
-<!-- ======================= CONTACT ======================= -->
-<section id="contact" class="relative py-28 px-5 md:px-8 border-t border-hairline">
-  <div class="absolute inset-0 grid-veil opacity-60"></div>
-  <div class="max-w-5xl mx-auto relative">
-    <div class="text-center mb-16 reveal">
-      <span class="text-xs tracking-[0.25em] text-neonblue2 uppercase font-medium">Let's Talk</span>
-      <h2 class="mt-4 font-display text-4xl md:text-5xl font-semibold text-white">Contact Us</h2>
-      <p class="mt-4 text-muted">One message away from your next digital system.</p>
-    </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer_studio">الاستوديو</h4>
+        <ul>
+          <li><a href="#services" data-i18n="nav_services">خدماتنا</a></li>
+          <li><a href="#work" data-i18n="nav_work">دراسات الحالة</a></li>
+          <li><a href="about.html" data-i18n="nav_about">من نحن</a></li>
+        </ul>
+      </div>
 
-    <div class="grid md:grid-cols-3 gap-6">
-      <!-- Email -->
-      <a href="mailto:info@hellolucidagency.com" class="service-card reveal rounded-2xl p-7 flex flex-col items-start group">
-        <div class="icon-badge w-12 h-12 rounded-xl flex items-center justify-center mb-5">
-          <svg width="22" height="22" fill="none" stroke="#5EA1FF" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-        </div>
-        <p class="text-sm text-muted mb-1">Email</p>
-        <p class="text-white font-medium group-hover:text-neonblue2 transition-colors break-all">info@hellolucidagency.com</p>
-      </a>
+      <div class="footer-col">
+        <h4 data-i18n="footer_legal">قانوني</h4>
+        <ul>
+          <li><a href="privacy.html" data-i18n="footer_privacy">سياسة الخصوصية</a></li>
+          <li><a href="terms.html" data-i18n="footer_terms">شروط الخدمة</a></li>
+        </ul>
+      </div>
 
-      <!-- Team WhatsApp -->
-      <a href="https://wa.me/201146199077" target="_blank" rel="noopener" class="service-card reveal rounded-2xl p-7 flex flex-col items-start group">
-        <div class="icon-badge w-12 h-12 rounded-xl flex items-center justify-center mb-5">
-          <svg width="22" height="22" fill="none" stroke="#8B5CF6" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l2.586-2.586z"/></svg>
-        </div>
-        <p class="text-sm text-muted mb-1">Team — WhatsApp</p>
-        <p class="text-white font-medium group-hover:text-neonpurple2 transition-colors" dir="ltr">+20 114 619 9077</p>
-      </a>
-
-      <!-- Direct: Laila Nasser -->
-      <a href="https://wa.me/201111197146" target="_blank" rel="noopener" class="service-card reveal rounded-2xl p-7 flex flex-col items-start group">
-        <div class="icon-badge w-12 h-12 rounded-xl flex items-center justify-center mb-5">
-          <svg width="22" height="22" fill="none" stroke="#5EA1FF" stroke-width="1.7" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-        </div>
-        <p class="text-sm text-muted mb-1">Direct — Laila Nasser, Agency Director</p>
-        <p class="text-white font-medium group-hover:text-neonblue2 transition-colors" dir="ltr">+20 111 119 7146</p>
-      </a>
+      <div class="footer-col">
+        <h4 data-i18n="footer_contact">تواصل معنا</h4>
+        <ul>
+          <li><a href="mailto:info@hellolucidagency.com"><i class="fa-solid fa-envelope"></i> info@hellolucidagency.com</a></li>
+          <li><a href="https://wa.me/201146199077" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> <span data-i18n="footer_team">الفريق</span> — +20 114 619 9077</a></li>
+          <li><a href="https://wa.me/201111197146" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> <span data-i18n="footer_director">ليلى ناصر، المديرة</span> — +20 111 119 7146</a></li>
+        </ul>
+      </div>
     </div>
 
-    <div class="reveal mt-14 text-center">
-      <a href="https://wa.me/201146199077" target="_blank" rel="noopener"
-         class="btn-glow inline-flex items-center gap-2 rounded-full px-9 py-4 text-white font-medium">
-        Book Your Free Strategy Call
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ======================= FOOTER ======================= -->
-<footer class="border-t border-hairline py-10 px-5 md:px-8">
-  <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-5">
-    <div class="flex items-center gap-2 text-sm text-muted">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5EA1FF" stroke-width="1.6"><circle cx="12" cy="12" r="5"/></svg>
-      <span>&copy; <span id="year"></span> Lucid Agency. All rights reserved.</span>
-    </div>
-    <div class="flex items-center gap-6 text-sm text-muted">
-      <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
-      <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+    <div class="footer-bottom">
+      <p data-i18n="footer_copyright">© 2026 لوسِد أجنسي. جميع الحقوق محفوظة.</p>
+      <div class="footer-bottom-links">
+        <a href="privacy.html" data-i18n="footer_privacy">سياسة الخصوصية</a>
+        <a href="terms.html" data-i18n="footer_terms">شروط الخدمة</a>
+        <a href="about.html" data-i18n="nav_about">من نحن</a>
+      </div>
     </div>
   </div>
 </footer>
 
 <script>
-  // Year
-  document.getElementById('year').textContent = new Date().getFullYear();
+/* ============================================================
+   LUCID AGENCY — script.js
+   1. i18n dictionary + language toggle (default Arabic / RTL)
+   2. Nav scroll state + mobile menu
+   3. Scroll-reveal (IntersectionObserver)
+   4. Hero typing effect (bilingual)
+   5. CSV fetch + parse -> dynamic case study cards (robust + fallback)
+   6. Draggable before/after image slider (per card)
+   ============================================================ */
 
-  // Navbar background on scroll
-  const navbar = document.getElementById('navbar');
-  const onScrollNav = () => {
-    if (window.scrollY > 20) {
-      navbar.classList.add('glass', 'border-b', 'border-hairline');
-    } else {
-      navbar.classList.remove('glass', 'border-b', 'border-hairline');
-    }
-  };
-  onScrollNav();
-  window.addEventListener('scroll', onScrollNav, { passive: true });
+/* ----------------------------------------------------------
+   1. I18N — translation dictionary + toggle logic
+   ---------------------------------------------------------- */
+const I18N = {
+  ar: {
+    nav_services: 'خدماتنا', nav_work: 'دراسات الحالة', nav_process: 'منهجية العمل',
+    nav_about: 'من نحن', nav_cta: 'احجز استشارتك',
+    hero_eyebrow: 'أتمتة بالذكاء الاصطناعي · إنتاج بصري',
+    hero_desc: 'لوسِد لا تكتفي ببناء أنظمة أتمتة ذكية لعملياتك، بل تصمم لهويتك البصرية حضورًا يليق بمكانتك — لتعمل أعمالك بذكاء، وتظهر بثقة.',
+    hero_btn_primary: 'احجز استشارتك المجانية', hero_btn_ghost: 'استعرض أعمالنا',
+    stat1_num: '+120', stat1_label: 'نظام تمت أتمتته',
+    stat2_num: '4.6×', stat2_label: 'متوسط الارتفاع في الكفاءة',
+    stat3_num: '+30', stat3_label: 'علامة تجارية تم تطويرها',
+    services_eyebrow: 'ماذا نقدم', services_title: 'تخصصان، واستوديو واحد.',
+    services_desc: 'لا نكتفي بتسليمك تقريرًا ثم نختفي. نبني الأنظمة والمرئيات التي تُشغّل علامتك التجارية، ونبقى معك حتى تعمل بكفاءة.',
+    service1_title: 'أتمتة تدفقات العمل بالذكاء الاصطناعي',
+    service1_desc: 'وكلاء وأنظمة مخصصة تُلغي العمل اليدوي المتكرر في المبيعات والدعم والعمليات.',
+    service2_title: 'تكامل الأنظمة',
+    service2_desc: 'نربط أدوات إدارة العملاء وقواعد بياناتك ضمن بنية واحدة متكاملة تعمل من تلقاء نفسها.',
+    service3_title: 'الإنتاج البصري',
+    service3_desc: 'تصوير فوتوغرافي وفيديو ومرئيات معززة بالذكاء الاصطناعي، مصممة لتحقيق نتائج لا لمجرد الزينة.',
+    service4_title: 'استراتيجية النمو',
+    service4_desc: 'تموضع وتوجيه إبداعي مبني على البيانات — بحيث يخدم كل عنصر بصري هدفًا تجاريًا واضحًا.',
+    work_eyebrow: 'نتائج لا وعود', work_title: 'تحوّلات حقيقية، اسحبها لتراها بنفسك.',
+    work_desc: 'اسحب الفاصل داخل كل شريحة لمشاهدة ما قبل وبعد. كل نتيجة أدناه مستمدة مباشرة من سجل دراسات حالتنا.',
+    case_error: 'تعذّر تحميل دراسات الحالة المباشرة، لذا نعرض لك أبرز أعمالنا بدلاً من ذلك.',
+    process_eyebrow: 'كيف نعمل', process_title: 'من التشخيص إلى التشغيل الذاتي.',
+    step1_label: 'استكشاف', step1_title: 'مكالمة استراتيجية', step1_desc: 'نحلل تدفقات عملك الحالية وأصولك البصرية لتحديد أعلى نقاط التأثير.',
+    step2_label: 'تصميم', step2_title: 'مخطط النظام', step2_desc: 'تحصل على خطة واضحة: ما الذي سيُؤتمت، وما الذي سيُصوَّر، وأثر ذلك على عملك.',
+    step3_label: 'بناء', step3_title: 'سباق الإنتاج', step3_desc: 'يبني فريقنا الأنظمة وينتج المرئيات ضمن مراحل عمل مركزة وسريعة.',
+    step4_label: 'توسّع', step4_title: 'تحسين ومتابعة', step4_desc: 'نراقب الأداء ونُطوّر النظام باستمرار مع نمو علامتك التجارية.',
+    cta_title: 'هل أنت مستعد لعمل يُدار من تلقاء نفسه — وبحضور بصري استثنائي؟',
+    cta_desc: 'مكالمة واحدة، بلا التزام. خطة واضحة لما يجب أتمتته وما يجب تصويره أولًا.',
+    cta_btn: 'احجز استشارتك المجانية',
+    footer_brand_desc: 'أتمتة بالذكاء الاصطناعي وإنتاج بصري للعلامات التجارية التي تنوي قيادة مجالها، لا اللحاق به.',
+    footer_studio: 'الاستوديو', footer_legal: 'قانوني', footer_contact: 'تواصل معنا',
+    footer_privacy: 'سياسة الخصوصية', footer_terms: 'شروط الخدمة',
+    footer_team: 'الفريق', footer_director: 'ليلى ناصر، المديرة',
+    footer_copyright: '© 2026 لوسِد أجنسي. جميع الحقوق محفوظة.',
+    tag_before: 'قبل', tag_after: 'بعد',
+    label_challenge: 'التحدي', label_solution: 'الحل', label_result: 'النتيجة'
+  },
+  en: {
+    nav_services: 'Services', nav_work: 'Case Studies', nav_process: 'Process',
+    nav_about: 'About', nav_cta: 'Book a Call',
+    hero_eyebrow: 'AI Automation · Visual Production',
+    hero_desc: 'Lucid Agency pairs custom AI automation with premium creative production — so your operations run themselves and your brand looks like it belongs at the top.',
+    hero_btn_primary: 'Book Your Free Strategy Call', hero_btn_ghost: 'See Our Work',
+    stat1_num: '120+', stat1_label: 'Systems Automated',
+    stat2_num: '4.6x', stat2_label: 'Avg. Efficiency Gain',
+    stat3_num: '30+', stat3_label: 'Brands Transformed',
+    services_eyebrow: 'What We Do', services_title: 'Two disciplines. One studio.',
+    services_desc: 'We don\u2019t hand you a report and disappear. We build, ship, and maintain the systems and visuals your brand runs on.',
+    service1_title: 'AI Workflow Automation',
+    service1_desc: 'Custom agents and pipelines that eliminate manual busywork across sales, support, and operations.',
+    service2_title: 'Systems Integration',
+    service2_desc: 'We connect your CRM, tools, and data sources into one seamless, self-running architecture.',
+    service3_title: 'Visual Production',
+    service3_desc: 'High-end photography, video, and AI-enhanced imagery engineered to convert, not just decorate.',
+    service4_title: 'Growth Strategy',
+    service4_desc: 'Positioning and creative direction rooted in data — so every asset serves a business outcome.',
+    work_eyebrow: 'Proof, Not Promises', work_title: 'Real transformations, dragged into view.',
+    work_desc: 'Drag the divider on each slider to see the before and after. Every result below is pulled live from our case study log.',
+    case_error: 'Live case studies couldn\u2019t be loaded, so we\u2019re showing recent highlights instead.',
+    process_eyebrow: 'How We Work', process_title: 'From audit to autopilot.',
+    step1_label: 'Discover', step1_title: 'Strategy Call', step1_desc: 'We map your current workflows and visual assets to find the highest-leverage wins.',
+    step2_label: 'Design', step2_title: 'System Blueprint', step2_desc: 'You get a clear plan: what gets automated, what gets shot, and what it will change.',
+    step3_label: 'Build', step3_title: 'Production Sprint', step3_desc: 'Our team builds the automations and produces the visuals in tight, focused sprints.',
+    step4_label: 'Scale', step4_title: 'Optimize & Maintain', step4_desc: 'We monitor performance and refine the system as your brand keeps growing.',
+    cta_title: 'Ready to let your business run itself — and look incredible doing it?',
+    cta_desc: 'One call. Zero pressure. A clear plan for what to automate and what to shoot first.',
+    cta_btn: 'Book Your Free Strategy Call',
+    footer_brand_desc: 'AI automation and visual production for brands that intend to lead their category, not follow it.',
+    footer_studio: 'Studio', footer_legal: 'Legal', footer_contact: 'Contact',
+    footer_privacy: 'Privacy Policy', footer_terms: 'Terms of Service',
+    footer_team: 'Team', footer_director: 'Laila Nasser, Director',
+    footer_copyright: '\u00A9 2026 Lucid Agency. All rights reserved.',
+    tag_before: 'Before', tag_after: 'After',
+    label_challenge: 'The Challenge', label_solution: 'The Solution', label_result: 'The Result'
+  }
+};
 
-  // Mobile menu toggle
-  const menuBtn = document.getElementById('menuBtn');
-  const mobileMenu = document.getElementById('mobileMenu');
-  const iconOpen = document.getElementById('iconOpen');
-  const iconClose = document.getElementById('iconClose');
-  menuBtn.addEventListener('click', () => {
-    mobileMenu.classList.toggle('hidden');
-    iconOpen.classList.toggle('hidden');
-    iconClose.classList.toggle('hidden');
+/* Hero headline phrases (typed one after another), per language */
+const HERO_PHRASES = {
+  ar: [
+    'نبني <span class="grad">أنظمة ذكية</span><br>ومرئيات تصنع الأثر.',
+    'نبني <span class="grad">تدفقات عمل مؤتمتة</span><br>تعمل من دونك.',
+    'نبني <span class="grad">حضورًا بصريًا فاخرًا</span><br>مصممًا ليبيع.'
+  ],
+  en: [
+    'We build <span class="grad">intelligent systems</span><br>and visuals that convert.',
+    'We build <span class="grad">AI-powered workflows</span><br>that run without you.',
+    'We build <span class="grad">premium visuals</span><br>engineered to sell.'
+  ]
+};
+
+let CURRENT_LANG = 'ar';
+
+document.addEventListener('DOMContentLoaded', () => {
+  const saved = localStorage.getItem('lucid_lang');
+  CURRENT_LANG = (saved === 'en' || saved === 'ar') ? saved : 'ar';
+
+  initLangToggle();
+  applyLanguage(CURRENT_LANG, { skipTyping: false });
+  initNav();
+  initScrollReveal();
+  loadCaseStudies();
+});
+
+function initLangToggle(){
+  const btnAr = document.getElementById('langBtnAr');
+  const btnEn = document.getElementById('langBtnEn');
+  btnAr?.addEventListener('click', () => setLanguage('ar'));
+  btnEn?.addEventListener('click', () => setLanguage('en'));
+}
+
+function setLanguage(lang){
+  if (lang === CURRENT_LANG) return;
+  CURRENT_LANG = lang;
+  localStorage.setItem('lucid_lang', lang);
+  applyLanguage(lang, { skipTyping: false });
+}
+
+function applyLanguage(lang, opts = {}){
+  const dict = I18N[lang];
+  const html = document.documentElement;
+  html.setAttribute('lang', lang);
+  html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+
+  // Swap every static text node tagged with data-i18n
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (dict[key]) el.textContent = dict[key];
   });
-  document.querySelectorAll('.mobile-link').forEach(link => {
-    link.addEventListener('click', () => {
-      mobileMenu.classList.add('hidden');
-      iconOpen.classList.remove('hidden');
-      iconClose.classList.add('hidden');
-    });
-  });
 
-  // Scroll reveal
-  const revealEls = document.querySelectorAll('.reveal');
+  // Toggle active state on the pill buttons
+  document.getElementById('langBtnAr')?.classList.toggle('active', lang === 'ar');
+  document.getElementById('langBtnEn')?.classList.toggle('active', lang === 'en');
+
+  // Restart the hero typing effect in the new language
+  if (!opts.skipTyping) initTypingEffect(lang);
+
+  // Re-render any already-loaded case study cards so their UI labels match
+  if (window.__lucidCaseRows) renderCaseCards(window.__lucidCaseRows);
+}
+
+/* ----------------------------------------------------------
+   2. NAV — background on scroll + mobile menu toggle
+   ---------------------------------------------------------- */
+function initNav(){
+  const nav = document.getElementById('nav');
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 40);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive:true });
+
+  toggle?.addEventListener('click', () => links.classList.toggle('open'));
+  links?.querySelectorAll('a').forEach(a =>
+    a.addEventListener('click', () => links.classList.remove('open'))
+  );
+}
+
+/* ----------------------------------------------------------
+   3. SCROLL REVEAL
+   ---------------------------------------------------------- */
+function initScrollReveal(){
+  const targets = document.querySelectorAll('.reveal, .service-card, .process-step, .case-card');
+  targets.forEach(el => el.classList.add('reveal'));
+
   const io = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('in');
+      if (entry.isIntersecting){
+        entry.target.classList.add('is-visible');
         io.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.12 });
-  revealEls.forEach(el => io.observe(el));
+  }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
 
-  // Before/After slider
-  const baWrap = document.getElementById('baWrap');
-  const baAfter = document.getElementById('baAfter');
-  const baHandle = document.getElementById('baHandle');
-  let dragging = false;
+  targets.forEach(el => io.observe(el));
+}
 
-  function setSlider(clientX) {
-    const rect = baWrap.getBoundingClientRect();
-    let pct = ((clientX - rect.left) / rect.width) * 100;
-    pct = Math.min(100, Math.max(0, pct));
-    baAfter.style.width = pct + '%';
-    baHandle.style.left = pct + '%';
+function revealNode(el){
+  el.classList.add('reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+  io.observe(el);
+}
+
+/* ----------------------------------------------------------
+   4. HERO TYPING EFFECT (bilingual, restartable)
+   ---------------------------------------------------------- */
+let __typingSession = 0; // invalidates any in-flight timers from a previous language
+
+function initTypingEffect(lang){
+  const el = document.getElementById('typedHeadline');
+  if (!el) return;
+
+  const session = ++__typingSession;
+  const phrases = HERO_PHRASES[lang] || HERO_PHRASES.ar;
+  const cursor = '<span class="cursor">&nbsp;</span>';
+
+  let phraseIndex = 0, charIndex = 0, deleting = false;
+
+  function plainText(html){
+    const tmp = document.createElement('div');
+    tmp.innerHTML = html;
+    return tmp.textContent;
   }
 
-  baWrap.addEventListener('pointerdown', (e) => {
-    dragging = true;
-    setSlider(e.clientX);
-  });
-  window.addEventListener('pointermove', (e) => {
-    if (dragging) setSlider(e.clientX);
-  });
-  window.addEventListener('pointerup', () => dragging = false);
-  baWrap.addEventListener('touchstart', (e) => setSlider(e.touches[0].clientX), { passive: true });
-  baWrap.addEventListener('touchmove', (e) => setSlider(e.touches[0].clientX), { passive: true });
-</script>
+  function escapeToTyped(html, count){
+    const tmp = document.createElement('div');
+    tmp.innerHTML = html;
+    let remaining = count;
+    function walk(node){
+      let out = '';
+      node.childNodes.forEach(child => {
+        if (remaining <= 0) return;
+        if (child.nodeType === Node.TEXT_NODE){
+          const slice = child.textContent.slice(0, remaining);
+          remaining -= slice.length;
+          out += slice;
+        } else {
+          const inner = walk(child);
+          out += `<${child.tagName.toLowerCase()} class="${child.className}">${inner}</${child.tagName.toLowerCase()}>`;
+        }
+      });
+      return out;
+    }
+    return walk(tmp);
+  }
 
+  function tick(){
+    if (session !== __typingSession) return; // a newer language session took over
+    const full = phrases[phraseIndex];
+    const text = plainText(full);
+
+    if (!deleting){
+      charIndex++;
+      el.innerHTML = escapeToTyped(full, charIndex) + cursor;
+      if (charIndex >= text.length){
+        deleting = true;
+        setTimeout(tick, 1800);
+        return;
+      }
+    } else {
+      charIndex--;
+      el.innerHTML = escapeToTyped(full, charIndex) + cursor;
+      if (charIndex <= 0){
+        deleting = false;
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+      }
+    }
+    setTimeout(tick, deleting ? 28 : 42);
+  }
+
+  el.innerHTML = cursor;
+  setTimeout(tick, 400);
+}
+
+/* ----------------------------------------------------------
+   5. CSV FETCH + PARSE -> DYNAMIC CASE STUDY CARDS
+   ---------------------------------------------------------- */
+const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjoQFWrQ4Fa2N1QuuWbf9m842lXtfSpV2mXNw3QcqeFSfw14udIBXVixCqD3rbw5waj5Btqp3n7sxD/pub?output=csv';
+const CSV_TIMEOUT_MS = 12000;
+
+/* Small built-in fallback so the section never looks broken if the live sheet is unreachable */
+const FALLBACK_ROWS = [
+  {
+    'Category': 'Automation', 'Industry': 'E-commerce',
+    'Case Study Title': 'Cutting order-support time by 70% for a fashion retailer',
+    'The Challenge': 'A growing fashion brand was drowning in repetitive order-status messages across email and Instagram DMs.',
+    'The Solution': 'We deployed an AI support agent connected to their order system, handling status, returns, and sizing questions automatically.',
+    'The Result': 'Response time dropped from 6 hours to under 2 minutes, with 70% fewer tickets reaching a human.',
+    'Before_URL': 'https://picsum.photos/seed/lucidbefore1/900/700',
+    'After_URL': 'https://picsum.photos/seed/lucidafter1/900/700'
+  },
+  {
+    'Category': 'Visual Production', 'Industry': 'Hospitality',
+    'Case Study Title': 'A boutique hotel brand rebuilt from the lens up',
+    'The Challenge': 'Inconsistent, low-quality photography was undercutting a premium hotel\u2019s pricing power.',
+    'The Solution': 'Our production team shot a full visual identity — rooms, amenities, and campaign imagery — in a single coordinated sprint.',
+    'The Result': 'Direct bookings rose 34% within the first quarter after the new visuals went live.',
+    'Before_URL': 'https://picsum.photos/seed/lucidbefore2/900/700',
+    'After_URL': 'https://picsum.photos/seed/lucidafter2/900/700'
+  }
+];
+
+async function loadCaseStudies(){
+  const skeletonEl = document.getElementById('caseSkeletons');
+  const listEl = document.getElementById('caseList');
+
+  try {
+    const rows = await fetchCaseRows();
+    if (!rows.length) throw new Error('No usable rows in CSV');
+    skeletonEl.style.display = 'none';
+    window.__lucidCaseRows = rows;
+    renderCaseCards(rows);
+
+  } catch (err) {
+    console.error('Live case studies could not be loaded, using fallback:', err);
+    skeletonEl.style.display = 'none';
+    window.__lucidCaseRows = FALLBACK_ROWS;
+    renderCaseCards(FALLBACK_ROWS, { showNotice: true });
+  }
+}
+
+/** Fetches and parses the published Google Sheet CSV, with a timeout and sanity checks. */
+async function fetchCaseRows(){
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), CSV_TIMEOUT_MS);
+
+  // Cache-bust so Google's CDN / the browser doesn't serve a stale copy after the sheet is edited
+  const bustUrl = CSV_URL + (CSV_URL.includes('?') ? '&' : '?') + '_=' + Date.now();
+
+  try {
+    const res = await fetch(bustUrl, { signal: controller.signal, cache: 'no-store' });
+    clearTimeout(timeout);
+
+    if (!res.ok) throw new Error(`CSV fetch failed with status ${res.status}`);
+
+    const csvText = await res.text();
+
+    // If Google returns a login/HTML error page instead of CSV (sheet not published, etc.)
+    if (csvText.trim().startsWith('<')) {
+      throw new Error('Received HTML instead of CSV — check the sheet\u2019s "Publish to web" settings');
+    }
+
+    return parseCSV(csvText);
+
+  } catch (err){
+    clearTimeout(timeout);
+    throw err;
+  }
+}
+
+/**
+ * Minimal, dependency-free CSV parser.
+ * Handles quoted fields, commas inside quotes, and escaped quotes ("").
+ */
+function parseCSV(text){
+  const rows = [];
+  let row = [];
+  let field = '';
+  let inQuotes = false;
+
+  text = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+
+  for (let i = 0; i < text.length; i++){
+    const char = text[i];
+    const next = text[i + 1];
+
+    if (inQuotes){
+      if (char === '"' && next === '"'){ field += '"'; i++; }
+      else if (char === '"'){ inQuotes = false; }
+      else { field += char; }
+    } else {
+      if (char === '"'){ inQuotes = true; }
+      else if (char === ','){ row.push(field); field = ''; }
+      else if (char === '\n'){ row.push(field); rows.push(row); row = []; field = ''; }
+      else { field += char; }
+    }
+  }
+  if (field.length || row.length){ row.push(field); rows.push(row); }
+
+  const cleanRows = rows.filter(r => r.some(cell => cell.trim() !== ''));
+  if (!cleanRows.length) return [];
+
+  const headers = cleanRows[0].map(h => h.trim());
+  return cleanRows.slice(1).map(r => {
+    const obj = {};
+    headers.forEach((h, idx) => { obj[h] = (r[idx] ?? '').trim(); });
+    return obj;
+  });
+}
+
+function getField(row, ...aliases){
+  const normalize = s => s.toLowerCase().replace(/[^a-z0-9]/g, '');
+  const keys = Object.keys(row);
+  for (const alias of aliases){
+    const target = normalize(alias);
+    const match = keys.find(k => normalize(k) === target);
+    if (match && row[match]) return row[match];
+  }
+  return '';
+}
+
+function renderCaseCards(rows, opts = {}){
+  const listEl = document.getElementById('caseList');
+  listEl.innerHTML = '';
+
+  if (opts.showNotice){
+    const notice = document.createElement('div');
+    notice.className = 'case-notice';
+    notice.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> <span>${I18N[CURRENT_LANG].case_error}</span>`;
+    listEl.appendChild(notice);
+  }
+
+  rows.forEach((row, i) => {
+    const card = buildCaseCard(row, i);
+    if (card) listEl.appendChild(card);
+  });
+}
+
+function buildCaseCard(row, index){
+  const category   = getField(row, 'Category');
+  const industry   = getField(row, 'Industry');
+  const title      = getField(row, 'Case Study Title', 'Title');
+  const challenge  = getField(row, 'The Challenge', 'Challenge');
+  const solution   = getField(row, 'The Solution', 'Solution');
+  const result     = getField(row, 'The Result', 'Result');
+  const beforeUrl  = getField(row, 'Before_URL', 'Before URL', 'Before');
+  const afterUrl   = getField(row, 'After_URL', 'After URL', 'After');
+
+  if (!title && !beforeUrl && !afterUrl) return null;
+
+  const t = I18N[CURRENT_LANG];
+
+  const card = document.createElement('article');
+  card.className = 'case-card glass';
+
+  card.innerHTML = `
+    <div class="case-media">
+      <div class="ba-slider" data-index="${index}">
+        <img class="ba-after" src="${afterUrl}" alt="${title} — after" loading="lazy" draggable="false"
+             onerror="this.closest('.ba-slider').classList.add('img-fallback')">
+        <div class="ba-before-wrap">
+          <img class="ba-before" src="${beforeUrl}" alt="${title} — before" loading="lazy" draggable="false">
+        </div>
+        <span class="ba-tag before">${t.tag_before}</span>
+        <span class="ba-tag after">${t.tag_after}</span>
+        <div class="ba-handle"></div>
+      </div>
+    </div>
+
+    <div class="case-info">
+      <div class="case-tags">
+        ${category ? `<span class="case-tag">${category}</span>` : ''}
+        ${industry ? `<span class="case-tag industry">${industry}</span>` : ''}
+      </div>
+
+      <h3>${title}</h3>
+
+      ${challenge ? `
+      <div class="case-block">
+        <div class="label"><i class="fa-solid fa-triangle-exclamation"></i> ${t.label_challenge}</div>
+        <p>${challenge}</p>
+      </div>` : ''}
+
+      ${solution ? `
+      <div class="case-block">
+        <div class="label"><i class="fa-solid fa-lightbulb"></i> ${t.label_solution}</div>
+        <p>${solution}</p>
+      </div>` : ''}
+
+      ${result ? `
+      <div class="case-result">
+        <div class="label"><i class="fa-solid fa-chart-line"></i> ${t.label_result}</div>
+        <p>${result}</p>
+      </div>` : ''}
+    </div>
+  `;
+
+  revealNode(card);
+  requestAnimationFrame(() => initBeforeAfterSlider(card.querySelector('.ba-slider')));
+
+  return card;
+}
+
+/* ----------------------------------------------------------
+   6. BEFORE / AFTER DRAG SLIDER
+   ---------------------------------------------------------- */
+function initBeforeAfterSlider(slider){
+  if (!slider) return;
+
+  const beforeWrap = slider.querySelector('.ba-before-wrap');
+  const beforeImg  = slider.querySelector('.ba-before');
+  const handle     = slider.querySelector('.ba-handle');
+  let dragging = false;
+
+  function setPosition(percent){
+    percent = Math.max(0, Math.min(100, percent));
+    beforeWrap.style.width = percent + '%';
+    handle.style.left = percent + '%';
+    beforeImg.style.width = slider.clientWidth + 'px';
+  }
+
+  function positionFromEvent(clientX){
+    const rect = slider.getBoundingClientRect();
+    const percent = ((clientX - rect.left) / rect.width) * 100;
+    setPosition(percent);
+  }
+
+  handle.addEventListener('mousedown', () => dragging = true);
+  slider.addEventListener('mousedown', (e) => { dragging = true; positionFromEvent(e.clientX); });
+  window.addEventListener('mousemove', (e) => { if (dragging) positionFromEvent(e.clientX); });
+  window.addEventListener('mouseup', () => dragging = false);
+
+  slider.addEventListener('touchstart', (e) => {
+    dragging = true;
+    positionFromEvent(e.touches[0].clientX);
+  }, { passive:true });
+  slider.addEventListener('touchmove', (e) => {
+    if (dragging) positionFromEvent(e.touches[0].clientX);
+  }, { passive:true });
+  window.addEventListener('touchend', () => dragging = false);
+
+  window.addEventListener('resize', () => {
+    beforeImg.style.width = slider.clientWidth + 'px';
+  });
+
+  setPosition(50);
+}
+
+</script>
 </body>
 </html>
