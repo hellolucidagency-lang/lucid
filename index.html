@@ -260,6 +260,7 @@ button{ font-family:inherit; cursor:pointer; }
   line-height:1.06;
   letter-spacing:-.02em;
   max-width:920px;
+  min-height:calc(2 * 1.06 * clamp(2.4rem, 6vw, 5.2rem));
   background:linear-gradient(180deg,#ffffff 30%, #b9b9d4 100%);
   -webkit-background-clip:text; background-clip:text; color:transparent;
 }
@@ -270,14 +271,22 @@ button{ font-family:inherit; cursor:pointer; }
   transform:translateY(2px);
 }
 
-/* Arabic display type: kill the tight Latin letter-spacing, it reads badly on Cairo */
+/* Arabic display type: Cairo needs normal letter-spacing and looser line-height
+   than the tight Latin values above, or ascenders/descenders visually collide
+   between lines — this is the root cause of RTL heading overlap. */
 [dir="rtl"] .hero h1,
 [dir="rtl"] .section-head h2,
 [dir="rtl"] .cta-banner h2,
 [dir="rtl"] .case-info h3{
   letter-spacing:0;
+  line-height:1.5;
 }
-[dir="rtl"] body{ font-family:var(--f-arabic); }
+[dir="rtl"] .hero h1{
+  min-height:calc(2 * 1.5 * clamp(2.4rem, 6vw, 5.2rem));
+}
+[dir="rtl"] body{ font-family:var(--f-arabic); line-height:1.85; }
+[dir="rtl"] .service-card h3,
+[dir="rtl"] .process-step h3{ line-height:1.5; }
 @keyframes blink{ 50%{ opacity:0; } }
 
 .hero h1 .grad{
@@ -375,6 +384,7 @@ button{ font-family:inherit; cursor:pointer; }
 .services{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
 .service-card{
   padding:30px 26px;
+  min-height:220px;
   transition:transform .35s var(--ease), border-color .35s var(--ease), box-shadow .35s var(--ease);
 }
 .service-card:hover{
@@ -459,6 +469,7 @@ button{ font-family:inherit; cursor:pointer; }
   cursor:ew-resize;
   user-select:none;
   background:var(--bg-panel);
+  direction:ltr; /* lock physical left=before / right=after regardless of page language */
 }
 .ba-slider img{
   position:absolute; inset:0;
@@ -479,7 +490,7 @@ button{ font-family:inherit; cursor:pointer; }
   font-size:2rem; color:var(--glass-border-hi);
 }
 .ba-slider .ba-before-wrap{
-  position:absolute; inset:0; z-index:2;
+  position:absolute; top:0; bottom:0; left:0; z-index:2;
   overflow:hidden;
   width:50%; /* driven by JS */
 }
@@ -521,7 +532,7 @@ button{ font-family:inherit; cursor:pointer; }
   color:var(--text-hi); font-size:.85rem;
 }
 
-.case-info{ padding:44px; display:flex; flex-direction:column; }
+.case-info{ padding:44px; display:flex; flex-direction:column; min-height:420px; }
 .case-tags{ display:flex; gap:10px; margin-bottom:18px; flex-wrap:wrap; }
 .case-tag{
   font-size:.7rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase;
@@ -565,7 +576,7 @@ button{ font-family:inherit; cursor:pointer; }
    PROCESS
    ============================================================ */
 .process{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px; counter-reset:step; }
-.process-step{ padding:30px 26px; position:relative; }
+.process-step{ padding:30px 26px; position:relative; min-height:190px; }
 .process-step .num{
   font-family:var(--f-display); font-size:.82rem; font-weight:700;
   color:var(--text-low); letter-spacing:.05em; margin-bottom:22px; display:block;
@@ -649,6 +660,75 @@ button{ font-family:inherit; cursor:pointer; }
 .footer-bottom-links a:hover{ color:var(--text-hi); }
 
 /* ============================================================
+   LINK-STYLE BUTTONS — used where footer/nav items open a modal
+   instead of navigating to a separate (and previously 404-ing) page
+   ============================================================ */
+.link-btn{
+  background:none; border:none; padding:0; margin:0;
+  font:inherit; color:inherit; cursor:pointer;
+  text-align:inherit; display:inline-flex; align-items:center; gap:9px;
+}
+.footer-col .link-btn{ font-size:.9rem; color:var(--text-mid); transition:color .25s var(--ease); }
+.footer-col .link-btn:hover{ color:var(--electric-soft); }
+.footer-bottom-links .link-btn{ font-size:.82rem; color:var(--text-low); }
+.footer-bottom-links .link-btn:hover{ color:var(--text-hi); }
+.nav-links .link-btn{
+  font-size:.92rem; color:var(--text-mid); font-weight:500;
+  position:relative; transition:color .25s var(--ease);
+}
+.nav-links .link-btn::after{
+  content:''; position:absolute; left:0; bottom:-6px; width:0; height:1px;
+  background:var(--electric-soft); transition:width .3s var(--ease);
+}
+.nav-links .link-btn:hover{ color:var(--text-hi); }
+.nav-links .link-btn:hover::after{ width:100%; }
+
+/* ============================================================
+   MODALS — Privacy / Terms / About, in-page (no dead links)
+   ============================================================ */
+.modal-overlay{
+  position:fixed; inset:0; z-index:300;
+  display:none; align-items:center; justify-content:center;
+  padding:24px;
+  background:rgba(4,4,8,.72);
+  backdrop-filter:blur(8px);
+}
+.modal-overlay.open{ display:flex; }
+
+.modal-panel{
+  position:relative;
+  width:100%; max-width:640px; max-height:min(80vh, 640px);
+  overflow-y:auto;
+  padding:44px;
+  animation:modalIn .35s var(--ease);
+}
+@keyframes modalIn{
+  from{ opacity:0; transform:translateY(18px) scale(.98); }
+  to{ opacity:1; transform:translateY(0) scale(1); }
+}
+
+.modal-close{
+  position:absolute; top:18px; inset-inline-end:18px;
+  width:36px; height:36px; border-radius:10px;
+  display:flex; align-items:center; justify-content:center;
+  background:var(--glass-fill); border:1px solid var(--glass-border-hi);
+  color:var(--text-mid);
+  transition:all .25s var(--ease);
+}
+.modal-close:hover{ color:var(--text-hi); border-color:var(--electric-soft); box-shadow:0 0 16px -4px var(--electric); }
+
+.modal-panel h3{
+  font-family:var(--f-display); font-weight:600;
+  font-size:1.4rem; margin-bottom:20px;
+  padding-inline-end:44px;
+}
+[dir="rtl"] .modal-panel h3{ line-height:1.5; }
+.modal-panel p{ color:var(--text-mid); font-size:.94rem; line-height:1.8; margin-bottom:14px; }
+[dir="rtl"] .modal-panel p{ line-height:1.9; }
+
+body.modal-locked{ overflow:hidden; }
+
+/* ============================================================
    SIMPLE LEGAL PAGES (privacy / terms / about)
    ============================================================ */
 .legal-hero{ padding:180px 0 60px; position:relative; z-index:2; }
@@ -720,7 +800,7 @@ button{ font-family:inherit; cursor:pointer; }
      ============================================================ -->
 <nav class="nav" id="nav">
   <div class="container">
-    <a href="index.html" class="logo">
+    <a href="#" class="logo">
       <!-- Inline SVG mark — no external image dependency -->
       <span class="logo-mark" aria-hidden="true">
         <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
@@ -747,7 +827,7 @@ button{ font-family:inherit; cursor:pointer; }
       <li><a href="#services" data-i18n="nav_services">خدماتنا</a></li>
       <li><a href="#work" data-i18n="nav_work">دراسات الحالة</a></li>
       <li><a href="#process" data-i18n="nav_process">منهجية العمل</a></li>
-      <li><a href="about.html" data-i18n="nav_about">من نحن</a></li>
+      <li><button type="button" class="link-btn" data-modal="about" data-i18n="nav_about">من نحن</button></li>
       <li><a href="#contact" class="nav-cta" data-i18n="nav_cta">احجز استشارتك</a></li>
       <li class="lang-switch" role="group" aria-label="Language">
         <button type="button" class="lang-btn" data-lang="ar" id="langBtnAr">AR</button>
@@ -896,7 +976,7 @@ button{ font-family:inherit; cursor:pointer; }
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="index.html" class="logo">
+        <a href="#" class="logo">
           <span class="logo-mark" aria-hidden="true">
             <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
               <polygon points="20,2 36,11 36,29 20,38 4,29 4,11" fill="none" stroke="url(#lucidGrad)" stroke-width="1.6"/>
@@ -921,15 +1001,15 @@ button{ font-family:inherit; cursor:pointer; }
         <ul>
           <li><a href="#services" data-i18n="nav_services">خدماتنا</a></li>
           <li><a href="#work" data-i18n="nav_work">دراسات الحالة</a></li>
-          <li><a href="about.html" data-i18n="nav_about">من نحن</a></li>
+          <li><button type="button" class="link-btn" data-modal="about" data-i18n="nav_about">من نحن</button></li>
         </ul>
       </div>
 
       <div class="footer-col">
         <h4 data-i18n="footer_legal">قانوني</h4>
         <ul>
-          <li><a href="privacy.html" data-i18n="footer_privacy">سياسة الخصوصية</a></li>
-          <li><a href="terms.html" data-i18n="footer_terms">شروط الخدمة</a></li>
+          <li><button type="button" class="link-btn" data-modal="privacy" data-i18n="footer_privacy">سياسة الخصوصية</button></li>
+          <li><button type="button" class="link-btn" data-modal="terms" data-i18n="footer_terms">شروط الخدمة</button></li>
         </ul>
       </div>
 
@@ -946,13 +1026,46 @@ button{ font-family:inherit; cursor:pointer; }
     <div class="footer-bottom">
       <p data-i18n="footer_copyright">© 2026 لوسِد أجنسي. جميع الحقوق محفوظة.</p>
       <div class="footer-bottom-links">
-        <a href="privacy.html" data-i18n="footer_privacy">سياسة الخصوصية</a>
-        <a href="terms.html" data-i18n="footer_terms">شروط الخدمة</a>
-        <a href="about.html" data-i18n="nav_about">من نحن</a>
+        <button type="button" class="link-btn" data-modal="privacy" data-i18n="footer_privacy">سياسة الخصوصية</button>
+        <button type="button" class="link-btn" data-modal="terms" data-i18n="footer_terms">شروط الخدمة</button>
+        <button type="button" class="link-btn" data-modal="about" data-i18n="nav_about">من نحن</button>
       </div>
     </div>
   </div>
 </footer>
+
+<!-- ============================================================
+     LEGAL / ABOUT MODALS — sleek in-page popups (no dead links)
+     ============================================================ -->
+<div class="modal-overlay" id="modalAbout" data-modal-overlay>
+  <div class="modal-panel glass" role="dialog" aria-modal="true" aria-labelledby="modalAboutTitle">
+    <button type="button" class="modal-close" data-modal-close aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    <h3 id="modalAboutTitle" data-i18n="about_title">من نحن</h3>
+    <p data-i18n="about_p1">لوسِد أجنسي وُلدت من ملاحظة بسيطة: إما أن تُؤتمت الأعمال دون علامة تجارية تستحق هذه الأتمتة، أو تُبنى علامة جميلة ما زالت تُدار يدويًا خلف الكواليس. نحن هنا لنغلق هذه الفجوة.</p>
+    <p data-i18n="about_p2">فريقنا صغير ومتمرّس بقصد: مهندسو أتمتة، معماريو أنظمة، مصورون، ومنتجون عملوا داخل وكالات وفرق داخلية قبل انضمامهم إلى لوسِد. كل مشروع يقوده شخص سيظل يجيب على رسائلك بعد ستة أشهر.</p>
+    <p data-i18n="about_p3">تُدار لوسِد أجنسي من قبل ليلى ناصر، التي تشرف على الاستراتيجية والعلاقات مع العملاء في كل مشروع. يمكنك التواصل معها مباشرة عبر واتساب من تفاصيل التواصل أدناه.</p>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalPrivacy" data-modal-overlay>
+  <div class="modal-panel glass" role="dialog" aria-modal="true" aria-labelledby="modalPrivacyTitle">
+    <button type="button" class="modal-close" data-modal-close aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    <h3 id="modalPrivacyTitle" data-i18n="privacy_title">سياسة الخصوصية</h3>
+    <p data-i18n="privacy_p1">تحترم لوسِد أجنسي خصوصيتك. نجمع فقط بيانات التواصل التي تشاركها معنا عبر النماذج أو البريد أو واتساب، وتفاصيل مشروعك عند حجز استشارة، إلى جانب بيانات استخدام أساسية لتحسين الموقع.</p>
+    <p data-i18n="privacy_p2">نستخدم هذه المعلومات فقط للرد على استفساراتك، وتنفيذ الخدمات المتفق عليها، وإرسال تحديثات إن اخترت ذلك. لا نبيع بياناتك لأي طرف ثالث، ويقتصر الوصول إليها على فريقنا فقط.</p>
+    <p data-i18n="privacy_p3">يمكنك في أي وقت طلب الاطلاع على بياناتك أو تعديلها أو حذفها عبر البريد الإلكتروني info@hellolucidagency.com.</p>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalTerms" data-modal-overlay>
+  <div class="modal-panel glass" role="dialog" aria-modal="true" aria-labelledby="modalTermsTitle">
+    <button type="button" class="modal-close" data-modal-close aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    <h3 id="modalTermsTitle" data-i18n="terms_title">شروط الخدمة</h3>
+    <p data-i18n="terms_p1">تحكم هذه الشروط استخدامك لموقع لوسِد أجنسي وأي خدمات تتعاقد معنا لتنفيذها. باستخدامك للموقع أو حجز استشارة، فإنك توافق على هذه الشروط.</p>
+    <p data-i18n="terms_p2">يُحدَّد نطاق كل مشروع وجدوله الزمني وتكلفته في عرض أو اتفاقية منفصلة موقعة من الطرفين، وتُعد هذه الاتفاقية هي المرجع النهائي عند وجود أي تعارض مع هذه الصفحة.</p>
+    <p data-i18n="terms_p3">جميع دراسات الحالة والصور والنصوص على هذا الموقع ملك للوسِد أجنسي أو عملائها، ولا يجوز إعادة استخدامها دون إذن كتابي مسبق.</p>
+  </div>
+</div>
 
 <script>
 /* ============================================================
@@ -1005,7 +1118,19 @@ const I18N = {
     footer_team: 'الفريق', footer_director: 'ليلى ناصر، المديرة',
     footer_copyright: '© 2026 لوسِد أجنسي. جميع الحقوق محفوظة.',
     tag_before: 'قبل', tag_after: 'بعد',
-    label_challenge: 'التحدي', label_solution: 'الحل', label_result: 'النتيجة'
+    label_challenge: 'التحدي', label_solution: 'الحل', label_result: 'النتيجة',
+    about_title: 'من نحن',
+    about_p1: 'لوسِد أجنسي وُلدت من ملاحظة بسيطة: إما أن تُؤتمت الأعمال دون علامة تجارية تستحق هذه الأتمتة، أو تُبنى علامة جميلة ما زالت تُدار يدويًا خلف الكواليس. نحن هنا لنغلق هذه الفجوة.',
+    about_p2: 'فريقنا صغير ومتمرّس بقصد: مهندسو أتمتة، معماريو أنظمة، مصورون، ومنتجون عملوا داخل وكالات وفرق داخلية قبل انضمامهم إلى لوسِد. كل مشروع يقوده شخص سيظل يجيب على رسائلك بعد ستة أشهر.',
+    about_p3: 'تُدار لوسِد أجنسي من قبل ليلى ناصر، التي تشرف على الاستراتيجية والعلاقات مع العملاء في كل مشروع. يمكنك التواصل معها مباشرة عبر واتساب من تفاصيل التواصل أدناه.',
+    privacy_title: 'سياسة الخصوصية',
+    privacy_p1: 'تحترم لوسِد أجنسي خصوصيتك. نجمع فقط بيانات التواصل التي تشاركها معنا عبر النماذج أو البريد أو واتساب، وتفاصيل مشروعك عند حجز استشارة، إلى جانب بيانات استخدام أساسية لتحسين الموقع.',
+    privacy_p2: 'نستخدم هذه المعلومات فقط للرد على استفساراتك، وتنفيذ الخدمات المتفق عليها، وإرسال تحديثات إن اخترت ذلك. لا نبيع بياناتك لأي طرف ثالث، ويقتصر الوصول إليها على فريقنا فقط.',
+    privacy_p3: 'يمكنك في أي وقت طلب الاطلاع على بياناتك أو تعديلها أو حذفها عبر البريد الإلكتروني info@hellolucidagency.com.',
+    terms_title: 'شروط الخدمة',
+    terms_p1: 'تحكم هذه الشروط استخدامك لموقع لوسِد أجنسي وأي خدمات تتعاقد معنا لتنفيذها. باستخدامك للموقع أو حجز استشارة، فإنك توافق على هذه الشروط.',
+    terms_p2: 'يُحدَّد نطاق كل مشروع وجدوله الزمني وتكلفته في عرض أو اتفاقية منفصلة موقعة من الطرفين، وتُعد هذه الاتفاقية هي المرجع النهائي عند وجود أي تعارض مع هذه الصفحة.',
+    terms_p3: 'جميع دراسات الحالة والصور والنصوص على هذا الموقع ملك للوسِد أجنسي أو عملائها، ولا يجوز إعادة استخدامها دون إذن كتابي مسبق.'
   },
   en: {
     nav_services: 'Services', nav_work: 'Case Studies', nav_process: 'Process',
@@ -1043,7 +1168,19 @@ const I18N = {
     footer_team: 'Team', footer_director: 'Laila Nasser, Director',
     footer_copyright: '\u00A9 2026 Lucid Agency. All rights reserved.',
     tag_before: 'Before', tag_after: 'After',
-    label_challenge: 'The Challenge', label_solution: 'The Solution', label_result: 'The Result'
+    label_challenge: 'The Challenge', label_solution: 'The Solution', label_result: 'The Result',
+    about_title: 'About Us',
+    about_p1: 'Lucid Agency was founded on a simple observation: most businesses either automate without a brand worth automating for, or build a beautiful brand still run on manual busywork behind the scenes. We exist to close that gap.',
+    about_p2: 'Our team is small and senior by design — automation engineers, systems architects, photographers, and producers who\u2019ve done this inside agencies and in-house teams before joining Lucid. Every project is led by someone who will still be answering your messages six months in.',
+    about_p3: 'Lucid Agency is directed by Laila Nasser, who oversees strategy and client relationships across every engagement. Reach her directly via WhatsApp using the contact details below.',
+    privacy_title: 'Privacy Policy',
+    privacy_p1: 'Lucid Agency respects your privacy. We only collect the contact details you share through our forms, email, or WhatsApp, project details when you book a call, and basic usage data to improve the site.',
+    privacy_p2: 'We use this information only to respond to your inquiries, deliver the services you\u2019ve engaged us for, and send updates if you\u2019ve opted in. We never sell your data, and access is limited to our own team.',
+    privacy_p3: 'You can request to view, correct, or delete your data at any time by emailing info@hellolucidagency.com.',
+    terms_title: 'Terms of Service',
+    terms_p1: 'These terms govern your use of the Lucid Agency website and any services you engage us for. By using the site or booking a call, you agree to these terms.',
+    terms_p2: 'The scope, timeline, and cost of any project are defined in a separate proposal or agreement signed by both parties, which takes precedence over this page in case of any conflict.',
+    terms_p3: 'All case studies, imagery, and copy on this site belong to Lucid Agency or our clients and may not be reused without prior written permission.'
   }
 };
 
@@ -1071,6 +1208,7 @@ document.addEventListener('DOMContentLoaded', () => {
   applyLanguage(CURRENT_LANG, { skipTyping: false });
   initNav();
   initScrollReveal();
+  initModals();
   loadCaseStudies();
 });
 
@@ -1127,6 +1265,50 @@ function initNav(){
   links?.querySelectorAll('a').forEach(a =>
     a.addEventListener('click', () => links.classList.remove('open'))
   );
+}
+
+/* ----------------------------------------------------------
+   2b. MODALS — Privacy / Terms / About (in-page, no dead links)
+   ---------------------------------------------------------- */
+function initModals(){
+  // Any element with data-modal="about|privacy|terms" opens the matching overlay
+  document.querySelectorAll('[data-modal]').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const id = 'modal' + trigger.dataset.modal.charAt(0).toUpperCase() + trigger.dataset.modal.slice(1);
+      openModal(id);
+    });
+  });
+
+  // Close buttons + click-outside-to-close
+  document.querySelectorAll('.modal-overlay').forEach(overlay => {
+    overlay.querySelector('[data-modal-close]')?.addEventListener('click', () => closeModal(overlay.id));
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closeModal(overlay.id);
+    });
+  });
+
+  // Escape key closes whichever modal is open
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape'){
+      const open = document.querySelector('.modal-overlay.open');
+      if (open) closeModal(open.id);
+    }
+  });
+}
+
+function openModal(id){
+  const overlay = document.getElementById(id);
+  if (!overlay) return;
+  overlay.classList.add('open');
+  document.body.classList.add('modal-locked');
+  document.getElementById('navLinks')?.classList.remove('open'); // close mobile menu if open
+}
+
+function closeModal(id){
+  const overlay = document.getElementById(id);
+  if (!overlay) return;
+  overlay.classList.remove('open');
+  document.body.classList.remove('modal-locked');
 }
 
 /* ----------------------------------------------------------
