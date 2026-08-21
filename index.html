@@ -6,42 +6,46 @@
 <title>لوسِد أجنسي — أتمتة بالذكاء الاصطناعي وإنتاج بصري</title>
 <meta name="description" content="لوسِد أجنسي تبني أنظمة أتمتة بالذكاء الاصطناعي وإنتاجًا بصريًا فاخرًا للعلامات التجارية التي ترفض أن تكون عادية.">
 
-<!-- Fonts: Space Grotesk (display/EN), Inter (body/EN), Cairo (Arabic) -->
+<!-- Fonts: only 2 families now (was 5) — fewer font-swap events means far less layout jolt while the page loads -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600;700&family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <!-- FontAwesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
 /* ============================================================
-   LUCID AGENCY — Design System
-   Deep space dark, glassmorphism, electric blue + deep purple,
-   neon green for results. Bilingual (EN/AR) typography.
+   LUCID AGENCY — Design System (v3: clean tech blue, light & fast)
+   Cool navy-black background, one confident blue accent, crisp
+   sans-serif type. Glass look achieved with cheap translucent
+   panels instead of live backdrop-filter blur wherever a panel
+   repeats many times on screen — blur is reserved for single,
+   one-at-a-time UI (nav bar, modals) where its cost is negligible.
    ============================================================ */
 
 :root{
   /* --- Color tokens --- */
-  --bg-void:        #06060a;
-  --bg-deep:        #0a0a12;
-  --bg-panel:       #0e0e18;
+  --bg-void:        #070a10;
+  --bg-deep:        #0a0e16;
+  --bg-panel:       #0d121b;
   --glass-fill:     rgba(255,255,255,0.045);
   --glass-fill-hi:  rgba(255,255,255,0.08);
   --glass-border:   rgba(255,255,255,0.09);
-  --glass-border-hi:rgba(255,255,255,0.18);
+  --glass-border-hi:rgba(255,255,255,0.16);
 
-  --electric:       #4d8dff;
-  --electric-soft:  #7fb0ff;
-  --purple:         #8b5cf6;
-  --purple-soft:    #b794ff;
-  --neon-green:     #4dffa0;
+  --electric:       #3d8bfd;  /* confident, friendly SaaS blue */
+  --electric-soft:  #6fa8ff;
+  --purple:         #4fc3ff;  /* light cyan-blue — stays in the same blue family, not a clashing hue */
+  --purple-soft:    #86d4ff;
+  --neon-green:     #4d8dff;  /* result highlight uses the same blue family, not a separate neon color */
 
-  --text-hi:        #f2f2f7;
-  --text-mid:       #b7b7c9;
-  --text-low:       #74748a;
+  --text-hi:        #f3f6fb;
+  --text-mid:       #a9b2c3;
+  --text-low:       #66707f;
 
-  /* --- Type --- */
+  /* --- Type: two families only (was five) — fewer web-font swaps
+         means far fewer layout jolts while the page loads --- */
   --f-display: 'Space Grotesk', 'Cairo', sans-serif;
   --f-body:    'Inter', 'Cairo', sans-serif;
   --f-arabic:  'Cairo', 'Inter', sans-serif;
@@ -104,38 +108,26 @@ button{ font-family:inherit; cursor:pointer; }
 .orb{
   position:absolute;
   border-radius:50%;
-  filter:blur(120px);
-  opacity:.35;
-  will-change:transform;
+  filter:blur(90px);
+  opacity:.28;
+  /* Static — a moving blurred layer is one of the most expensive things a
+     browser can composite every frame. Keeping it still removes that cost
+     entirely while keeping the ambient glow look. */
 }
 .orb--blue{
-  width:620px; height:620px;
+  width:520px; height:520px;
   background:var(--electric);
   top:-200px; left:-120px;
-  animation:drift1 26s ease-in-out infinite alternate;
 }
 .orb--purple{
-  width:560px; height:560px;
+  width:420px; height:420px;
   background:var(--purple);
-  bottom:-260px; right:-140px;
-  animation:drift2 30s ease-in-out infinite alternate;
+  bottom:-240px; right:-140px;
+  opacity:.2;
 }
-.orb--green{
-  width:340px; height:340px;
-  background:var(--neon-green);
-  top:45%; left:60%;
-  opacity:.14;
-  animation:drift3 34s ease-in-out infinite alternate;
-}
-@keyframes drift1{ from{ transform:translate(0,0);} to{ transform:translate(80px,60px);} }
-@keyframes drift2{ from{ transform:translate(0,0);} to{ transform:translate(-70px,-50px);} }
-@keyframes drift3{ from{ transform:translate(0,0) scale(1);} to{ transform:translate(-40px,40px) scale(1.15);} }
+.orb--green{ display:none; } /* third layer removed — not worth the extra paint cost */
 
-.grain{
-  position:fixed; inset:0; z-index:1; pointer-events:none;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  opacity:.5;
-}
+.grain{ display:none; } /* removed — a full-viewport noise layer added paint cost for little visual gain */
 
 /* ============================================================
    NAV
@@ -147,13 +139,13 @@ button{ font-family:inherit; cursor:pointer; }
   border-bottom:1px solid transparent;
 }
 .nav.scrolled{
-  background:rgba(6,6,10,0.72);
-  backdrop-filter:blur(18px) saturate(140%);
-  -webkit-backdrop-filter:blur(18px) saturate(140%);
+  background:rgba(7,10,16,0.82);
+  backdrop-filter:blur(10px) saturate(130%);
+  -webkit-backdrop-filter:blur(10px) saturate(130%);
   border-bottom:1px solid var(--glass-border);
   padding:14px 0;
 }
-.nav .container{ display:flex; align-items:center; justify-content:space-between; }
+.nav .container{ display:flex; align-items:center; justify-content:flex-start; gap:28px; }
 
 .logo{
   font-family:'Space Grotesk', sans-serif; /* brand name stays Latin in both languages */
@@ -162,22 +154,22 @@ button{ font-family:inherit; cursor:pointer; }
   letter-spacing:.01em;
   display:flex; align-items:center; gap:10px;
   direction:ltr; /* keep "Lucid Agency" reading left-to-right even in RTL layout */
+  margin-inline-end:auto; /* pushes nav-links + nav-right to the far end as one cluster */
 }
 .logo .dot{
   width:9px; height:9px; border-radius:50%;
   background:linear-gradient(135deg,var(--electric),var(--purple));
-  box-shadow:0 0 14px 2px var(--electric);
+  box-shadow:0 0 6px 1px rgba(61,139,253,.35);
 }
 
 /* --- Inline SVG brand mark --- */
 .logo-mark{
   display:inline-flex; width:26px; height:26px; flex-shrink:0;
-  filter:drop-shadow(0 0 8px rgba(77,141,255,.55));
-  transition:filter .3s var(--ease), transform .4s var(--ease);
+  transition:opacity .3s var(--ease), transform .4s var(--ease);
 }
 .logo-mark svg{ width:100%; height:100%; }
 .logo:hover .logo-mark{
-  filter:drop-shadow(0 0 14px rgba(139,92,246,.75));
+  opacity:.8;
   transform:rotate(8deg);
 }
 
@@ -197,36 +189,36 @@ button{ font-family:inherit; cursor:pointer; }
   padding:10px 20px;
   border-radius:100px;
   font-size:.86rem; font-weight:600;
-  background:var(--glass-fill);
+  background:var(--glass-fill-hi);
   border:1px solid var(--glass-border-hi);
-  backdrop-filter:blur(10px);
   transition:all .3s var(--ease);
 }
-.nav-cta:hover{ border-color:var(--electric-soft); box-shadow:0 0 22px -4px var(--electric); }
+.nav-cta:hover{ border-color:var(--electric-soft); box-shadow:0 4px 14px -6px rgba(0,0,0,.5); }
 
+.nav-right{ display:flex; align-items:center; gap:14px; }
 .nav-toggle{ display:none; }
 
-/* --- Language toggle pill --- */
+/* --- Language toggle pill — always visible in the nav, on every screen
+   size, not tucked inside the mobile menu where it went unnoticed --- */
 .lang-switch{
   display:flex; align-items:center;
-  padding:3px; border-radius:100px;
-  background:var(--glass-fill);
-  border:1px solid var(--glass-border-hi);
-  backdrop-filter:blur(10px);
+  padding:4px; border-radius:100px;
+  background:var(--glass-fill-hi);
+  border:1.5px solid var(--electric-soft);
   gap:2px;
 }
 .lang-btn{
   border:none; background:transparent;
-  padding:6px 13px; border-radius:100px;
+  padding:7px 15px; border-radius:100px;
   font-family:'Space Grotesk', sans-serif;
-  font-size:.76rem; font-weight:700; letter-spacing:.03em;
-  color:var(--text-low);
-  transition:all .3s var(--ease);
+  font-size:.8rem; font-weight:700; letter-spacing:.03em;
+  color:var(--text-mid);
+  transition:all .25s var(--ease);
 }
 .lang-btn.active{
   color:#04040a;
   background:linear-gradient(100deg,var(--electric-soft),var(--purple-soft));
-  box-shadow:0 0 16px -2px rgba(77,141,255,.6);
+  box-shadow:0 2px 8px -2px rgba(0,0,0,.4);
 }
 .lang-btn:not(.active):hover{ color:var(--text-hi); }
 
@@ -245,11 +237,10 @@ button{ font-family:inherit; cursor:pointer; }
   padding:7px 16px;
   border-radius:100px;
   border:1px solid var(--glass-border-hi);
-  background:var(--glass-fill);
+  background:var(--glass-fill-hi);
   font-size:.78rem; letter-spacing:.06em; text-transform:uppercase;
   color:var(--electric-soft); font-weight:600;
   margin-bottom:28px;
-  backdrop-filter:blur(10px);
 }
 .eyebrow i{ font-size:.72rem; }
 
@@ -261,13 +252,12 @@ button{ font-family:inherit; cursor:pointer; }
   letter-spacing:-.02em;
   max-width:920px;
   min-height:calc(2 * 1.06 * clamp(2.4rem, 6vw, 5.2rem));
-  background:linear-gradient(180deg,#ffffff 30%, #b9b9d4 100%);
+  background:linear-gradient(180deg,#ffffff 30%, #c3d6f2 100%);
   -webkit-background-clip:text; background-clip:text; color:transparent;
 }
 .hero h1 .cursor{
   display:inline-block; width:3px; margin-inline-start:4px;
   background:var(--electric-soft);
-  animation:blink 1s step-end infinite;
   transform:translateY(2px);
 }
 
@@ -314,17 +304,16 @@ button{ font-family:inherit; cursor:pointer; }
   border-radius:100px;
   border:none;
   font-weight:600; font-size:.98rem;
-  color:#04040a;
+  color:#070a10;
   background:linear-gradient(100deg,var(--electric-soft),var(--purple-soft));
-  box-shadow:0 0 0 1px rgba(255,255,255,.08) inset;
+  /* A static soft blue glow — eye-catching without the continuous pulse
+     animation, which read as gimmicky rather than professional. */
+  box-shadow:0 0 0 1px rgba(255,255,255,.1) inset, 0 12px 30px -10px rgba(61,139,253,.55);
   display:inline-flex; align-items:center; gap:10px;
-  animation:pulseGlow 2.6s ease-in-out infinite;
-  transition:transform .3s var(--ease);
+  transition:box-shadow .25s var(--ease);
 }
-.btn-primary:hover{ transform:translateY(-2px) scale(1.015); }
-@keyframes pulseGlow{
-  0%,100%{ box-shadow:0 0 0 1px rgba(255,255,255,.08) inset, 0 0 18px 0px rgba(77,141,255,.55), 0 0 40px -6px rgba(139,92,246,.4); }
-  50%{ box-shadow:0 0 0 1px rgba(255,255,255,.08) inset, 0 0 34px 6px rgba(77,141,255,.75), 0 0 60px 4px rgba(139,92,246,.55); }
+.btn-primary:hover{
+  box-shadow:0 0 0 1px rgba(255,255,255,.12) inset, 0 16px 36px -10px rgba(61,139,253,.7);
 }
 
 .btn-ghost{
@@ -332,13 +321,12 @@ button{ font-family:inherit; cursor:pointer; }
   border-radius:100px;
   font-weight:600; font-size:.95rem;
   color:var(--text-hi);
-  background:var(--glass-fill);
+  background:var(--glass-fill-hi);
   border:1px solid var(--glass-border-hi);
-  backdrop-filter:blur(10px);
   display:inline-flex; align-items:center; gap:10px;
   transition:all .3s var(--ease);
 }
-.btn-ghost:hover{ background:var(--glass-fill-hi); border-color:var(--purple-soft); box-shadow:0 0 24px -8px var(--purple); }
+.btn-ghost:hover{ background:var(--glass-fill-hi); border-color:var(--purple-soft); box-shadow:0 4px 14px -6px rgba(0,0,0,.5); }
 
 .hero-stats{
   margin-top:88px;
@@ -353,12 +341,19 @@ button{ font-family:inherit; cursor:pointer; }
 
 /* ============================================================
    GLASS CARD base
+   Cheap "glass" look: translucent background + subtle top-light
+   gradient + soft border — no backdrop-filter. This class is used
+   on many repeated cards (services, process, case studies) at once,
+   and live blur on that many simultaneous layers is the single
+   biggest cause of a heavy/janky page. Real blur is reserved for
+   .nav.scrolled and .modal-panel, where only one instance exists
+   on screen at a time.
    ============================================================ */
 .glass{
-  background:var(--glass-fill);
+  background:
+    linear-gradient(165deg, rgba(255,255,255,.05), rgba(255,255,255,.015) 40%),
+    var(--bg-panel);
   border:1px solid var(--glass-border);
-  backdrop-filter:blur(22px) saturate(140%);
-  -webkit-backdrop-filter:blur(22px) saturate(140%);
   border-radius:var(--radius-lg);
 }
 
@@ -375,27 +370,21 @@ button{ font-family:inherit; cursor:pointer; }
 }
 .section-head p{ color:var(--text-mid); margin-top:16px; font-size:1.02rem; }
 
-.reveal{ opacity:0; transform:translateY(28px); transition:opacity .9s var(--ease), transform .9s var(--ease); }
-.reveal.is-visible{ opacity:1; transform:translateY(0); }
+.reveal{ opacity:1; transform:none; }
 
 /* ============================================================
    SERVICES STRIP
    ============================================================ */
 .services{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
 .service-card{
-  padding:30px 26px;
-  min-height:220px;
-  transition:transform .35s var(--ease), border-color .35s var(--ease), box-shadow .35s var(--ease);
-}
-.service-card:hover{
-  transform:translateY(-6px);
-  border-color:var(--glass-border-hi);
-  box-shadow:0 20px 50px -20px rgba(77,141,255,.35);
+  padding:26px 4px 0;
+  min-height:190px;
+  border-top:1px solid var(--glass-border);
 }
 .service-card .icon{
   width:46px; height:46px; border-radius:12px;
   display:flex; align-items:center; justify-content:center;
-  background:linear-gradient(135deg, rgba(77,141,255,.18), rgba(139,92,246,.18));
+  background:linear-gradient(135deg, rgba(61,139,253,.18), rgba(79,195,255,.18));
   border:1px solid var(--glass-border-hi);
   color:var(--electric-soft);
   font-size:1.15rem;
@@ -422,20 +411,11 @@ button{ font-family:inherit; cursor:pointer; }
 
 /* --- Skeleton loading state (shown while the CSV fetch is in flight) --- */
 .skeleton-card{ display:grid; grid-template-columns:1.1fr .9fr; padding:0; overflow:hidden; }
-.skeleton-media{ aspect-ratio:4/3.1; }
+.skeleton-media{ aspect-ratio:16/10; }
 .skeleton-card .case-info{ padding:44px; display:flex; flex-direction:column; gap:14px; }
 .skeleton-line{ height:14px; border-radius:6px; }
 .shimmer{
-  background:linear-gradient(100deg,
-    rgba(255,255,255,.04) 8%,
-    rgba(255,255,255,.10) 18%,
-    rgba(255,255,255,.04) 33%);
-  background-size:200% 100%;
-  animation:shimmer 1.6s ease-in-out infinite;
-}
-@keyframes shimmer{
-  0%{ background-position:150% 0; }
-  100%{ background-position:-50% 0; }
+  background:rgba(255,255,255,.06);
 }
 
 /* --- Inline notice shown when the live CSV can't be reached --- */
@@ -464,7 +444,7 @@ button{ font-family:inherit; cursor:pointer; }
 /* --- Before/After slider --- */
 .ba-slider{
   position:relative;
-  width:100%; aspect-ratio:4/3.1;
+  width:100%; aspect-ratio:16/10;
   overflow:hidden;
   cursor:ew-resize;
   user-select:none;
@@ -478,9 +458,18 @@ button{ font-family:inherit; cursor:pointer; }
   -webkit-user-drag:none;
 }
 .ba-slider .ba-after{ z-index:1; }
+
+/* Subtle top/bottom scrim so the Before/After tags stay legible no matter
+   how bright the underlying photo is — also just reads more polished. */
+.ba-slider::before{
+  content:'';
+  position:absolute; inset:0; z-index:3; pointer-events:none;
+  background:linear-gradient(to bottom, rgba(4,7,12,.4), transparent 22%, transparent 78%, rgba(4,7,12,.4));
+}
+
 /* Graceful fallback if an image URL from the sheet fails to load */
 .ba-slider.img-fallback{
-  background:linear-gradient(135deg, rgba(77,141,255,.12), rgba(139,92,246,.12));
+  background:linear-gradient(135deg, rgba(61,139,253,.12), rgba(79,195,255,.12));
 }
 .ba-slider.img-fallback::after{
   content:'\f03e';
@@ -490,47 +479,49 @@ button{ font-family:inherit; cursor:pointer; }
   font-size:2rem; color:var(--glass-border-hi);
 }
 .ba-slider .ba-before-wrap{
-  position:absolute; top:0; bottom:0; left:0; z-index:2;
-  overflow:hidden;
-  width:50%; /* driven by JS */
+  position:absolute; inset:0; z-index:2;
+  clip-path: polygon(0 0, var(--pos, 50%) 0, var(--pos, 50%) 100%, 0 100%);
 }
-.ba-slider .ba-before-wrap img{ width:var(--wfix,100%); max-width:none; height:100%; }
+.ba-slider .ba-before-wrap img{ width:100%; height:100%; object-fit:cover; }
+
+/* The visible seam — a thin straight accent line at the drag position. */
+.ba-seam{
+  position:absolute; inset:0; z-index:3; pointer-events:none;
+  background:linear-gradient(180deg, var(--electric-soft), var(--purple-soft));
+  clip-path: polygon(
+    calc(var(--pos, 50%) - 1px) 0, calc(var(--pos, 50%) + 1px) 0,
+    calc(var(--pos, 50%) + 1px) 100%, calc(var(--pos, 50%) - 1px) 100%
+  );
+}
 
 .ba-tag{
-  position:absolute; top:14px; z-index:4;
-  padding:5px 12px; border-radius:100px;
-  font-size:.68rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
-  background:rgba(6,6,10,.55); backdrop-filter:blur(6px);
-  border:1px solid var(--glass-border-hi);
+  position:absolute; top:16px; z-index:4;
+  padding:6px 14px; border-radius:100px;
+  font-size:.68rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+  background:rgba(6,10,16,.78);
+  border:1px solid rgba(255,255,255,.14);
 }
-.ba-tag.before{ left:14px; color:var(--text-mid); }
-.ba-tag.after{ right:14px; color:var(--neon-green); }
+.ba-tag.before{ left:16px; color:var(--text-mid); }
+.ba-tag.after{ right:16px; color:var(--electric-soft); }
 
+/* Handle: a magic wand mark, no circular backdrop — a crisp icon, not a
+   hazy blob. Drop-shadow keeps it legible over any photo underneath. */
 .ba-handle{
-  position:absolute; top:0; bottom:0; left:50%; z-index:5;
-  width:2px;
-  background:linear-gradient(180deg, var(--electric-soft), var(--purple-soft));
-  box-shadow:0 0 16px 1px rgba(139,92,246,.7);
-  transform:translateX(-1px);
+  position:absolute; top:50%; left:var(--pos, 50%); z-index:5;
+  transform:translate(-50%,-50%) rotate(-30deg);
   pointer-events:none;
+  font-size:1.35rem;
+  color:#ffffff;
+  filter:drop-shadow(0 2px 5px rgba(0,0,0,.65));
 }
-.ba-handle::before{
-  content:'';
-  position:absolute; top:50%; left:50%;
-  width:42px; height:42px;
-  transform:translate(-50%,-50%);
-  border-radius:50%;
-  background:rgba(10,10,18,.75);
-  border:1px solid var(--glass-border-hi);
-  backdrop-filter:blur(6px);
+
+/* One-time nudge so people notice it's draggable — plays twice, then stays
+   permanently still. Not a looping animation. */
+@keyframes baHintNudge{
+  0%,100%{ transform:translate(-50%,-50%) rotate(-30deg) translateX(0); }
+  50%{ transform:translate(-50%,-50%) rotate(-30deg) translateX(10px); }
 }
-.ba-handle::after{
-  content:'\f337'; /* fa-arrows-left-right */
-  font-family:'Font Awesome 6 Free'; font-weight:900;
-  position:absolute; top:50%; left:50%;
-  transform:translate(-50%,-50%);
-  color:var(--text-hi); font-size:.85rem;
-}
+.ba-handle.hint{ animation:baHintNudge .7s ease-in-out 2; }
 
 .case-info{ padding:44px; display:flex; flex-direction:column; min-height:420px; }
 .case-tags{ display:flex; gap:10px; margin-bottom:18px; flex-wrap:wrap; }
@@ -539,9 +530,9 @@ button{ font-family:inherit; cursor:pointer; }
   padding:5px 12px; border-radius:100px;
   border:1px solid var(--glass-border-hi);
   color:var(--purple-soft);
-  background:rgba(139,92,246,.08);
+  background:rgba(79,195,255,.08);
 }
-.case-tag.industry{ color:var(--electric-soft); background:rgba(77,141,255,.08); }
+.case-tag.industry{ color:var(--electric-soft); background:rgba(61,139,253,.08); }
 
 .case-info h3{
   font-family:var(--f-display); font-weight:600;
@@ -561,22 +552,22 @@ button{ font-family:inherit; cursor:pointer; }
   margin-top:auto;
   padding:18px 20px;
   border-radius:var(--radius-md);
-  background:rgba(77,255,160,.06);
-  border:1px solid rgba(77,255,160,.28);
+  background:rgba(61,139,253,.06);
+  border:1px solid rgba(61,139,253,.28);
 }
 .case-result .label{ color:var(--neon-green); opacity:.85; }
 .case-result .label i{ color:var(--neon-green); }
 .case-result p{
   color:var(--neon-green);
   font-weight:600; font-size:1rem;
-  text-shadow:0 0 18px rgba(77,255,160,.45);
+  text-shadow:none;
 }
 
 /* ============================================================
    PROCESS
    ============================================================ */
 .process{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px; counter-reset:step; }
-.process-step{ padding:30px 26px; position:relative; min-height:190px; }
+.process-step{ padding:26px 4px 0; position:relative; min-height:170px; border-top:1px solid var(--glass-border); }
 .process-step .num{
   font-family:var(--f-display); font-size:.82rem; font-weight:700;
   color:var(--text-low); letter-spacing:.05em; margin-bottom:22px; display:block;
@@ -599,7 +590,7 @@ button{ font-family:inherit; cursor:pointer; }
 .cta-banner::before{
   content:'';
   position:absolute; inset:-40%;
-  background:radial-gradient(circle at 50% 40%, rgba(77,141,255,.22), transparent 60%);
+  background:radial-gradient(circle at 50% 40%, rgba(61,139,253,.22), transparent 60%);
   pointer-events:none;
 }
 .cta-banner h2{
@@ -647,7 +638,7 @@ button{ font-family:inherit; cursor:pointer; }
   background:var(--glass-fill); border:1px solid var(--glass-border-hi);
   transition:all .3s var(--ease);
 }
-.footer-social a:hover{ border-color:var(--electric-soft); box-shadow:0 0 18px -4px var(--electric); transform:translateY(-2px); }
+.footer-social a:hover{ border-color:var(--electric-soft); }
 
 .footer-bottom{
   border-top:1px solid var(--glass-border);
@@ -715,7 +706,7 @@ button{ font-family:inherit; cursor:pointer; }
   color:var(--text-mid);
   transition:all .25s var(--ease);
 }
-.modal-close:hover{ color:var(--text-hi); border-color:var(--electric-soft); box-shadow:0 0 16px -4px var(--electric); }
+.modal-close:hover{ color:var(--text-hi); border-color:var(--electric-soft); box-shadow:0 4px 12px -4px rgba(0,0,0,.5); }
 
 .modal-panel h3{
   font-family:var(--f-display); font-weight:600;
@@ -819,9 +810,16 @@ body.modal-locked{ overflow:hidden; }
       Lucid Agency
     </a>
 
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
-      <i class="fa-solid fa-bars"></i>
-    </button>
+    <div class="nav-right">
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button type="button" class="lang-btn" data-lang="ar" id="langBtnAr">AR</button>
+        <button type="button" class="lang-btn" data-lang="en" id="langBtnEn">EN</button>
+      </div>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
 
     <ul class="nav-links" id="navLinks">
       <li><a href="#services" data-i18n="nav_services">خدماتنا</a></li>
@@ -829,10 +827,6 @@ body.modal-locked{ overflow:hidden; }
       <li><a href="#process" data-i18n="nav_process">منهجية العمل</a></li>
       <li><button type="button" class="link-btn" data-modal="about" data-i18n="nav_about">من نحن</button></li>
       <li><a href="#contact" class="nav-cta" data-i18n="nav_cta">احجز استشارتك</a></li>
-      <li class="lang-switch" role="group" aria-label="Language">
-        <button type="button" class="lang-btn" data-lang="ar" id="langBtnAr">AR</button>
-        <button type="button" class="lang-btn" data-lang="en" id="langBtnEn">EN</button>
-      </li>
     </ul>
   </div>
 </nav>
@@ -853,9 +847,9 @@ body.modal-locked{ overflow:hidden; }
   </div>
 
   <div class="hero-stats reveal">
-    <div class="stat"><b data-i18n="stat1_num">+120</b><span data-i18n="stat1_label">نظام تمت أتمتته</span></div>
-    <div class="stat"><b data-i18n="stat2_num">4.6×</b><span data-i18n="stat2_label">متوسط الارتفاع في الكفاءة</span></div>
-    <div class="stat"><b data-i18n="stat3_num">+30</b><span data-i18n="stat3_label">علامة تجارية تم تطويرها</span></div>
+    <div class="stat"><b dir="ltr" data-i18n="stat1_num">+120</b><span data-i18n="stat1_label">نظام تمت أتمتته</span></div>
+    <div class="stat"><b dir="ltr" data-i18n="stat2_num">4.6×</b><span data-i18n="stat2_label">متوسط الارتفاع في الكفاءة</span></div>
+    <div class="stat"><b dir="ltr" data-i18n="stat3_num">+30</b><span data-i18n="stat3_label">علامة تجارية تم تطويرها</span></div>
   </div>
 </header>
 
@@ -871,22 +865,22 @@ body.modal-locked{ overflow:hidden; }
     </div>
 
     <div class="services">
-      <div class="service-card glass reveal">
+      <div class="service-card reveal">
         <div class="icon"><i class="fa-solid fa-robot"></i></div>
         <h3 data-i18n="service1_title">أتمتة تدفقات العمل بالذكاء الاصطناعي</h3>
         <p data-i18n="service1_desc">وكلاء وأنظمة مخصصة تُلغي العمل اليدوي المتكرر في المبيعات والدعم والعمليات.</p>
       </div>
-      <div class="service-card glass reveal">
+      <div class="service-card reveal">
         <div class="icon"><i class="fa-solid fa-diagram-project"></i></div>
         <h3 data-i18n="service2_title">تكامل الأنظمة</h3>
         <p data-i18n="service2_desc">نربط أدوات إدارة العملاء وقواعد بياناتك ضمن بنية واحدة متكاملة تعمل من تلقاء نفسها.</p>
       </div>
-      <div class="service-card glass reveal">
+      <div class="service-card reveal">
         <div class="icon"><i class="fa-solid fa-camera-retro"></i></div>
         <h3 data-i18n="service3_title">الإنتاج البصري</h3>
         <p data-i18n="service3_desc">تصوير فوتوغرافي وفيديو ومرئيات معززة بالذكاء الاصطناعي، مصممة لتحقيق نتائج لا لمجرد الزينة.</p>
       </div>
-      <div class="service-card glass reveal">
+      <div class="service-card reveal">
         <div class="icon"><i class="fa-solid fa-chart-line"></i></div>
         <h3 data-i18n="service4_title">استراتيجية النمو</h3>
         <p data-i18n="service4_desc">تموضع وتوجيه إبداعي مبني على البيانات — بحيث يخدم كل عنصر بصري هدفًا تجاريًا واضحًا.</p>
@@ -934,22 +928,22 @@ body.modal-locked{ overflow:hidden; }
     </div>
 
     <div class="process">
-      <div class="process-step glass reveal">
+      <div class="process-step reveal">
         <span class="num" data-i18n="step1_label">استكشاف</span>
         <h3 data-i18n="step1_title">مكالمة استراتيجية</h3>
         <p data-i18n="step1_desc">نحلل تدفقات عملك الحالية وأصولك البصرية لتحديد أعلى نقاط التأثير.</p>
       </div>
-      <div class="process-step glass reveal">
+      <div class="process-step reveal">
         <span class="num" data-i18n="step2_label">تصميم</span>
         <h3 data-i18n="step2_title">مخطط النظام</h3>
         <p data-i18n="step2_desc">تحصل على خطة واضحة: ما الذي سيُؤتمت، وما الذي سيُصوَّر، وأثر ذلك على عملك.</p>
       </div>
-      <div class="process-step glass reveal">
+      <div class="process-step reveal">
         <span class="num" data-i18n="step3_label">بناء</span>
         <h3 data-i18n="step3_title">سباق الإنتاج</h3>
         <p data-i18n="step3_desc">يبني فريقنا الأنظمة وينتج المرئيات ضمن مراحل عمل مركزة وسريعة.</p>
       </div>
-      <div class="process-step glass reveal">
+      <div class="process-step reveal">
         <span class="num" data-i18n="step4_label">توسّع</span>
         <h3 data-i18n="step4_title">تحسين ومتابعة</h3>
         <p data-i18n="step4_desc">نراقب الأداء ونُطوّر النظام باستمرار مع نمو علامتك التجارية.</p>
@@ -991,8 +985,8 @@ body.modal-locked{ overflow:hidden; }
         <div class="footer-social">
           <a href="https://wa.me/201146199077" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
           <a href="mailto:info@hellolucidagency.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
-          <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-          <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="https://www.facebook.com/share/1F1SmHqad8/?mibextid=wwXIfr" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/agencylucid?igsh=MW9qZndidHRvNmoyeg==" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
         </div>
       </div>
 
@@ -1017,14 +1011,14 @@ body.modal-locked{ overflow:hidden; }
         <h4 data-i18n="footer_contact">تواصل معنا</h4>
         <ul>
           <li><a href="mailto:info@hellolucidagency.com"><i class="fa-solid fa-envelope"></i> info@hellolucidagency.com</a></li>
-          <li><a href="https://wa.me/201146199077" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> <span data-i18n="footer_team">الفريق</span> — +20 114 619 9077</a></li>
-          <li><a href="https://wa.me/201111197146" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> <span data-i18n="footer_director">ليلى ناصر، المديرة</span> — +20 111 119 7146</a></li>
+          <li><a href="https://wa.me/201146199077" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> <span data-i18n="footer_team">الفريق</span> — <bdi dir="ltr">+20 114 619 9077</bdi></a></li>
+          <li><a href="https://wa.me/201111197146" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> <span data-i18n="footer_director">ليلى ناصر، المديرة</span> — <bdi dir="ltr">+20 111 119 7146</bdi></a></li>
         </ul>
       </div>
     </div>
 
     <div class="footer-bottom">
-      <p data-i18n="footer_copyright">© 2026 لوسِد أجنسي. جميع الحقوق محفوظة.</p>
+      <p><bdi dir="ltr">© 2026</bdi> <span data-i18n="footer_copyright">لوسِد أجنسي. جميع الحقوق محفوظة.</span></p>
       <div class="footer-bottom-links">
         <button type="button" class="link-btn" data-modal="privacy" data-i18n="footer_privacy">سياسة الخصوصية</button>
         <button type="button" class="link-btn" data-modal="terms" data-i18n="footer_terms">شروط الخدمة</button>
@@ -1116,7 +1110,7 @@ const I18N = {
     footer_studio: 'الاستوديو', footer_legal: 'قانوني', footer_contact: 'تواصل معنا',
     footer_privacy: 'سياسة الخصوصية', footer_terms: 'شروط الخدمة',
     footer_team: 'الفريق', footer_director: 'ليلى ناصر، المديرة',
-    footer_copyright: '© 2026 لوسِد أجنسي. جميع الحقوق محفوظة.',
+    footer_copyright: 'لوسِد أجنسي. جميع الحقوق محفوظة.',
     tag_before: 'قبل', tag_after: 'بعد',
     label_challenge: 'التحدي', label_solution: 'الحل', label_result: 'النتيجة',
     about_title: 'من نحن',
@@ -1166,7 +1160,7 @@ const I18N = {
     footer_studio: 'Studio', footer_legal: 'Legal', footer_contact: 'Contact',
     footer_privacy: 'Privacy Policy', footer_terms: 'Terms of Service',
     footer_team: 'Team', footer_director: 'Laila Nasser, Director',
-    footer_copyright: '\u00A9 2026 Lucid Agency. All rights reserved.',
+    footer_copyright: 'Lucid Agency. All rights reserved.',
     tag_before: 'Before', tag_after: 'After',
     label_challenge: 'The Challenge', label_solution: 'The Solution', label_result: 'The Result',
     about_title: 'About Us',
@@ -1354,9 +1348,10 @@ function initTypingEffect(lang){
 
   const session = ++__typingSession;
   const phrases = HERO_PHRASES[lang] || HERO_PHRASES.ar;
+  const full = phrases[0]; // types once and stops — no repeating loop, no ongoing motion
   const cursor = '<span class="cursor">&nbsp;</span>';
 
-  let phraseIndex = 0, charIndex = 0, deleting = false;
+  let charIndex = 0;
 
   function plainText(html){
     const tmp = document.createElement('div');
@@ -1386,32 +1381,21 @@ function initTypingEffect(lang){
     return walk(tmp);
   }
 
+  const text = plainText(full);
+
   function tick(){
     if (session !== __typingSession) return; // a newer language session took over
-    const full = phrases[phraseIndex];
-    const text = plainText(full);
-
-    if (!deleting){
-      charIndex++;
-      el.innerHTML = escapeToTyped(full, charIndex) + cursor;
-      if (charIndex >= text.length){
-        deleting = true;
-        setTimeout(tick, 1800);
-        return;
-      }
-    } else {
-      charIndex--;
-      el.innerHTML = escapeToTyped(full, charIndex) + cursor;
-      if (charIndex <= 0){
-        deleting = false;
-        phraseIndex = (phraseIndex + 1) % phrases.length;
-      }
+    charIndex++;
+    if (charIndex >= text.length){
+      el.innerHTML = full; // final render, no cursor — page is now fully still
+      return;
     }
-    setTimeout(tick, deleting ? 28 : 42);
+    el.innerHTML = escapeToTyped(full, charIndex) + cursor;
+    setTimeout(tick, 32);
   }
 
   el.innerHTML = cursor;
-  setTimeout(tick, 400);
+  setTimeout(tick, 300);
 }
 
 /* ----------------------------------------------------------
@@ -1446,6 +1430,19 @@ async function loadCaseStudies(){
   const skeletonEl = document.getElementById('caseSkeletons');
   const listEl = document.getElementById('caseList');
 
+  // The #1 real-world cause of "fallback/random photos showing instead of my
+  // real case studies": the page is being opened directly as a local file
+  // (double-clicked from Finder/Explorer) instead of served over http(s).
+  // Browsers block or restrict fetch() to remote URLs from file:// origins,
+  // so the CSV request fails silently and the demo fallback kicks in.
+  if (location.protocol === 'file:'){
+    console.warn(
+      '[Lucid Agency] This page is open via file:// — the live CSV fetch will likely fail here. ' +
+      'Host it on a real server (GitHub Pages, Netlify, your own domain, or even `python3 -m http.server`) ' +
+      'for the real case studies to load instead of the fallback demo cards.'
+    );
+  }
+
   try {
     const rows = await fetchCaseRows();
     if (!rows.length) throw new Error('No usable rows in CSV');
@@ -1461,33 +1458,62 @@ async function loadCaseStudies(){
   }
 }
 
-/** Fetches and parses the published Google Sheet CSV, with a timeout and sanity checks. */
+/**
+ * Fetches and parses the published Google Sheet CSV.
+ *
+ * IMPORTANT: docs.google.com does NOT send an Access-Control-Allow-Origin
+ * header on this endpoint, so once the site is hosted on a real domain
+ * (GitHub Pages, Netlify, your own domain — anything other than Google's own
+ * origin) the browser blocks the response as a CORS violation. The request
+ * technically succeeds, but JS is never allowed to read the result, so the
+ * fetch throws and the page falls back to the demo cards. That is the exact
+ * cause of the random/unrelated "other people" photos.
+ *
+ * Fix: try the direct URL first (works in a few edge cases / some browsers),
+ * then fall back to lightweight public CORS-relay endpoints that fetch the
+ * CSV server-side and re-serve it with the right headers.
+ */
 async function fetchCaseRows(){
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), CSV_TIMEOUT_MS);
-
-  // Cache-bust so Google's CDN / the browser doesn't serve a stale copy after the sheet is edited
   const bustUrl = CSV_URL + (CSV_URL.includes('?') ? '&' : '?') + '_=' + Date.now();
 
-  try {
-    const res = await fetch(bustUrl, { signal: controller.signal, cache: 'no-store' });
-    clearTimeout(timeout);
+  const strategies = [
+    bustUrl,
+    'https://api.allorigins.win/raw?url=' + encodeURIComponent(bustUrl),
+    'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(bustUrl)
+  ];
 
-    if (!res.ok) throw new Error(`CSV fetch failed with status ${res.status}`);
+  let lastError = null;
 
-    const csvText = await res.text();
+  for (const url of strategies){
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), CSV_TIMEOUT_MS);
 
-    // If Google returns a login/HTML error page instead of CSV (sheet not published, etc.)
-    if (csvText.trim().startsWith('<')) {
-      throw new Error('Received HTML instead of CSV — check the sheet\u2019s "Publish to web" settings');
+    try {
+      const res = await fetch(url, { signal: controller.signal, cache: 'no-store' });
+      clearTimeout(timeout);
+
+      if (!res.ok) throw new Error(`CSV fetch failed with status ${res.status}`);
+
+      const csvText = await res.text();
+
+      // If Google returns a login/HTML error page instead of CSV (sheet not published, etc.)
+      if (csvText.trim().startsWith('<')) {
+        throw new Error('Received HTML instead of CSV — check the sheet\u2019s "Publish to web" settings');
+      }
+
+      const rows = parseCSV(csvText);
+      if (rows.length) return rows; // success — no need to try the next strategy
+
+      throw new Error('CSV parsed but contained no rows');
+
+    } catch (err){
+      clearTimeout(timeout);
+      lastError = err;
+      // try the next strategy in the list
     }
-
-    return parseCSV(csvText);
-
-  } catch (err){
-    clearTimeout(timeout);
-    throw err;
   }
+
+  throw lastError || new Error('All CSV fetch strategies failed');
 }
 
 /**
@@ -1541,9 +1567,32 @@ function getField(row, ...aliases){
   return '';
 }
 
+/**
+ * Common gotcha: pasting a Google Drive "share" link (which opens a preview
+ * page, not an image) instead of a direct image URL. Auto-convert the usual
+ * Drive share-link shapes into a direct, embeddable image URL.
+ */
+function normalizeImageUrl(url){
+  if (!url) return url;
+  const patterns = [
+    /drive\.google\.com\/file\/d\/([^/]+)/,   // .../file/d/FILE_ID/view
+    /drive\.google\.com\/open\?id=([^&]+)/     // .../open?id=FILE_ID
+  ];
+  for (const re of patterns){
+    const m = url.match(re);
+    if (m) return `https://drive.google.com/uc?export=view&id=${m[1]}`;
+  }
+  return url;
+}
+
 function renderCaseCards(rows, opts = {}){
   const listEl = document.getElementById('caseList');
   listEl.innerHTML = '';
+
+  // Clear stale references from any previously rendered (now removed) cards —
+  // otherwise switching language repeatedly would keep piling up dead listeners.
+  __sliders.length = 0;
+  __activeSlider = null;
 
   if (opts.showNotice){
     const notice = document.createElement('div');
@@ -1565,8 +1614,8 @@ function buildCaseCard(row, index){
   const challenge  = getField(row, 'The Challenge', 'Challenge');
   const solution   = getField(row, 'The Solution', 'Solution');
   const result     = getField(row, 'The Result', 'Result');
-  const beforeUrl  = getField(row, 'Before_URL', 'Before URL', 'Before');
-  const afterUrl   = getField(row, 'After_URL', 'After URL', 'After');
+  const beforeUrl  = normalizeImageUrl(getField(row, 'Before_URL', 'Before URL', 'Before'));
+  const afterUrl   = normalizeImageUrl(getField(row, 'After_URL', 'After URL', 'After'));
 
   if (!title && !beforeUrl && !afterUrl) return null;
 
@@ -1577,15 +1626,16 @@ function buildCaseCard(row, index){
 
   card.innerHTML = `
     <div class="case-media">
-      <div class="ba-slider" data-index="${index}">
+      <div class="ba-slider" data-index="${index}" style="--pos:50%">
         <img class="ba-after" src="${afterUrl}" alt="${title} — after" loading="lazy" draggable="false"
              onerror="this.closest('.ba-slider').classList.add('img-fallback')">
         <div class="ba-before-wrap">
           <img class="ba-before" src="${beforeUrl}" alt="${title} — before" loading="lazy" draggable="false">
         </div>
+        <div class="ba-seam" aria-hidden="true"></div>
         <span class="ba-tag before">${t.tag_before}</span>
         <span class="ba-tag after">${t.tag_after}</span>
-        <div class="ba-handle"></div>
+        <div class="ba-handle" aria-hidden="true"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
       </div>
     </div>
 
@@ -1618,54 +1668,86 @@ function buildCaseCard(row, index){
   `;
 
   revealNode(card);
-  requestAnimationFrame(() => initBeforeAfterSlider(card.querySelector('.ba-slider')));
+  requestAnimationFrame(() => {
+    initBeforeAfterSlider(card.querySelector('.ba-slider'));
+    triggerSliderHintOnce(card.querySelector('.ba-slider'));
+  });
 
   return card;
 }
 
 /* ----------------------------------------------------------
    6. BEFORE / AFTER DRAG SLIDER
+   One shared set of window-level listeners handles every slider
+   on the page — registering separate listeners per card was the
+   main cause of the site feeling heavier as more case studies load.
    ---------------------------------------------------------- */
+
+/** Nudges the drag handle briefly (twice) the first time a slider scrolls
+ *  into view, so people notice it's interactive — then never moves again. */
+function triggerSliderHintOnce(slider){
+  if (!slider) return;
+  const handle = slider.querySelector('.ba-handle');
+  if (!handle) return;
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        handle.classList.add('hint');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  io.observe(slider);
+}
+
+const __sliders = [];
+let __activeSlider = null;
+let __sliderListenersBound = false;
+
 function initBeforeAfterSlider(slider){
   if (!slider) return;
 
-  const beforeWrap = slider.querySelector('.ba-before-wrap');
-  const beforeImg  = slider.querySelector('.ba-before');
-  const handle     = slider.querySelector('.ba-handle');
-  let dragging = false;
+  const entry = { slider };
 
-  function setPosition(percent){
+  // Everything (the diagonal clip, the seam accent, and the handle position)
+  // reads from this single CSS variable, so dragging is one write per frame
+  // instead of three separate style writes — and no per-resize image-width
+  // patching is needed anymore since both images use object-fit:cover.
+  entry.setPosition = (percent) => {
     percent = Math.max(0, Math.min(100, percent));
-    beforeWrap.style.width = percent + '%';
-    handle.style.left = percent + '%';
-    beforeImg.style.width = slider.clientWidth + 'px';
-  }
+    slider.style.setProperty('--pos', percent + '%');
+  };
 
-  function positionFromEvent(clientX){
+  entry.positionFromEvent = (clientX) => {
     const rect = slider.getBoundingClientRect();
-    const percent = ((clientX - rect.left) / rect.width) * 100;
-    setPosition(percent);
-  }
+    entry.setPosition(((clientX - rect.left) / rect.width) * 100);
+  };
 
-  handle.addEventListener('mousedown', () => dragging = true);
-  slider.addEventListener('mousedown', (e) => { dragging = true; positionFromEvent(e.clientX); });
-  window.addEventListener('mousemove', (e) => { if (dragging) positionFromEvent(e.clientX); });
-  window.addEventListener('mouseup', () => dragging = false);
-
+  slider.querySelector('.ba-handle')?.addEventListener('mousedown', () => { __activeSlider = entry; });
+  slider.addEventListener('mousedown', (e) => { __activeSlider = entry; entry.positionFromEvent(e.clientX); });
   slider.addEventListener('touchstart', (e) => {
-    dragging = true;
-    positionFromEvent(e.touches[0].clientX);
+    __activeSlider = entry;
+    entry.positionFromEvent(e.touches[0].clientX);
   }, { passive:true });
   slider.addEventListener('touchmove', (e) => {
-    if (dragging) positionFromEvent(e.touches[0].clientX);
+    if (__activeSlider === entry) entry.positionFromEvent(e.touches[0].clientX);
   }, { passive:true });
-  window.addEventListener('touchend', () => dragging = false);
 
-  window.addEventListener('resize', () => {
-    beforeImg.style.width = slider.clientWidth + 'px';
+  entry.setPosition(50);
+  __sliders.push(entry);
+  bindGlobalSliderListenersOnce();
+}
+
+function bindGlobalSliderListenersOnce(){
+  if (__sliderListenersBound) return;
+  __sliderListenersBound = true;
+
+  window.addEventListener('mousemove', (e) => {
+    if (__activeSlider) __activeSlider.positionFromEvent(e.clientX);
   });
-
-  setPosition(50);
+  window.addEventListener('mouseup', () => { __activeSlider = null; });
+  window.addEventListener('touchend', () => { __activeSlider = null; });
 }
 
 </script>
