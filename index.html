@@ -1568,6 +1568,23 @@ function getField(row, ...aliases){
 }
 
 /**
+ * Language-aware version of getField: when the site is showing English,
+ * it first looks for an "<column> EN" version of the column (e.g.
+ * "Case Study Title EN"), and only falls back to the plain column (whatever
+ * language it was typed in) if no English column exists or that row's
+ * English cell is still empty. This is what makes case-study content
+ * translatable — the CSV itself doesn't get auto-translated, the sheet just
+ * needs a parallel English column per field.
+ */
+function getLocalizedField(row, baseName, ...extraBaseAliases){
+  if (CURRENT_LANG === 'en'){
+    const enValue = getField(row, `${baseName} EN`, `${baseName} (EN)`, `${baseName}_EN`);
+    if (enValue) return enValue;
+  }
+  return getField(row, baseName, ...extraBaseAliases);
+}
+
+/**
  * Common gotcha: pasting a Google Drive "share" link (which opens a preview
  * page, not an image) instead of a direct image URL. Auto-convert the usual
  * Drive share-link shapes into a direct, embeddable image URL.
@@ -1608,12 +1625,12 @@ function renderCaseCards(rows, opts = {}){
 }
 
 function buildCaseCard(row, index){
-  const category   = getField(row, 'Category');
-  const industry   = getField(row, 'Industry');
-  const title      = getField(row, 'Case Study Title', 'Title');
-  const challenge  = getField(row, 'The Challenge', 'Challenge');
-  const solution   = getField(row, 'The Solution', 'Solution');
-  const result     = getField(row, 'The Result', 'Result');
+  const category   = getLocalizedField(row, 'Category');
+  const industry   = getLocalizedField(row, 'Industry');
+  const title      = getLocalizedField(row, 'Case Study Title', 'Title');
+  const challenge  = getLocalizedField(row, 'The Challenge', 'Challenge');
+  const solution   = getLocalizedField(row, 'The Solution', 'Solution');
+  const result     = getLocalizedField(row, 'The Result', 'Result');
   const beforeUrl  = normalizeImageUrl(getField(row, 'Before_URL', 'Before URL', 'Before'));
   const afterUrl   = normalizeImageUrl(getField(row, 'After_URL', 'After URL', 'After'));
 
