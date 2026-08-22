@@ -1450,6 +1450,11 @@ async function loadCaseStudies(){
     window.__lucidCaseRows = rows;
     renderCaseCards(rows);
 
+    // Diagnostic: print exactly which column headers the site sees from the
+    // live sheet. If an "EN" column you added isn't listed here, the site
+    // genuinely never received it — check "Publish to web" settings.
+    console.info('[Lucid Agency] Live CSV loaded. Columns detected:', Object.keys(rows[0]));
+
   } catch (err) {
     console.error('Live case studies could not be loaded, using fallback:', err);
     skeletonEl.style.display = 'none';
@@ -1578,7 +1583,15 @@ function getField(row, ...aliases){
  */
 function getLocalizedField(row, baseName, ...extraBaseAliases){
   if (CURRENT_LANG === 'en'){
-    const enValue = getField(row, `${baseName} EN`, `${baseName} (EN)`, `${baseName}_EN`);
+    // Accepts the column named as a suffix ("Category EN", "Category_EN",
+    // "Category (EN)") or a prefix ("EN Category"), and a couple of common
+    // spellings people actually type, so small naming differences in the
+    // sheet don't silently break the translation.
+    const enValue = getField(row,
+      `${baseName} EN`, `${baseName}_EN`, `${baseName} (EN)`, `${baseName}(EN)`,
+      `EN ${baseName}`, `EN_${baseName}`,
+      `${baseName} English`, `English ${baseName}`
+    );
     if (enValue) return enValue;
   }
   return getField(row, baseName, ...extraBaseAliases);
