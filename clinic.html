@@ -89,7 +89,7 @@
   /* Before / After comparison slider */
   .compare{
     position:relative; overflow:hidden; border-radius:1rem; user-select:none; aspect-ratio: 4/3;
-    touch-action:none;
+    touch-action:none; background:#e7ebf3;
   }
   .compare img{
     position:absolute; inset:0; width:100%; height:100%; object-fit:cover; pointer-events:none;
@@ -131,9 +131,23 @@
   }
   @keyframes shimmer{ 0%{background-position:100% 0} 100%{background-position:-100% 0} }
 
-  .logo-img{ height:45px; width:auto; max-width:160px; object-fit:contain; display:block; }
+  /* Logo: mix-blend-mode "screen" makes a black logo background disappear
+     against a light page, so the mark reads clean/transparent without
+     needing to touch the source image file. */
+  .logo-img{
+    height:45px; width:auto; max-width:170px; object-fit:contain; display:block;
+    mix-blend-mode:screen; filter:contrast(1.05);
+  }
   @media (max-width:420px){ .logo-img{ height:34px; } }
-  .logo-img-lg{ height:56px; width:auto; max-width:200px; object-fit:contain; display:block; margin:0 auto; }
+  .logo-img-lg{
+    height:58px; width:auto; max-width:210px; object-fit:contain; display:block; margin:0 auto;
+    mix-blend-mode:screen; filter:contrast(1.05);
+  }
+  .logo-badge{
+    width:36px; height:36px; border-radius:9999px; overflow:hidden; flex-shrink:0;
+    background:#fff; display:flex; align-items:center; justify-content:center;
+  }
+  .logo-badge img{ width:100%; height:100%; object-fit:cover; mix-blend-mode:screen; }
 
   .social-icon{
     width:44px; height:44px; border-radius:9999px;
@@ -143,10 +157,7 @@
   }
   .social-icon:hover{ background:var(--primary); color:#fff; transform:translateY(-3px); }
 
-  .contact-pill{
-    display:flex; align-items:center; gap:.6rem;
-    transition: all .35s cubic-bezier(.4,0,.2,1);
-  }
+  .contact-pill{ display:flex; align-items:center; gap:.6rem; transition: all .35s cubic-bezier(.4,0,.2,1); }
   .contact-pill:hover{ transform:translateY(-2px); border-color:var(--primary); }
   .contact-pill .icon-wrap{
     width:38px; height:38px; border-radius:9999px; flex-shrink:0;
@@ -257,33 +268,40 @@
     </div>
   </section>
 
-  <!-- ============ BOOKING CTA ============ -->
+  <!-- ============ BOOKING / CONTACT CTA ============ -->
   <section id="booking" class="relative px-5 md:px-10 py-20">
     <div class="max-w-4xl mx-auto glass rounded-[2rem] p-10 md:p-14 text-center accent-transition" data-aos="zoom-in">
       <h2 class="font-display font-extrabold text-3xl md:text-4xl mb-4">جاهزة تبدئي رحلتك؟</h2>
       <p class="mb-8 max-w-lg mx-auto" style="color:var(--ink-dim)">احجزي استشارتك الأولى مع فريقنا الطبي، ونحدد معاكِ الخطة الأنسب لحالتك.</p>
-      <a href="https://wa.me/201000000000?text=مرحباً، أرغب بحجز استشارة في عيادات لوسيد كير"
-         target="_blank" rel="noopener"
-         class="btn-primary accent-transition inline-block font-bold px-8 py-4 rounded-full text-base">
-        احجزي عبر واتساب
-      </a>
+
+      <div class="flex flex-wrap items-center justify-center gap-4 mb-2">
+        <a href="https://wa.me/201146199077?text=مرحباً، أرغب بحجز استشارة في عيادات لوسيد كير"
+           target="_blank" rel="noopener"
+           class="btn-primary accent-transition inline-flex items-center gap-2 font-bold px-7 py-3.5 rounded-full text-base">
+          <i class="fa-brands fa-whatsapp"></i> فريق العمل
+        </a>
+        <a href="https://wa.me/20111197146?text=مرحباً، أرغب بالتواصل المباشر بخصوص عيادات لوسيد كير"
+           target="_blank" rel="noopener"
+           class="glass accent-transition inline-flex items-center gap-2 font-semibold px-7 py-3.5 rounded-full text-base hover:bg-white/70">
+          <i class="fa-brands fa-whatsapp" style="color:#25D366"></i> تواصل مباشر — Laila Nasser
+        </a>
+      </div>
     </div>
   </section>
 
   <!-- ============ AGENCY CTA BANNER (sticky) ============ -->
   <div id="agencyBanner" class="fixed bottom-4 inset-x-4 md:inset-x-auto md:bottom-6 md:left-6 z-50 max-w-md">
     <div class="glass rounded-2xl p-4 md:p-5 flex items-start gap-3" style="border-color:var(--primary)">
-      <div class="w-9 h-9 rounded-full flex items-center justify-center shrink-0 overflow-hidden" style="background:#fff">
+      <div class="logo-badge">
         <img src="https://res.cloudinary.com/fig3bixy/image/upload/v1787509056/%D9%84%D9%88%D8%B3%D9%8A%D8%AF_tobtxj.jpg"
-             alt="Lucid Agency" class="w-full h-full object-cover"
-             referrerpolicy="no-referrer" loading="lazy"
+             alt="Lucid Agency" referrerpolicy="no-referrer" loading="lazy"
              onerror="this.parentElement.style.background='var(--primary)'; this.replaceWith(Object.assign(document.createElement('span'),{textContent:'L',className:'font-bold text-white'}));">
       </div>
       <div class="flex-1">
         <p class="text-sm font-semibold mb-1">هذا مجرد نموذج تفاعلي! 👀</p>
         <p class="text-xs leading-relaxed mb-3" style="color:var(--ink-dim)">احصلي على موقع مشابه وعصري لعيادتك مع لوحة تحكم سهلة — من Lucid Agency.</p>
         <div class="flex gap-2">
-          <a href="https://wa.me/201000000000?text=مهتم بموقع مشابه لعيادتي من Lucid Agency" target="_blank" rel="noopener"
+          <a href="https://wa.me/201146199077?text=مهتم بموقع مشابه لعيادتي من Lucid Agency" target="_blank" rel="noopener"
              class="btn-primary text-xs font-bold px-4 py-2 rounded-full">تواصلي معنا</a>
           <button onclick="document.getElementById('agencyBanner').style.display='none'"
                   class="text-xs px-3 py-2 rounded-full border" style="border-color:var(--glass-border)">إغلاق</button>
@@ -335,13 +353,6 @@
           </span>
         </a>
       </div>
-
-      <!-- email: عدّلي البريد الفعلي هنا -->
-      <a href="mailto:info@lucidagency.com"
-         class="contact-pill inline-flex glass rounded-2xl px-4 py-3 border mt-4" style="border-color:var(--glass-border)">
-        <span class="icon-wrap" style="background:var(--primary)"><i class="fa-solid fa-envelope"></i></span>
-        <span class="text-sm font-semibold" dir="ltr">info@lucidagency.com</span>
-      </a>
     </div>
 
     <p class="text-center text-xs mt-8" style="color:var(--ink-dim)">
@@ -360,31 +371,29 @@ AOS.init({ once:true, easing:'ease-out-cubic', duration:800 });
    ينقل الاتصال بـ Airtable لسيرفر وسيط (Proxy / Serverless Function) عشان
    التوكن ما يفضلش ظاهر لأي زائر يفتح "Inspect" على المتصفح.
 
-   حقول Airtable المتوقعة (عدّلي الأسماء هنا لو مختلفة عندك):
-   - الاسم            (Name / Single line text)
-   - الوصف            (Description / Long text)
-   - التخصص           (Category / Single select — القيمة الفعلية لطب الأسنان في القاعدة: "طب اسنان" بدون همزة)
-   - السعر            (Price / Number)
-   - صورة_قبل         (Before image / Attachment or URL)
-   - صورة_بعد         (After image / Attachment or URL)
-   - اظهار الموقع     (Show on site / Checkbox)
+   حقول Airtable المستخدَمة بالضبط:
+   - الاسم              (Name / Single line text)
+   - الوصف              (Description / Long text)
+   - التخصص             (Category / Single select — طب الأسنان مكتوب "طب اسنان" بدون همزة)
+   - السعر              (Price / Number)
+   - صور قبل وبعد        (Attachment field — يحتوي صورتين: الأولى "قبل" والثانية "بعد")
+   - اظهار الموقع        (Show on site / Checkbox)
 ========================================================================= */
 const AIRTABLE_BASE_ID = 'appxBgVQd3LdqQWtl';
 const AIRTABLE_TABLE    = 'Table 1';
 const AIRTABLE_TOKEN    = 'pathElqtfhwGmunQO.834ba15af04aa4990fcb516a19c918046a483e4be34eb7f56bf30cc5697db4d5';
-const WHATSAPP_NUMBER   = '201000000000'; // رقم واتساب العيادة الافتراضي
+const WHATSAPP_NUMBER   = '201146199077'; // رقم واتساب فريق العمل، يُستخدم في أزرار حجز الخدمات
 
 const FIELD = {
   name: 'الاسم',
   desc: 'الوصف',
   category: 'التخصص',
   price: 'السعر',
-  before: 'صورة_قبل',
-  after: 'صورة_بعد',
+  beforeAfter: 'صور قبل وبعد',
   show: 'اظهار الموقع'
 };
 
-// صور الأطباء الحقيقية حسب التخصص — تُستخدم كـ fallback فقط لو حقل الصورة فاضي في Airtable
+// صور احتياطية (fallback) حسب التخصص — تُستخدم فقط لو حقل "صور قبل وبعد" فاضي أو ناقص في Airtable
 const CATEGORY_DOCTOR_IMAGE = {
   'تجميل وجلدية': 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=1000&auto=format&fit=crop',
   'طب اسنان':      'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=1000&auto=format&fit=crop',
@@ -395,12 +404,17 @@ const DEFAULT_FALLBACK = CATEGORY_DOCTOR_IMAGE['تجميل وجلدية'];
 let allServices = [];
 let currentFilter = 'all';
 
-function getFieldImage(fields, key, fallback){
-  const val = fields[key];
-  if (!val) return fallback;
-  if (Array.isArray(val) && val[0]?.url) return val[0].url; // Airtable attachment
-  if (typeof val === 'string') return val; // plain URL field
-  return fallback;
+// يقرأ حقل الـ Attachment "صور قبل وبعد" ويرجع { before, after }
+// الصورة الأولى المرفوعة = قبل، الصورة الثانية = بعد
+function getBeforeAfterImages(fields, categoryFallback){
+  const attachments = fields[FIELD.beforeAfter];
+  if (Array.isArray(attachments) && attachments.length >= 2) {
+    return { before: attachments[0].url, after: attachments[1].url };
+  }
+  if (Array.isArray(attachments) && attachments.length === 1) {
+    return { before: attachments[0].url, after: categoryFallback };
+  }
+  return { before: categoryFallback, after: categoryFallback };
 }
 
 async function fetchServices(){
@@ -415,24 +429,27 @@ async function fetchServices(){
       .map(r => {
         const category = r.fields[FIELD.category] || 'أخرى';
         const doctorFallback = CATEGORY_DOCTOR_IMAGE[category] || DEFAULT_FALLBACK;
+        const { before, after } = getBeforeAfterImages(r.fields, doctorFallback);
         return {
           id: r.id,
           name: r.fields[FIELD.name] || 'خدمة بدون اسم',
           desc: r.fields[FIELD.desc] || '',
           category,
           price: r.fields[FIELD.price] ?? '—',
-          before: getFieldImage(r.fields, FIELD.before, doctorFallback),
-          after:  getFieldImage(r.fields, FIELD.after, doctorFallback),
+          before,
+          after,
         };
       });
+
+    if (allServices.length === 0) throw new Error('لا توجد سجلات ظاهرة (اظهار الموقع)');
   }catch(err){
-    console.warn('تعذر الاتصال بـ Airtable، سيتم عرض بيانات تجريبية بدلاً منها:', err);
+    console.warn('تعذر جلب بيانات حقيقية من Airtable، سيتم عرض بيانات تجريبية بدلاً منها:', err);
     allServices = demoServices();
   }
   renderServices();
 }
 
-// بيانات تجريبية تظهر تلقائياً في حال فشل الاتصال بـ Airtable (CORS / صلاحيات / اسم الحقل)
+// بيانات تجريبية تظهر تلقائياً في حال فشل الاتصال بـ Airtable (CORS / صلاحيات / اسم حقل مختلف / لا سجلات ظاهرة)
 function demoServices(){
   return [
     { id:'d1', name:'بروتوكول تجديد البشرة بالليزر', desc:'جلسات متقدمة لتوحيد لون البشرة وتقليل آثار الحبوب.', category:'تجميل وجلدية', price:2500,
@@ -481,7 +498,9 @@ function renderServices(){
         <span class="font-display font-bold text-lg">${typeof s.price === 'number' ? s.price.toLocaleString('ar-EG') : s.price} <span class="text-xs font-normal" style="color:var(--ink-dim)">EGP</span></span>
         <a href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('مرحباً، أرغب بحجز: ' + s.name)}"
            target="_blank" rel="noopener"
-           class="btn-primary accent-transition text-sm font-bold px-4 py-2 rounded-full">احجزي الآن</a>
+           class="btn-primary accent-transition text-sm font-bold px-4 py-2 rounded-full flex items-center gap-1.5">
+          <i class="fa-brands fa-whatsapp"></i> احجزي الآن
+        </a>
       </div>
     </div>
   `).join('');
@@ -527,7 +546,18 @@ function initCompareSliders(){
   });
 }
 
-/* ---------- Filter buttons: switch active + shift primary "mood" color ---------- */
+/* ---------- Smooth hero image swap on filter change ---------- */
+function swapHeroImage(newSrc){
+  const heroImg = document.getElementById('heroImg');
+  if(!heroImg || !newSrc || heroImg.src === newSrc) return;
+  heroImg.style.opacity = '0';
+  setTimeout(() => {
+    heroImg.src = newSrc;
+    heroImg.style.opacity = '1';
+  }, 350);
+}
+
+/* ---------- Filter buttons: switch active + shift primary "mood" color + swap hero ---------- */
 document.getElementById('filters').addEventListener('click', (e) => {
   const btn = e.target.closest('.filter-pill');
   if(!btn) return;
@@ -547,17 +577,6 @@ document.getElementById('filters').addEventListener('click', (e) => {
   swapHeroImage(btn.dataset.hero);
   renderServices();
 });
-
-/* ---------- Smooth hero image swap on filter change ---------- */
-function swapHeroImage(newSrc){
-  const heroImg = document.getElementById('heroImg');
-  if(!heroImg || !newSrc || heroImg.src === newSrc) return;
-  heroImg.style.opacity = '0';
-  setTimeout(() => {
-    heroImg.src = newSrc;
-    heroImg.style.opacity = '1';
-  }, 350);
-}
 
 fetchServices();
 </script>
