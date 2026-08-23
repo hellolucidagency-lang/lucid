@@ -165,7 +165,7 @@
   <header class="fixed top-0 inset-x-0 z-40 px-5 md:px-10 pt-4">
     <nav class="glass accent-transition max-w-6xl mx-auto rounded-2xl px-5 md:px-8 py-3 flex items-center justify-between">
       <a href="#" class="flex items-center gap-2">
-        <img src="https://res.cloudinary.com/fig3bixy/image/upload/v1787504073/LUCID_svbv9m.jpg"
+        <img src="https://res.cloudinary.com/fig3bixy/image/upload/v1787509056/%D9%84%D9%88%D8%B3%D9%8A%D8%AF_tobtxj.jpg"
              alt="شعار عيادات لوسيد كير" class="logo-img"
              referrerpolicy="no-referrer" loading="eager"
              onerror="this.style.display='none'; document.getElementById('logoFallback').classList.remove('hidden');">
@@ -200,9 +200,9 @@
 
       <div data-aos="fade-up" data-aos-delay="150" data-aos-duration="900" class="relative">
         <div class="glass rounded-[2rem] p-3 accent-transition" style="box-shadow:0 30px 80px -20px var(--primary-glow)">
-          <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=900&q=80"
+          <img id="heroImg" src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=900&q=80"
                alt="طبيب مبتسم في عيادة لوسيد كير"
-               class="rounded-[1.6rem] w-full h-[420px] md:h-[520px] object-cover">
+               class="rounded-[1.6rem] w-full h-[420px] md:h-[520px] object-cover transition-opacity duration-500 ease-out">
         </div>
         <div class="glass absolute -bottom-6 -right-4 md:-right-8 rounded-2xl px-5 py-4 flex items-center gap-3">
           <div class="w-10 h-10 rounded-full accent-transition flex items-center justify-center font-bold" style="background:var(--primary);color:#fff">✓</div>
@@ -226,10 +226,18 @@
 
       <!-- filters -->
       <div id="filters" class="flex flex-wrap justify-center gap-3 mb-12" data-aos="fade-up" data-aos-delay="100">
-        <button data-filter="all" data-color="#0038FF,#2dd4bf" class="filter-pill glass px-5 py-2.5 rounded-full text-sm font-semibold" data-active="true">الكل</button>
-        <button data-filter="تجميل وجلدية" data-color="#E8749F,#F2A6C4" class="filter-pill glass px-5 py-2.5 rounded-full text-sm font-semibold">تجميل وجلدية</button>
-        <button data-filter="طب أسنان" data-color="#2DD4BF,#67E8DA" class="filter-pill glass px-5 py-2.5 rounded-full text-sm font-semibold">طب أسنان</button>
-        <button data-filter="تغذية علاجية" data-color="#8BC98A,#B7E3A8" class="filter-pill glass px-5 py-2.5 rounded-full text-sm font-semibold">تغذية علاجية</button>
+        <button data-filter="all" data-color="#0038FF,#2dd4bf"
+                data-hero="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=900&q=80"
+                class="filter-pill glass px-5 py-2.5 rounded-full text-sm font-semibold" data-active="true">الكل</button>
+        <button data-filter="تجميل وجلدية" data-color="#E8749F,#F2A6C4"
+                data-hero="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=1000&auto=format&fit=crop"
+                class="filter-pill glass px-5 py-2.5 rounded-full text-sm font-semibold">تجميل وجلدية</button>
+        <button data-filter="طب اسنان" data-color="#2DD4BF,#67E8DA"
+                data-hero="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=1000&auto=format&fit=crop"
+                class="filter-pill glass px-5 py-2.5 rounded-full text-sm font-semibold">طب أسنان</button>
+        <button data-filter="تغذية علاجية" data-color="#8BC98A,#B7E3A8"
+                data-hero="https://images.unsplash.com/photo-1594824432258-f6a2690cebb4?q=80&w=1000&auto=format&fit=crop"
+                class="filter-pill glass px-5 py-2.5 rounded-full text-sm font-semibold">تغذية علاجية</button>
       </div>
 
       <!-- loading skeleton -->
@@ -265,7 +273,12 @@
   <!-- ============ AGENCY CTA BANNER (sticky) ============ -->
   <div id="agencyBanner" class="fixed bottom-4 inset-x-4 md:inset-x-auto md:bottom-6 md:left-6 z-50 max-w-md">
     <div class="glass rounded-2xl p-4 md:p-5 flex items-start gap-3" style="border-color:var(--primary)">
-      <div class="w-9 h-9 rounded-full flex items-center justify-center shrink-0 font-bold" style="background:var(--primary);color:#fff">L</div>
+      <div class="w-9 h-9 rounded-full flex items-center justify-center shrink-0 overflow-hidden" style="background:#fff">
+        <img src="https://res.cloudinary.com/fig3bixy/image/upload/v1787509056/%D9%84%D9%88%D8%B3%D9%8A%D8%AF_tobtxj.jpg"
+             alt="Lucid Agency" class="w-full h-full object-cover"
+             referrerpolicy="no-referrer" loading="lazy"
+             onerror="this.parentElement.style.background='var(--primary)'; this.replaceWith(Object.assign(document.createElement('span'),{textContent:'L',className:'font-bold text-white'}));">
+      </div>
       <div class="flex-1">
         <p class="text-sm font-semibold mb-1">هذا مجرد نموذج تفاعلي! 👀</p>
         <p class="text-xs leading-relaxed mb-3" style="color:var(--ink-dim)">احصلي على موقع مشابه وعصري لعيادتك مع لوحة تحكم سهلة — من Lucid Agency.</p>
@@ -283,7 +296,7 @@
   <footer class="relative px-5 md:px-10 pt-14 pb-8 mt-10 border-t" style="border-color:var(--glass-border)">
     <div class="max-w-4xl mx-auto glass rounded-[2rem] p-8 md:p-12 text-center" data-aos="fade-up">
 
-      <img src="https://res.cloudinary.com/fig3bixy/image/upload/v1787504073/LUCID_svbv9m.jpg"
+      <img src="https://res.cloudinary.com/fig3bixy/image/upload/v1787509056/%D9%84%D9%88%D8%B3%D9%8A%D8%AF_tobtxj.jpg"
            alt="شعار Lucid Agency" class="logo-img-lg mb-4"
            referrerpolicy="no-referrer" loading="lazy"
            onerror="this.style.display='none'">
@@ -350,11 +363,11 @@ AOS.init({ once:true, easing:'ease-out-cubic', duration:800 });
    حقول Airtable المتوقعة (عدّلي الأسماء هنا لو مختلفة عندك):
    - الاسم            (Name / Single line text)
    - الوصف            (Description / Long text)
-   - القسم            (Category / Single select: تجميل وجلدية | طب أسنان | تغذية علاجية)
+   - التخصص           (Category / Single select — القيمة الفعلية لطب الأسنان في القاعدة: "طب اسنان" بدون همزة)
    - السعر            (Price / Number)
    - صورة_قبل         (Before image / Attachment or URL)
    - صورة_بعد         (After image / Attachment or URL)
-   - إظهار_الموقع     (Show on site / Checkbox)
+   - اظهار الموقع     (Show on site / Checkbox)
 ========================================================================= */
 const AIRTABLE_BASE_ID = 'appxBgVQd3LdqQWtl';
 const AIRTABLE_TABLE    = 'Table 1';
@@ -364,17 +377,17 @@ const WHATSAPP_NUMBER   = '201000000000'; // رقم واتساب العيادة 
 const FIELD = {
   name: 'الاسم',
   desc: 'الوصف',
-  category: 'القسم',
+  category: 'التخصص',
   price: 'السعر',
   before: 'صورة_قبل',
   after: 'صورة_بعد',
-  show: 'إظهار_الموقع'
+  show: 'اظهار الموقع'
 };
 
 // صور الأطباء الحقيقية حسب التخصص — تُستخدم كـ fallback فقط لو حقل الصورة فاضي في Airtable
 const CATEGORY_DOCTOR_IMAGE = {
   'تجميل وجلدية': 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=1000&auto=format&fit=crop',
-  'طب أسنان':      'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=1000&auto=format&fit=crop',
+  'طب اسنان':      'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=1000&auto=format&fit=crop',
   'تغذية علاجية':  'https://images.unsplash.com/photo-1594824432258-f6a2690cebb4?q=80&w=1000&auto=format&fit=crop'
 };
 const DEFAULT_FALLBACK = CATEGORY_DOCTOR_IMAGE['تجميل وجلدية'];
@@ -424,8 +437,8 @@ function demoServices(){
   return [
     { id:'d1', name:'بروتوكول تجديد البشرة بالليزر', desc:'جلسات متقدمة لتوحيد لون البشرة وتقليل آثار الحبوب.', category:'تجميل وجلدية', price:2500,
       before: CATEGORY_DOCTOR_IMAGE['تجميل وجلدية'], after:'https://images.unsplash.com/photo-1620331311520-246422fd82f9?w=700&q=80' },
-    { id:'d2', name:'تبييض الأسنان الاحترافي', desc:'نتائج فورية وآمنة خلال جلسة واحدة داخل العيادة.', category:'طب أسنان', price:1800,
-      before: CATEGORY_DOCTOR_IMAGE['طب أسنان'], after:'https://images.unsplash.com/photo-1581585095852-cf05920356b8?w=700&q=80' },
+    { id:'d2', name:'تبييض الأسنان الاحترافي', desc:'نتائج فورية وآمنة خلال جلسة واحدة داخل العيادة.', category:'طب اسنان', price:1800,
+      before: CATEGORY_DOCTOR_IMAGE['طب اسنان'], after:'https://images.unsplash.com/photo-1581585095852-cf05920356b8?w=700&q=80' },
     { id:'d3', name:'خطة تغذية علاجية شخصية', desc:'برنامج غذائي مصمم حسب تحاليلك وأهدافك الصحية.', category:'تغذية علاجية', price:1200,
       before: CATEGORY_DOCTOR_IMAGE['تغذية علاجية'], after:'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=700&q=80' },
     { id:'d4', name:'حقن الفيلر الطبيعي', desc:'ملامح أكثر توازناً بلمسة طبيعية غير مبالغ فيها.', category:'تجميل وجلدية', price:3200,
@@ -531,8 +544,20 @@ document.getElementById('filters').addEventListener('click', (e) => {
   document.getElementById('blob1').style.background = c1;
   document.getElementById('blob2').style.background = c2;
 
+  swapHeroImage(btn.dataset.hero);
   renderServices();
 });
+
+/* ---------- Smooth hero image swap on filter change ---------- */
+function swapHeroImage(newSrc){
+  const heroImg = document.getElementById('heroImg');
+  if(!heroImg || !newSrc || heroImg.src === newSrc) return;
+  heroImg.style.opacity = '0';
+  setTimeout(() => {
+    heroImg.src = newSrc;
+    heroImg.style.opacity = '1';
+  }, 350);
+}
 
 fetchServices();
 </script>
