@@ -237,7 +237,7 @@
                 data-hero="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=1000&auto=format&fit=crop"
                 class="filter-pill glass px-5 py-2.5 rounded-full text-sm font-semibold">تجميل وجلدية</button>
         <button data-filter="طب اسنان" data-color="#2DD4BF,#67E8DA"
-                data-hero="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=1000&auto=format&fit=crop"
+                data-hero="https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=1000&auto=format&fit=crop"
                 class="filter-pill glass px-5 py-2.5 rounded-full text-sm font-semibold">طب أسنان</button>
         <button data-filter="تغذية علاجية" data-color="#059669,#6EE7B7"
                 data-hero="https://images.unsplash.com/photo-1594824432258-f6a2690cebb4?q=80&w=1000&auto=format&fit=crop"
@@ -372,8 +372,8 @@ AOS.init({ once:true, easing:'ease-out-cubic', duration:800 });
    - صور قبل وبعد        (Attachment field — يحتوي صورتين: الأولى "قبل" والثانية "بعد")
    - اظهار الموقع        (Show on site / Checkbox)
 ========================================================================= */
-const AIRTABLE_BASE_ID = 'appxBgVQd3LdqQWtl';
-const AIRTABLE_TABLE    = 'Table 1';
+const AIRTABLE_BASE_ID  = 'appxBgVQd3LdqQWtl';
+const AIRTABLE_TABLE_ID = 'tblrJjyjMLnK87GnZ';
 const AIRTABLE_TOKEN    = 'patWbqIeOEdTwU5yA.dad894c4409d3d3c03c4838da009dbd1cad33a061fd044ca0b4aa13bdf180423';
 const WHATSAPP_NUMBER   = '201146199077'; // رقم واتساب فريق العمل، يُستخدم في أزرار حجز الخدمات
 
@@ -386,7 +386,7 @@ const FIELD = {
   show: 'اظهار الموقع'
 };
 
-// صور احتياطية (fallback) حسب التخصص — تُستخدم فقط لو حقل "صور قبل وبعد" فاضي أو ناقص في Airtable
+// صور احتياطية (fallback) حسب التخصص — تُستخدم فقط لو حقل "صور قبل وبعد" فاضي أو ناقص لسجل حقيقي من Airtable
 const CATEGORY_DOCTOR_IMAGE = {
   'تجميل وجلدية': 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=1000&auto=format&fit=crop',
   'طب اسنان':      'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=1000&auto=format&fit=crop',
@@ -396,6 +396,7 @@ const DEFAULT_FALLBACK = CATEGORY_DOCTOR_IMAGE['تجميل وجلدية'];
 
 let allServices = [];
 let currentFilter = 'all';
+let fetchFailed = false;
 
 // يقرأ حقل الـ Attachment "صور قبل وبعد" ويرجع { before, after }
 // الصورة الأولى المرفوعة = قبل، الصورة الثانية = بعد
@@ -410,14 +411,31 @@ function getBeforeAfterImages(fields, categoryFallback){
   return { before: categoryFallback, after: categoryFallback };
 }
 
+// جلب كل الصفحات من Airtable (Pagination عبر offset) بدون أي بيانات وهمية —
+// لو فشل الاتصال أو مفيش سجلات ظاهرة، بتفضل allServices فاضية ويظهر رسالة واضحة للمستخدم.
 async function fetchServices(){
-  try{
-    const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(AIRTABLE_TABLE)}`;
-    const res = await fetch(url, { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } });
-    if(!res.ok) throw new Error('Airtable request failed: ' + res.status);
-    const data = await res.json();
+  allServices = [];
+  fetchFailed = false;
 
-    allServices = (data.records || [])
+  try{
+    let records = [];
+    let offset = null;
+
+    do{
+      const url = new URL(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${AIRTABLE_TABLE_ID}`);
+      if (offset) url.searchParams.set('offset', offset);
+
+      const res = await fetch(url.toString(), {
+        headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` }
+      });
+      if(!res.ok) throw new Error('Airtable request failed: ' + res.status);
+
+      const data = await res.json();
+      records = records.concat(data.records || []);
+      offset = data.offset || null;
+    } while(offset);
+
+    allServices = records
       .filter(r => r.fields[FIELD.show] === true)
       .map(r => {
         const category = r.fields[FIELD.category] || 'أخرى';
@@ -433,27 +451,12 @@ async function fetchServices(){
           after,
         };
       });
-
-    if (allServices.length === 0) throw new Error('لا توجد سجلات ظاهرة (اظهار الموقع)');
   }catch(err){
-    console.warn('تعذر جلب بيانات حقيقية من Airtable، سيتم عرض بيانات تجريبية بدلاً منها:', err);
-    allServices = demoServices();
+    console.error('تعذر جلب البيانات من Airtable:', err);
+    fetchFailed = true;
+    allServices = [];
   }
   renderServices();
-}
-
-// بيانات تجريبية تظهر تلقائياً في حال فشل الاتصال بـ Airtable (CORS / صلاحيات / اسم حقل مختلف / لا سجلات ظاهرة)
-function demoServices(){
-  return [
-    { id:'d1', name:'بروتوكول تجديد البشرة بالليزر', desc:'جلسات متقدمة لتوحيد لون البشرة وتقليل آثار الحبوب.', category:'تجميل وجلدية', price:2500,
-      before: CATEGORY_DOCTOR_IMAGE['تجميل وجلدية'], after:'https://images.unsplash.com/photo-1620331311520-246422fd82f9?w=700&q=80' },
-    { id:'d2', name:'تبييض الأسنان الاحترافي', desc:'نتائج فورية وآمنة خلال جلسة واحدة داخل العيادة.', category:'طب اسنان', price:1800,
-      before: CATEGORY_DOCTOR_IMAGE['طب اسنان'], after:'https://images.unsplash.com/photo-1581585095852-cf05920356b8?w=700&q=80' },
-    { id:'d3', name:'خطة تغذية علاجية شخصية', desc:'برنامج غذائي مصمم حسب تحاليلك وأهدافك الصحية.', category:'تغذية علاجية', price:1200,
-      before: CATEGORY_DOCTOR_IMAGE['تغذية علاجية'], after:'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=700&q=80' },
-    { id:'d4', name:'حقن الفيلر الطبيعي', desc:'ملامح أكثر توازناً بلمسة طبيعية غير مبالغ فيها.', category:'تجميل وجلدية', price:3200,
-      before: CATEGORY_DOCTOR_IMAGE['تجميل وجلدية'], after:'https://images.unsplash.com/photo-1620331311520-246422fd82f9?w=700&q=80' },
-  ];
 }
 
 function renderServices(){
@@ -468,6 +471,9 @@ function renderServices(){
   if(list.length === 0){
     grid.classList.add('hidden');
     empty.classList.remove('hidden');
+    empty.innerHTML = fetchFailed
+      ? `<p style="color:var(--ink-dim)">تعذر الاتصال بقاعدة بيانات Airtable حالياً. تأكدي من صلاحية التوكن واسم الجدول، ثم أعيدي تحميل الصفحة.</p>`
+      : `<p style="color:var(--ink-dim)">لا توجد خدمات في هذا القسم حالياً.</p>`;
     return;
   }
   empty.classList.add('hidden');
