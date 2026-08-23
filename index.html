@@ -162,15 +162,13 @@ button{ font-family:inherit; cursor:pointer; }
   box-shadow:0 0 6px 1px rgba(61,139,253,.35);
 }
 
-/* --- Inline SVG brand mark --- */
-.logo-mark{
-  display:inline-flex; width:26px; height:26px; flex-shrink:0;
-  transition:opacity .3s var(--ease), transform .4s var(--ease);
-}
-.logo-mark svg{ width:100%; height:100%; }
-.logo:hover .logo-mark{
-  opacity:.8;
-  transform:rotate(8deg);
+/* --- Brand logo image (replaces the previous inline SVG mark) --- */
+.logo-img{
+  display:block;
+  height:45px;
+  width:auto;
+  flex-shrink:0;
+  border-radius:8px; /* keeps it visually consistent with the site's rounded-corner language */
 }
 
 .nav-links{ display:flex; align-items:center; gap:36px; }
@@ -376,6 +374,7 @@ button{ font-family:inherit; cursor:pointer; }
    SERVICES STRIP
    ============================================================ */
 .services{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+.services-cta{ text-align:center; margin-top:48px; }
 .service-card{
   padding:26px 4px 0;
   min-height:190px;
@@ -792,21 +791,7 @@ body.modal-locked{ overflow:hidden; }
 <nav class="nav" id="nav">
   <div class="container">
     <a href="#" class="logo">
-      <!-- Inline SVG mark — no external image dependency -->
-      <span class="logo-mark" aria-hidden="true">
-        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="lucidGrad" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="var(--electric-soft)"/>
-              <stop offset="100%" stop-color="var(--purple-soft)"/>
-            </linearGradient>
-          </defs>
-          <polygon points="20,2 36,11 36,29 20,38 4,29 4,11" fill="none" stroke="url(#lucidGrad)" stroke-width="1.6"/>
-          <polygon points="20,10 29,15.5 29,24.5 20,30 11,24.5 11,15.5" fill="url(#lucidGrad)" opacity="0.16"/>
-          <path d="M20 10 L20 30 M11 15.5 L29 24.5 M29 15.5 L11 24.5" stroke="url(#lucidGrad)" stroke-width="1.1" opacity="0.85"/>
-          <circle cx="20" cy="20" r="2.6" fill="url(#lucidGrad)"/>
-        </svg>
-      </span>
+      <img class="logo-img" src="https://res.cloudinary.com/fig3bixy/image/upload/v1787504073/LUCID_svbv9m.jpg" alt="Lucid Agency logo">
       Lucid Agency
     </a>
 
@@ -885,6 +870,12 @@ body.modal-locked{ overflow:hidden; }
         <h3 data-i18n="service4_title">استراتيجية النمو</h3>
         <p data-i18n="service4_desc">تموضع وتوجيه إبداعي مبني على البيانات — بحيث يخدم كل عنصر بصري هدفًا تجاريًا واضحًا.</p>
       </div>
+    </div>
+
+    <div class="services-cta reveal">
+      <a href="clinic.html" target="_blank" rel="noopener" class="btn-primary">
+        <i class="fa-solid fa-stethoscope"></i> تجربة النظام الطبي (Live Demo)
+      </a>
     </div>
   </div>
 </section>
@@ -971,14 +962,7 @@ body.modal-locked{ overflow:hidden; }
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="#" class="logo">
-          <span class="logo-mark" aria-hidden="true">
-            <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-              <polygon points="20,2 36,11 36,29 20,38 4,29 4,11" fill="none" stroke="url(#lucidGrad)" stroke-width="1.6"/>
-              <polygon points="20,10 29,15.5 29,24.5 20,30 11,24.5 11,15.5" fill="url(#lucidGrad)" opacity="0.16"/>
-              <path d="M20 10 L20 30 M11 15.5 L29 24.5 M29 15.5 L11 24.5" stroke="url(#lucidGrad)" stroke-width="1.1" opacity="0.85"/>
-              <circle cx="20" cy="20" r="2.6" fill="url(#lucidGrad)"/>
-            </svg>
-          </span>
+          <img class="logo-img" src="https://res.cloudinary.com/fig3bixy/image/upload/v1787504073/LUCID_svbv9m.jpg" alt="Lucid Agency logo">
           Lucid Agency
         </a>
         <p data-i18n="footer_brand_desc">أتمتة بالذكاء الاصطناعي وإنتاج بصري للعلامات التجارية التي تنوي قيادة مجالها، لا اللحاق به.</p>
