@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>عيادات لوسيد كير | رعاية تثق بها</title>
+
+<!-- Tailwind CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Google Fonts: Cairo (display) + IBM Plex Sans Arabic (body) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<!-- AOS for gentle scroll reveals -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+<!-- Font Awesome (social + contact icons) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+  :root{
+    /* Base palette — bright, clean, medical-trust light theme */
+    --bg-1:#F7F9FC;
+    --bg-2:#EEF2FA;
+    --glass:rgba(255,255,255,0.62);
+    --glass-border:rgba(15,23,42,0.08);
+    --ink:#0B1220;
+    --ink-dim:#5B6472;
+
+    /* Lucid Agency brand blue — dynamic "mood" accent, shifts per specialty */
+    --primary:#0038FF;
+    --primary-soft:#0038FF22;
+    --primary-glow:#0038FF3d;
+  }
+
+  *{ font-family:'IBM Plex Sans Arabic', sans-serif; }
+  h1,h2,h3,.font-display{ font-family:'Cairo', sans-serif; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:
+      radial-gradient(55% 45% at 15% 8%, var(--primary-glow), transparent 60%),
+      radial-gradient(45% 35% at 92% 18%, #2dd4bf22, transparent 60%),
+      linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%);
+    background-attachment:fixed;
+    color:var(--ink);
+    transition: background 1.2s ease;
+  }
+
+  .glass{
+    background:var(--glass);
+    border:1px solid var(--glass-border);
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    box-shadow: 0 8px 32px -12px rgba(15,23,42,0.08);
+  }
+
+  .accent-transition{ transition: all .6s cubic-bezier(.4,0,.2,1); }
+
+  .btn-primary{
+    background: linear-gradient(135deg, var(--primary), color-mix(in srgb, var(--primary) 75%, #00E5FF));
+    color:#fff;
+    box-shadow: 0 8px 24px -8px var(--primary-glow);
+  }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow: 0 14px 32px -8px var(--primary-glow); }
+
+  .filter-pill{ transition: all .45s cubic-bezier(.4,0,.2,1); color:var(--ink); }
+  .filter-pill[data-active="true"]{
+    background: var(--primary);
+    color:#fff;
+    border-color: var(--primary);
+  }
+
+  /* Ambient floating blobs — the page's "mood lighting" signature */
+  .blob{
+    position:absolute; border-radius:9999px; filter:blur(100px);
+    opacity:.28; transition: background 1s ease;
+    pointer-events:none;
+  }
+  @keyframes floaty{
+    0%,100%{ transform:translateY(0) translateX(0); }
+    50%{ transform:translateY(-30px) translateX(20px); }
+  }
+  .float-slow{ animation: floaty 12s ease-in-out infinite; }
+  .float-slower{ animation: floaty 16s ease-in-out infinite reverse; }
+
+  /* Before / After comparison slider */
+  .compare{
+    position:relative; overflow:hidden; border-radius:1rem; user-select:none; aspect-ratio: 4/3;
+    touch-action:none;
+  }
+  .compare img{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover; pointer-events:none;
+  }
+  .compare .after-wrap{
+    position:absolute; inset:0; overflow:hidden;
+    clip-path: inset(0 0 0 var(--clip, 50%));
+  }
+  .compare .handle{
+    position:absolute; top:0; bottom:0; left:calc(100% - var(--clip, 50%));
+    width:2px; background:#fff; cursor:ew-resize;
+    transform:translateX(-1px);
+  }
+  .compare .handle::after{
+    content:'⇔'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    width:38px; height:38px; border-radius:9999px; background:#fff;
+    color:var(--primary); display:flex; align-items:center; justify-content:center; font-size:14px;
+    box-shadow:0 4px 14px rgba(0,0,0,.22);
+  }
+  .compare .tag{
+    position:absolute; top:10px; font-size:11px; padding:3px 10px; border-radius:9999px;
+    background:rgba(11,18,32,.65); color:#fff; letter-spacing:.03em;
+  }
+
+  .card-hover{ transition: transform .5s cubic-bezier(.4,0,.2,1), box-shadow .5s; }
+  .card-hover:hover{ transform:translateY(-6px); }
+
+  ::selection{ background:var(--primary); color:#fff; }
+
+  @media (prefers-reduced-motion: reduce){
+    .float-slow,.float-slower{ animation:none; }
+    *{ scroll-behavior:auto !important; }
+  }
+
+  .skeleton{
+    background: linear-gradient(90deg, rgba(15,23,42,.05) 25%, rgba(15,23,42,.1) 37%, rgba(15,23,42,.05) 63%);
+    background-size: 400% 100%;
+    animation: shimmer 1.6s ease infinite;
+  }
+  @keyframes shimmer{ 0%{background-position:100% 0} 100%{background-position:-100% 0} }
+
+  .logo-img{ height:45px; width:auto; max-width:160px; object-fit:contain; display:block; }
+  @media (max-width:420px){ .logo-img{ height:34px; } }
+  .logo-img-lg{ height:56px; width:auto; max-width:200px; object-fit:contain; display:block; margin:0 auto; }
+
+  .social-icon{
+    width:44px; height:44px; border-radius:9999px;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--ink); font-size:16px;
+    transition: all .35s cubic-bezier(.4,0,.2,1);
+  }
+  .social-icon:hover{ background:var(--primary); color:#fff; transform:translateY(-3px); }
+
+  .contact-pill{
+    display:flex; align-items:center; gap:.6rem;
+    transition: all .35s cubic-bezier(.4,0,.2,1);
+  }
+  .contact-pill:hover{ transform:translateY(-2px); border-color:var(--primary); }
+  .contact-pill .icon-wrap{
+    width:38px; height:38px; border-radius:9999px; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    background:#25D366; color:#fff; font-size:15px;
+  }
+</style>
+</head>
+<body class="min-h-screen relative overflow-x-hidden">
+
+  <!-- ambient blobs (color follows selected specialty) -->
+  <div id="blob1" class="blob float-slow w-[420px] h-[420px] -top-20 -right-20" style="background:var(--primary)"></div>
+  <div id="blob2" class="blob float-slower w-[320px] h-[320px] top-[40%] -left-24" style="background:#2dd4bf"></div>
+
+  <!-- ============ NAVBAR ============ -->
+  <header class="fixed top-0 inset-x-0 z-40 px-5 md:px-10 pt-4">
+    <nav class="glass accent-transition max-w-6xl mx-auto rounded-2xl px-5 md:px-8 py-3 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2">
+        <img src="https://res.cloudinary.com/fig3bixy/image/upload/v1787504073/LUCID_svbv9m.jpg"
+             alt="شعار عيادات لوسيد كير" class="logo-img"
+             referrerpolicy="no-referrer" loading="eager"
+             onerror="this.style.display='none'; document.getElementById('logoFallback').classList.remove('hidden');">
+        <span id="logoFallback" class="hidden font-display font-bold text-lg tracking-wide">لوسيد كير</span>
+      </a>
+      <a href="#booking" class="btn-primary accent-transition text-sm font-semibold px-5 py-2.5 rounded-full">احجزي استشارتك</a>
+    </nav>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="relative min-h-[92vh] flex items-center px-5 md:px-10 pt-28 pb-16">
+    <div class="max-w-6xl mx-auto w-full grid md:grid-cols-2 gap-10 items-center">
+      <div data-aos="fade-up" data-aos-duration="900">
+        <p class="text-sm tracking-[0.25em] mb-4 font-semibold" style="color:var(--primary)">CAIRO · PREMIUM CLINIC</p>
+        <h1 class="font-display font-extrabold text-4xl md:text-6xl leading-[1.15] mb-6">
+          عيادات لوسيد كير<br>
+          <span class="accent-transition" style="color:var(--primary)">رعاية تثق بها</span>
+        </h1>
+        <p class="text-base md:text-lg max-w-md mb-8 leading-relaxed" style="color:var(--ink-dim)">
+          فريق طبي متخصص، وتقنيات حديثة، وتجربة هادئة من أول استشارة حتى آخر نتيجة تفتخرين بيها.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#booking" class="btn-primary accent-transition font-bold px-7 py-3.5 rounded-full text-base">احجز استشارتك</a>
+          <a href="#services" class="glass accent-transition font-semibold px-7 py-3.5 rounded-full text-base hover:bg-white/70">استعرض الخدمات</a>
+        </div>
+        <div class="flex gap-8 mt-10">
+          <div><p class="font-display font-bold text-2xl">+14</p><p class="text-xs" style="color:var(--ink-dim)">سنة خبرة</p></div>
+          <div><p class="font-display font-bold text-2xl">+9,000</p><p class="text-xs" style="color:var(--ink-dim)">حالة ناجحة</p></div>
+          <div><p class="font-display font-bold text-2xl">4.9★</p><p class="text-xs" style="color:var(--ink-dim)">تقييم العملاء</p></div>
+        </div>
+      </div>
+
+      <div data-aos="fade-up" data-aos-delay="150" data-aos-duration="900" class="relative">
+        <div class="glass rounded-[2rem] p-3 accent-transition" style="box-shadow:0 30px 80px -20px var(--primary-glow)">
+          <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=900&q=80"
+               alt="طبيب مبتسم في عيادة لوسيد كير"
+               class="rounded-[1.6rem] w-full h-[420px] md:h-[520px] object-cover">
+        </div>
+        <div class="glass absolute -bottom-6 -right-4 md:-right-8 rounded-2xl px-5 py-4 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full accent-transition flex items-center justify-center font-bold" style="background:var(--primary);color:#fff">✓</div>
+          <div>
+            <p class="text-sm font-semibold">اعتماد وزارة الصحة</p>
+            <p class="text-xs" style="color:var(--ink-dim)">معايير سلامة موثقة</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICES ============ -->
+  <section id="services" class="relative px-5 md:px-10 py-20">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-10" data-aos="fade-up">
+        <p class="text-sm tracking-[0.25em] mb-3 font-semibold" style="color:var(--primary)">SERVICES</p>
+        <h2 class="font-display font-extrabold text-3xl md:text-4xl mb-3">خدماتنا</h2>
+        <p style="color:var(--ink-dim)">اختاري القسم اللي يهمك، والموقع هيغيّر لونه معاكِ ✨</p>
+      </div>
+
+      <!-- filters -->
+      <div id="filters" class="flex flex-wrap justify-center gap-3 mb-12" data-aos="fade-up" data-aos-delay="100">
+        <button data-filter="all" data-color="#0038FF,#2dd4bf" class="filter-pill glass px-5 py-2.5 rounded-full text-sm font-semibold" data-active="true">الكل</button>
+        <button data-filter="تجميل وجلدية" data-color="#E8749F,#F2A6C4" class="filter-pill glass px-5 py-2.5 rounded-full text-sm font-semibold">تجميل وجلدية</button>
+        <button data-filter="طب أسنان" data-color="#2DD4BF,#67E8DA" class="filter-pill glass px-5 py-2.5 rounded-full text-sm font-semibold">طب أسنان</button>
+        <button data-filter="تغذية علاجية" data-color="#8BC98A,#B7E3A8" class="filter-pill glass px-5 py-2.5 rounded-full text-sm font-semibold">تغذية علاجية</button>
+      </div>
+
+      <!-- loading skeleton -->
+      <div id="skeletonGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="glass rounded-2xl p-4"><div class="skeleton rounded-xl h-48 mb-4"></div><div class="skeleton h-4 w-2/3 rounded mb-2"></div><div class="skeleton h-3 w-full rounded"></div></div>
+        <div class="glass rounded-2xl p-4"><div class="skeleton rounded-xl h-48 mb-4"></div><div class="skeleton h-4 w-2/3 rounded mb-2"></div><div class="skeleton h-3 w-full rounded"></div></div>
+        <div class="glass rounded-2xl p-4"><div class="skeleton rounded-xl h-48 mb-4"></div><div class="skeleton h-4 w-2/3 rounded mb-2"></div><div class="skeleton h-3 w-full rounded"></div></div>
+      </div>
+
+      <!-- services grid (populated by JS) -->
+      <div id="servicesGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 hidden"></div>
+
+      <!-- empty state -->
+      <div id="emptyState" class="hidden text-center py-16">
+        <p style="color:var(--ink-dim)">لا توجد خدمات في هذا القسم حالياً.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BOOKING CTA ============ -->
+  <section id="booking" class="relative px-5 md:px-10 py-20">
+    <div class="max-w-4xl mx-auto glass rounded-[2rem] p-10 md:p-14 text-center accent-transition" data-aos="zoom-in">
+      <h2 class="font-display font-extrabold text-3xl md:text-4xl mb-4">جاهزة تبدئي رحلتك؟</h2>
+      <p class="mb-8 max-w-lg mx-auto" style="color:var(--ink-dim)">احجزي استشارتك الأولى مع فريقنا الطبي، ونحدد معاكِ الخطة الأنسب لحالتك.</p>
+      <a href="https://wa.me/201000000000?text=مرحباً، أرغب بحجز استشارة في عيادات لوسيد كير"
+         target="_blank" rel="noopener"
+         class="btn-primary accent-transition inline-block font-bold px-8 py-4 rounded-full text-base">
+        احجزي عبر واتساب
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ AGENCY CTA BANNER (sticky) ============ -->
+  <div id="agencyBanner" class="fixed bottom-4 inset-x-4 md:inset-x-auto md:bottom-6 md:left-6 z-50 max-w-md">
+    <div class="glass rounded-2xl p-4 md:p-5 flex items-start gap-3" style="border-color:var(--primary)">
+      <div class="w-9 h-9 rounded-full flex items-center justify-center shrink-0 font-bold" style="background:var(--primary);color:#fff">L</div>
+      <div class="flex-1">
+        <p class="text-sm font-semibold mb-1">هذا مجرد نموذج تفاعلي! 👀</p>
+        <p class="text-xs leading-relaxed mb-3" style="color:var(--ink-dim)">احصلي على موقع مشابه وعصري لعيادتك مع لوحة تحكم سهلة — من Lucid Agency.</p>
+        <div class="flex gap-2">
+          <a href="https://wa.me/201000000000?text=مهتم بموقع مشابه لعيادتي من Lucid Agency" target="_blank" rel="noopener"
+             class="btn-primary text-xs font-bold px-4 py-2 rounded-full">تواصلي معنا</a>
+          <button onclick="document.getElementById('agencyBanner').style.display='none'"
+                  class="text-xs px-3 py-2 rounded-full border" style="border-color:var(--glass-border)">إغلاق</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="relative px-5 md:px-10 pt-14 pb-8 mt-10 border-t" style="border-color:var(--glass-border)">
+    <div class="max-w-4xl mx-auto glass rounded-[2rem] p-8 md:p-12 text-center" data-aos="fade-up">
+
+      <img src="https://res.cloudinary.com/fig3bixy/image/upload/v1787504073/LUCID_svbv9m.jpg"
+           alt="شعار Lucid Agency" class="logo-img-lg mb-4"
+           referrerpolicy="no-referrer" loading="lazy"
+           onerror="this.style.display='none'">
+
+      <p class="text-sm mb-8" style="color:var(--ink-dim)">تواصلي معنا مباشرة عبر أي من القنوات التالية</p>
+
+      <!-- social icons -->
+      <div class="flex items-center justify-center gap-3 mb-8">
+        <a href="https://www.facebook.com/share/1F1SmHqad8/?mibextid=wwXlfr" target="_blank" rel="noopener"
+           aria-label="فيسبوك" class="glass social-icon">
+          <i class="fa-brands fa-facebook-f"></i>
+        </a>
+        <a href="https://www.instagram.com/agencylucid?igsh=MW9qZndidHRVNmo=" target="_blank" rel="noopener"
+           aria-label="إنستجرام" class="glass social-icon">
+          <i class="fa-brands fa-instagram"></i>
+        </a>
+        <!-- سيتم إضافة رابط جوجل ماب هنا لاحقاً عند ربط الدومين -->
+      </div>
+
+      <!-- clickable contact numbers -->
+      <div class="grid sm:grid-cols-2 gap-4 text-right max-w-2xl mx-auto">
+        <a href="https://wa.me/201146199077" target="_blank" rel="noopener"
+           class="contact-pill glass rounded-2xl px-4 py-3 border" style="border-color:var(--glass-border)">
+          <span class="icon-wrap"><i class="fa-brands fa-whatsapp"></i></span>
+          <span>
+            <span class="block text-xs" style="color:var(--ink-dim)">فريق العمل (Team)</span>
+            <span class="block text-sm font-semibold" dir="ltr">+20 114 619 9077</span>
+          </span>
+        </a>
+        <a href="https://wa.me/20111197146" target="_blank" rel="noopener"
+           class="contact-pill glass rounded-2xl px-4 py-3 border" style="border-color:var(--glass-border)">
+          <span class="icon-wrap"><i class="fa-brands fa-whatsapp"></i></span>
+          <span>
+            <span class="block text-xs" style="color:var(--ink-dim)">Laila Nasser — Agency Director</span>
+            <span class="block text-sm font-semibold" dir="ltr">+20 111 197 146</span>
+          </span>
+        </a>
+      </div>
+
+      <!-- email: عدّلي البريد الفعلي هنا -->
+      <a href="mailto:info@lucidagency.com"
+         class="contact-pill inline-flex glass rounded-2xl px-4 py-3 border mt-4" style="border-color:var(--glass-border)">
+        <span class="icon-wrap" style="background:var(--primary)"><i class="fa-solid fa-envelope"></i></span>
+        <span class="text-sm font-semibold" dir="ltr">info@lucidagency.com</span>
+      </a>
+    </div>
+
+    <p class="text-center text-xs mt-8" style="color:var(--ink-dim)">
+      نموذج تصميم بواسطة <span style="color:var(--primary); font-weight:600">Lucid Agency</span> — © 2026 عيادات لوسيد كير (نموذج تجريبي)
+    </p>
+  </footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+AOS.init({ once:true, easing:'ease-out-cubic', duration:800 });
+
+/* =========================================================================
+   AIRTABLE CONFIG
+   ⚠️ ملاحظة أمان: هذا مفتاح Airtable ظاهر في كود الواجهة الأمامية (client-side).
+   ده مقبول في نموذج تجريبي داخلي، لكن قبل رفع الموقع الحقيقي للعميل لازم
+   ينقل الاتصال بـ Airtable لسيرفر وسيط (Proxy / Serverless Function) عشان
+   التوكن ما يفضلش ظاهر لأي زائر يفتح "Inspect" على المتصفح.
+
+   حقول Airtable المتوقعة (عدّلي الأسماء هنا لو مختلفة عندك):
+   - الاسم            (Name / Single line text)
+   - الوصف            (Description / Long text)
+   - القسم            (Category / Single select: تجميل وجلدية | طب أسنان | تغذية علاجية)
+   - السعر            (Price / Number)
+   - صورة_قبل         (Before image / Attachment or URL)
+   - صورة_بعد         (After image / Attachment or URL)
+   - إظهار_الموقع     (Show on site / Checkbox)
+========================================================================= */
+const AIRTABLE_BASE_ID = 'appxBgVQd3LdqQWtl';
+const AIRTABLE_TABLE    = 'Table 1';
+const AIRTABLE_TOKEN    = 'pathElqtfhwGmunQO.834ba15af04aa4990fcb516a19c918046a483e4be34eb7f56bf30cc5697db4d5';
+const WHATSAPP_NUMBER   = '201000000000'; // رقم واتساب العيادة الافتراضي
+
+const FIELD = {
+  name: 'الاسم',
+  desc: 'الوصف',
+  category: 'القسم',
+  price: 'السعر',
+  before: 'صورة_قبل',
+  after: 'صورة_بعد',
+  show: 'إظهار_الموقع'
+};
+
+// صور الأطباء الحقيقية حسب التخصص — تُستخدم كـ fallback فقط لو حقل الصورة فاضي في Airtable
+const CATEGORY_DOCTOR_IMAGE = {
+  'تجميل وجلدية': 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=1000&auto=format&fit=crop',
+  'طب أسنان':      'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=1000&auto=format&fit=crop',
+  'تغذية علاجية':  'https://images.unsplash.com/photo-1594824432258-f6a2690cebb4?q=80&w=1000&auto=format&fit=crop'
+};
+const DEFAULT_FALLBACK = CATEGORY_DOCTOR_IMAGE['تجميل وجلدية'];
+
+let allServices = [];
+let currentFilter = 'all';
+
+function getFieldImage(fields, key, fallback){
+  const val = fields[key];
+  if (!val) return fallback;
+  if (Array.isArray(val) && val[0]?.url) return val[0].url; // Airtable attachment
+  if (typeof val === 'string') return val; // plain URL field
+  return fallback;
+}
+
+async function fetchServices(){
+  try{
+    const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(AIRTABLE_TABLE)}`;
+    const res = await fetch(url, { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } });
+    if(!res.ok) throw new Error('Airtable request failed: ' + res.status);
+    const data = await res.json();
+
+    allServices = (data.records || [])
+      .filter(r => r.fields[FIELD.show] === true)
+      .map(r => {
+        const category = r.fields[FIELD.category] || 'أخرى';
+        const doctorFallback = CATEGORY_DOCTOR_IMAGE[category] || DEFAULT_FALLBACK;
+        return {
+          id: r.id,
+          name: r.fields[FIELD.name] || 'خدمة بدون اسم',
+          desc: r.fields[FIELD.desc] || '',
+          category,
+          price: r.fields[FIELD.price] ?? '—',
+          before: getFieldImage(r.fields, FIELD.before, doctorFallback),
+          after:  getFieldImage(r.fields, FIELD.after, doctorFallback),
+        };
+      });
+  }catch(err){
+    console.warn('تعذر الاتصال بـ Airtable، سيتم عرض بيانات تجريبية بدلاً منها:', err);
+    allServices = demoServices();
+  }
+  renderServices();
+}
+
+// بيانات تجريبية تظهر تلقائياً في حال فشل الاتصال بـ Airtable (CORS / صلاحيات / اسم الحقل)
+function demoServices(){
+  return [
+    { id:'d1', name:'بروتوكول تجديد البشرة بالليزر', desc:'جلسات متقدمة لتوحيد لون البشرة وتقليل آثار الحبوب.', category:'تجميل وجلدية', price:2500,
+      before: CATEGORY_DOCTOR_IMAGE['تجميل وجلدية'], after:'https://images.unsplash.com/photo-1620331311520-246422fd82f9?w=700&q=80' },
+    { id:'d2', name:'تبييض الأسنان الاحترافي', desc:'نتائج فورية وآمنة خلال جلسة واحدة داخل العيادة.', category:'طب أسنان', price:1800,
+      before: CATEGORY_DOCTOR_IMAGE['طب أسنان'], after:'https://images.unsplash.com/photo-1581585095852-cf05920356b8?w=700&q=80' },
+    { id:'d3', name:'خطة تغذية علاجية شخصية', desc:'برنامج غذائي مصمم حسب تحاليلك وأهدافك الصحية.', category:'تغذية علاجية', price:1200,
+      before: CATEGORY_DOCTOR_IMAGE['تغذية علاجية'], after:'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=700&q=80' },
+    { id:'d4', name:'حقن الفيلر الطبيعي', desc:'ملامح أكثر توازناً بلمسة طبيعية غير مبالغ فيها.', category:'تجميل وجلدية', price:3200,
+      before: CATEGORY_DOCTOR_IMAGE['تجميل وجلدية'], after:'https://images.unsplash.com/photo-1620331311520-246422fd82f9?w=700&q=80' },
+  ];
+}
+
+function renderServices(){
+  document.getElementById('skeletonGrid').classList.add('hidden');
+  const grid = document.getElementById('servicesGrid');
+  const empty = document.getElementById('emptyState');
+
+  const list = currentFilter === 'all'
+    ? allServices
+    : allServices.filter(s => s.category === currentFilter);
+
+  if(list.length === 0){
+    grid.classList.add('hidden');
+    empty.classList.remove('hidden');
+    return;
+  }
+  empty.classList.add('hidden');
+  grid.classList.remove('hidden');
+
+  grid.innerHTML = list.map((s, i) => `
+    <div class="glass card-hover rounded-2xl p-4 flex flex-col" data-aos="fade-up" data-aos-delay="${(i%3)*80}">
+      <div class="compare mb-4">
+        <img src="${s.before}" alt="قبل - ${s.name}">
+        <div class="after-wrap" style="--clip:50%">
+          <img src="${s.after}" alt="بعد - ${s.name}">
+        </div>
+        <span class="tag" style="right:10px">بعد</span>
+        <span class="tag" style="left:10px">قبل</span>
+        <div class="handle"></div>
+      </div>
+      <p class="text-xs mb-1 accent-transition font-semibold" style="color:var(--primary)">${s.category}</p>
+      <h3 class="font-display font-bold text-lg mb-2">${s.name}</h3>
+      <p class="text-sm mb-4 leading-relaxed flex-1" style="color:var(--ink-dim)">${s.desc}</p>
+      <div class="flex items-center justify-between mt-auto">
+        <span class="font-display font-bold text-lg">${typeof s.price === 'number' ? s.price.toLocaleString('ar-EG') : s.price} <span class="text-xs font-normal" style="color:var(--ink-dim)">EGP</span></span>
+        <a href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('مرحباً، أرغب بحجز: ' + s.name)}"
+           target="_blank" rel="noopener"
+           class="btn-primary accent-transition text-sm font-bold px-4 py-2 rounded-full">احجزي الآن</a>
+      </div>
+    </div>
+  `).join('');
+
+  initCompareSliders();
+  AOS.refreshHard();
+}
+
+/* ---------- Image comparison sliders (drag) ---------- */
+function initCompareSliders(){
+  document.querySelectorAll('.compare').forEach(el => {
+    if (el.dataset.bound) return;
+    el.dataset.bound = '1';
+    const afterWrap = el.querySelector('.after-wrap');
+    const handle = el.querySelector('.handle');
+    let dragging = false;
+
+    const setClip = (clientX) => {
+      const rect = el.getBoundingClientRect();
+      let pct = ((clientX - rect.left) / rect.width) * 100;
+      pct = Math.max(0, Math.min(100, pct));
+      const clip = 100 - pct;
+      afterWrap.style.setProperty('--clip', clip + '%');
+      handle.style.setProperty('--clip', clip + '%');
+      handle.style.left = `calc(100% - ${clip}%)`;
+      afterWrap.style.clipPath = `inset(0 0 0 ${clip}%)`;
+    };
+
+    const start = e => { dragging = true; move(e); };
+    const end = () => dragging = false;
+    const move = e => {
+      if(!dragging && e.type !== 'mousedown' && e.type !== 'touchstart') return;
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      setClip(clientX);
+    };
+
+    el.addEventListener('mousedown', start);
+    el.addEventListener('touchstart', start, {passive:true});
+    window.addEventListener('mousemove', move);
+    window.addEventListener('touchmove', move, {passive:true});
+    window.addEventListener('mouseup', end);
+    window.addEventListener('touchend', end);
+  });
+}
+
+/* ---------- Filter buttons: switch active + shift primary "mood" color ---------- */
+document.getElementById('filters').addEventListener('click', (e) => {
+  const btn = e.target.closest('.filter-pill');
+  if(!btn) return;
+
+  document.querySelectorAll('.filter-pill').forEach(b => b.dataset.active = 'false');
+  btn.dataset.active = 'true';
+
+  currentFilter = btn.dataset.filter;
+  const [c1, c2] = btn.dataset.color.split(',');
+
+  document.documentElement.style.setProperty('--primary', c1);
+  document.documentElement.style.setProperty('--primary-soft', c1 + '33');
+  document.documentElement.style.setProperty('--primary-glow', c1 + '55');
+  document.getElementById('blob1').style.background = c1;
+  document.getElementById('blob2').style.background = c2;
+
+  renderServices();
+});
+
+fetchServices();
+</script>
+</body>
+</html>
