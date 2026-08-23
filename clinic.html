@@ -133,16 +133,9 @@
 
   /* Logo: mix-blend-mode "multiply" removes a white logo background
      against our light page, so the mark reads clean/transparent without
-     needing to touch the source image file. */
-  .logo-img{
-    height:45px; width:auto; max-width:170px; object-fit:contain; display:block;
-    mix-blend-mode:multiply;
-  }
-  @media (max-width:420px){ .logo-img{ height:34px; } }
-  .logo-img-lg{
-    height:58px; width:auto; max-width:210px; object-fit:contain; display:block; margin:0 auto;
-    mix-blend-mode:multiply;
-  }
+     needing to touch the source image file. Sizing is handled via
+     Tailwind utility classes (h-10 w-auto object-contain) on the <img> tags. */
+  .logo-blend{ mix-blend-mode:multiply; display:block; }
   .logo-badge{
     width:36px; height:36px; border-radius:9999px; overflow:hidden; flex-shrink:0;
     background:#fff; display:flex; align-items:center; justify-content:center;
@@ -177,7 +170,7 @@
     <nav class="glass accent-transition max-w-6xl mx-auto rounded-2xl px-5 md:px-8 py-3 flex items-center justify-between">
       <a href="#" class="flex items-center gap-2">
         <img src="https://res.cloudinary.com/fig3bixy/image/upload/v1787504073/LUCID_svbv9m.jpg"
-             alt="شعار عيادات لوسيد كير" class="logo-img"
+             alt="شعار عيادات لوسيد كير" class="h-10 w-auto object-contain logo-blend"
              referrerpolicy="no-referrer" loading="eager"
              onerror="this.style.display='none'; document.getElementById('logoFallback').classList.remove('hidden');">
         <span id="logoFallback" class="hidden font-display font-bold text-lg tracking-wide">لوسيد كير</span>
@@ -246,7 +239,7 @@
         <button data-filter="طب اسنان" data-color="#2DD4BF,#67E8DA"
                 data-hero="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=1000&auto=format&fit=crop"
                 class="filter-pill glass px-5 py-2.5 rounded-full text-sm font-semibold">طب أسنان</button>
-        <button data-filter="تغذية علاجية" data-color="#0E9488,#5EEAD4"
+        <button data-filter="تغذية علاجية" data-color="#059669,#6EE7B7"
                 data-hero="https://images.unsplash.com/photo-1594824432258-f6a2690cebb4?q=80&w=1000&auto=format&fit=crop"
                 class="filter-pill glass px-5 py-2.5 rounded-full text-sm font-semibold">تغذية علاجية</button>
       </div>
@@ -315,7 +308,7 @@
     <div class="max-w-4xl mx-auto glass rounded-[2rem] p-8 md:p-12 text-center" data-aos="fade-up">
 
       <img src="https://res.cloudinary.com/fig3bixy/image/upload/v1787504073/LUCID_svbv9m.jpg"
-           alt="شعار Lucid Agency" class="logo-img-lg mb-4"
+           alt="شعار Lucid Agency" class="h-10 w-auto object-contain logo-blend mx-auto mb-4"
            referrerpolicy="no-referrer" loading="lazy"
            onerror="this.style.display='none'">
 
@@ -381,7 +374,7 @@ AOS.init({ once:true, easing:'ease-out-cubic', duration:800 });
 ========================================================================= */
 const AIRTABLE_BASE_ID = 'appxBgVQd3LdqQWtl';
 const AIRTABLE_TABLE    = 'Table 1';
-const AIRTABLE_TOKEN    = 'pathElqtfhwGmunQO.834ba15af04aa4990fcb516a19c918046a483e4be34eb7f56bf30cc5697db4d5';
+const AIRTABLE_TOKEN    = 'patWbqIeOEdTwU5yA.dad894c4409d3d3c03c4838da009dbd1cad33a061fd044ca0b4aa13bdf180423';
 const WHATSAPP_NUMBER   = '201146199077'; // رقم واتساب فريق العمل، يُستخدم في أزرار حجز الخدمات
 
 const FIELD = {
