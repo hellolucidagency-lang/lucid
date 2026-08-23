@@ -131,23 +131,23 @@
   }
   @keyframes shimmer{ 0%{background-position:100% 0} 100%{background-position:-100% 0} }
 
-  /* Logo: mix-blend-mode "screen" makes a black logo background disappear
-     against a light page, so the mark reads clean/transparent without
+  /* Logo: mix-blend-mode "multiply" removes a white logo background
+     against our light page, so the mark reads clean/transparent without
      needing to touch the source image file. */
   .logo-img{
     height:45px; width:auto; max-width:170px; object-fit:contain; display:block;
-    mix-blend-mode:screen; filter:contrast(1.05);
+    mix-blend-mode:multiply;
   }
   @media (max-width:420px){ .logo-img{ height:34px; } }
   .logo-img-lg{
     height:58px; width:auto; max-width:210px; object-fit:contain; display:block; margin:0 auto;
-    mix-blend-mode:screen; filter:contrast(1.05);
+    mix-blend-mode:multiply;
   }
   .logo-badge{
     width:36px; height:36px; border-radius:9999px; overflow:hidden; flex-shrink:0;
     background:#fff; display:flex; align-items:center; justify-content:center;
   }
-  .logo-badge img{ width:100%; height:100%; object-fit:cover; mix-blend-mode:screen; }
+  .logo-badge img{ width:100%; height:100%; object-fit:cover; mix-blend-mode:multiply; }
 
   .social-icon{
     width:44px; height:44px; border-radius:9999px;
@@ -176,7 +176,7 @@
   <header class="fixed top-0 inset-x-0 z-40 px-5 md:px-10 pt-4">
     <nav class="glass accent-transition max-w-6xl mx-auto rounded-2xl px-5 md:px-8 py-3 flex items-center justify-between">
       <a href="#" class="flex items-center gap-2">
-        <img src="https://res.cloudinary.com/fig3bixy/image/upload/v1787509056/%D9%84%D9%88%D8%B3%D9%8A%D8%AF_tobtxj.jpg"
+        <img src="https://res.cloudinary.com/fig3bixy/image/upload/v1787504073/LUCID_svbv9m.jpg"
              alt="شعار عيادات لوسيد كير" class="logo-img"
              referrerpolicy="no-referrer" loading="eager"
              onerror="this.style.display='none'; document.getElementById('logoFallback').classList.remove('hidden');">
@@ -246,7 +246,7 @@
         <button data-filter="طب اسنان" data-color="#2DD4BF,#67E8DA"
                 data-hero="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=1000&auto=format&fit=crop"
                 class="filter-pill glass px-5 py-2.5 rounded-full text-sm font-semibold">طب أسنان</button>
-        <button data-filter="تغذية علاجية" data-color="#8BC98A,#B7E3A8"
+        <button data-filter="تغذية علاجية" data-color="#0E9488,#5EEAD4"
                 data-hero="https://images.unsplash.com/photo-1594824432258-f6a2690cebb4?q=80&w=1000&auto=format&fit=crop"
                 class="filter-pill glass px-5 py-2.5 rounded-full text-sm font-semibold">تغذية علاجية</button>
       </div>
@@ -293,7 +293,7 @@
   <div id="agencyBanner" class="fixed bottom-4 inset-x-4 md:inset-x-auto md:bottom-6 md:left-6 z-50 max-w-md">
     <div class="glass rounded-2xl p-4 md:p-5 flex items-start gap-3" style="border-color:var(--primary)">
       <div class="logo-badge">
-        <img src="https://res.cloudinary.com/fig3bixy/image/upload/v1787509056/%D9%84%D9%88%D8%B3%D9%8A%D8%AF_tobtxj.jpg"
+        <img src="https://res.cloudinary.com/fig3bixy/image/upload/v1787504073/LUCID_svbv9m.jpg"
              alt="Lucid Agency" referrerpolicy="no-referrer" loading="lazy"
              onerror="this.parentElement.style.background='var(--primary)'; this.replaceWith(Object.assign(document.createElement('span'),{textContent:'L',className:'font-bold text-white'}));">
       </div>
@@ -314,7 +314,7 @@
   <footer class="relative px-5 md:px-10 pt-14 pb-8 mt-10 border-t" style="border-color:var(--glass-border)">
     <div class="max-w-4xl mx-auto glass rounded-[2rem] p-8 md:p-12 text-center" data-aos="fade-up">
 
-      <img src="https://res.cloudinary.com/fig3bixy/image/upload/v1787509056/%D9%84%D9%88%D8%B3%D9%8A%D8%AF_tobtxj.jpg"
+      <img src="https://res.cloudinary.com/fig3bixy/image/upload/v1787504073/LUCID_svbv9m.jpg"
            alt="شعار Lucid Agency" class="logo-img-lg mb-4"
            referrerpolicy="no-referrer" loading="lazy"
            onerror="this.style.display='none'">
