@@ -129,21 +129,21 @@ button{ font-family:inherit; cursor:pointer; }
 .orb{
   position:absolute;
   border-radius:50%;
-  filter:blur(90px);
   opacity:.28;
-  /* Static — a moving blurred layer is one of the most expensive things a
-     browser can composite every frame. Keeping it still removes that cost
-     entirely while keeping the ambient glow look. */
+  /* No filter:blur here — Safari (especially on iOS) rasterizes CSS blur
+     very expensively and re-does it on scroll/repaint, which is a well-known
+     cause of a page feeling hot/heavy specifically in Safari. A radial
+     gradient gives the same soft-glow look essentially for free. */
+  background:radial-gradient(circle, var(--electric) 0%, transparent 70%);
 }
 .orb--blue{
-  width:520px; height:520px;
-  background:var(--electric);
-  top:-200px; left:-120px;
+  width:680px; height:680px;
+  top:-260px; left:-160px;
 }
 .orb--purple{
-  width:420px; height:420px;
-  background:var(--purple);
-  bottom:-240px; right:-140px;
+  width:560px; height:560px;
+  background:radial-gradient(circle, var(--purple) 0%, transparent 70%);
+  bottom:-300px; right:-180px;
   opacity:.2;
 }
 .orb--green{ display:none; } /* third layer removed — not worth the extra paint cost */
@@ -160,9 +160,7 @@ button{ font-family:inherit; cursor:pointer; }
   border-bottom:1px solid transparent;
 }
 .nav.scrolled{
-  background:rgba(7,10,16,0.82);
-  backdrop-filter:blur(10px) saturate(130%);
-  -webkit-backdrop-filter:blur(10px) saturate(130%);
+  background:rgba(6,9,14,0.94);
   border-bottom:1px solid var(--glass-border);
   padding:14px 0;
 }
@@ -701,8 +699,7 @@ button{ font-family:inherit; cursor:pointer; }
   position:fixed; inset:0; z-index:300;
   display:none; align-items:center; justify-content:center;
   padding:24px;
-  background:rgba(4,4,8,.72);
-  backdrop-filter:blur(8px);
+  background:rgba(4,4,8,.88);
 }
 .modal-overlay.open{ display:flex; }
 
@@ -768,7 +765,7 @@ body.modal-locked{ overflow:hidden; }
 @media (max-width:720px){
   .nav-links{
     position:fixed; top:0; right:0; height:100vh; width:78%;
-    background:rgba(8,8,14,.97); backdrop-filter:blur(20px);
+    background:rgba(8,8,14,.97);
     flex-direction:column; align-items:flex-start; justify-content:center;
     gap:28px; padding:40px; transform:translateX(100%);
     transition:transform .4s var(--ease);
