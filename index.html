@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>لوسِد أجنسي — أتمتة بالذكاء الاصطناعي وإنتاج بصري</title>
-<meta name="description" content="لوسِد أجنسي تبني أنظمة أتمتة بالذكاء الاصطناعي وإنتاجًا بصريًا فاخرًا للعلامات التجارية التي ترفض أن تكون عادية.">
+<title>لوسيد أجنسي | تصميم مواقع، أتمتة ذكية، وربط بوتات</title>
+<meta name="description" content="حوّل زوارك لعملاء أوتوماتيكياً! نصمم لك موقعاً سريعاً على سيرفراتنا الخاصة، ونربطه بأنظمة أتمتة وبوتات ذكاء اصطناعي تدير مبيعاتك 24/7. ابدأ الآن.">
+<meta name="keywords" content="أتمتة المبيعات, تصميم مواقع, ربط بوتات تليجرام, سيرفرات خاصة, حلول تقنية, ذكاء اصطناعي, سيستم إدارة, Lucid Agency">
 
 <!-- ============================================================
      OPEN GRAPH / SOCIAL SHARE PREVIEW — WhatsApp, Facebook, LinkedIn, etc.
@@ -15,17 +16,35 @@
      ============================================================ -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://hellolucidagency.com/">
-<meta property="og:title" content="لوسِد أجنسي — أتمتة بالذكاء الاصطناعي وإنتاج بصري">
-<meta property="og:description" content="لوسِد أجنسي تبني أنظمة أتمتة بالذكاء الاصطناعي وإنتاجًا بصريًا فاخرًا للعلامات التجارية التي ترفض أن تكون عادية.">
-<meta property="og:image" content="https://res.cloudinary.com/fig3bixy/image/upload/v1787504073/LUCID_svbv9m.jpg">
+<meta property="og:title" content="لوسيد أجنسي | تصميم مواقع، أتمتة ذكية، وربط بوتات">
+<meta property="og:description" content="حوّل زوارك لعملاء أوتوماتيكياً! نصمم لك موقعاً سريعاً على سيرفراتنا الخاصة، ونربطه بأنظمة أتمتة وبوتات ذكاء اصطناعي تدير مبيعاتك 24/7. ابدأ الآن.">
+<meta property="og:image" content="https://res.cloudinary.com/fig3bixy/image/upload/v1788134315/lucid-realestate/iyfhsscnkll03uw0rmjw.jpg">
 <meta property="og:locale" content="ar_AR">
 <meta property="og:site_name" content="Lucid Agency">
 
 <!-- Twitter/X uses its own tag set for the same purpose -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="لوسِد أجنسي — أتمتة بالذكاء الاصطناعي وإنتاج بصري">
-<meta name="twitter:description" content="لوسِد أجنسي تبني أنظمة أتمتة بالذكاء الاصطناعي وإنتاجًا بصريًا فاخرًا للعلامات التجارية التي ترفض أن تكون عادية.">
-<meta name="twitter:image" content="https://res.cloudinary.com/fig3bixy/image/upload/v1787504073/LUCID_svbv9m.jpg">
+<meta name="twitter:title" content="لوسيد أجنسي | تصميم مواقع، أتمتة ذكية، وربط بوتات">
+<meta name="twitter:description" content="حوّل زوارك لعملاء أوتوماتيكياً! نصمم لك موقعاً سريعاً على سيرفراتنا الخاصة، ونربطه بأنظمة أتمتة وبوتات ذكاء اصطناعي تدير مبيعاتك 24/7. ابدأ الآن.">
+<meta name="twitter:image" content="https://res.cloudinary.com/fig3bixy/image/upload/v1788134315/lucid-realestate/iyfhsscnkll03uw0rmjw.jpg">
+
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1403682451738875');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1403682451738875&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 
 <!-- Fonts: only 2 families now (was 5) — fewer font-swap events means far less layout jolt while the page loads -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -763,6 +782,11 @@ body.modal-locked{ overflow:hidden; }
 }
 
 @media (max-width:720px){
+  /* On mobile the logo image + full "Lucid Agency" text + hamburger + lang
+     toggle all fight for the same narrow nav bar — text next to a 45px-tall
+     logo looked cramped and broken. The logo image alone reads fine on its own. */
+  .nav .logo-text{ display:none; }
+
   .nav-links{
     position:fixed; top:0; right:0; height:100vh; width:78%;
     background:rgba(8,8,14,.97);
@@ -809,8 +833,8 @@ body.modal-locked{ overflow:hidden; }
 <nav class="nav" id="nav">
   <div class="container">
     <a href="#" class="logo">
-      <img class="logo-img" src="https://res.cloudinary.com/fig3bixy/image/upload/v1787504073/LUCID_svbv9m.jpg" alt="Lucid Agency logo">
-      Lucid Agency
+      <img class="logo-img" src="https://res.cloudinary.com/fig3bixy/image/upload/v1788134315/lucid-realestate/iyfhsscnkll03uw0rmjw.jpg" alt="Lucid Agency logo">
+      <span class="logo-text">Lucid Agency</span>
     </a>
 
     <div class="nav-right">
@@ -980,7 +1004,7 @@ body.modal-locked{ overflow:hidden; }
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="#" class="logo">
-          <img class="logo-img" src="https://res.cloudinary.com/fig3bixy/image/upload/v1787504073/LUCID_svbv9m.jpg" alt="Lucid Agency logo">
+          <img class="logo-img" src="https://res.cloudinary.com/fig3bixy/image/upload/v1788134315/lucid-realestate/iyfhsscnkll03uw0rmjw.jpg" alt="Lucid Agency logo">
           Lucid Agency
         </a>
         <p data-i18n="footer_brand_desc">أتمتة بالذكاء الاصطناعي وإنتاج بصري للعلامات التجارية التي تنوي قيادة مجالها، لا اللحاق به.</p>
