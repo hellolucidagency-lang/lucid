@@ -7,24 +7,24 @@
 <meta name="description" content="Lucid Agency: boutique AI automation & digital systems studio founded by Laila Nasser. استوديو لأتمتة الأعمال بالذكاء الاصطناعي وبناء الأنظمة الرقمية.">
 <link rel="canonical" href="https://hellolucidagency.com/">
 <meta name="theme-color" content="#2563EB">
-<link rel="icon" href="https://res.cloudinary.com/fig3bixy/image/upload/v1794965836/IMG_Lucid_o12i7a.png">
+<link rel="icon" href="https://res.cloudinary.com/fig3bixy/image/upload/v1795109128/Logo_of_Lucid_Agency.jpg_bc0tlg.jpg">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Lucid Agency">
 <meta property="og:url" content="https://hellolucidagency.com/">
 <meta property="og:title" content="Lucid Agency | AI Automation & Digital Systems">
 <meta property="og:description" content="Boutique AI automation & digital systems studio founded by Laila Nasser.">
-<meta property="og:image" content="https://res.cloudinary.com/fig3bixy/image/upload/v1794965836/IMG_Lucid_o12i7a.png">
+<meta property="og:image" content="https://res.cloudinary.com/fig3bixy/image/upload/v1795109128/Logo_of_Lucid_Agency.jpg_bc0tlg.jpg">
 <meta property="og:locale" content="ar_EG">
 <meta property="og:locale:alternate" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Lucid Agency | AI Automation & Digital Systems">
 <meta name="twitter:description" content="Boutique AI automation & digital systems studio founded by Laila Nasser.">
-<meta name="twitter:image" content="https://res.cloudinary.com/fig3bixy/image/upload/v1794965836/IMG_Lucid_o12i7a.png">
+<meta name="twitter:image" content="https://res.cloudinary.com/fig3bixy/image/upload/v1795109128/Logo_of_Lucid_Agency.jpg_bc0tlg.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"ProfessionalService","name":"Lucid Agency","url":"https://hellolucidagency.com/","logo":"https://res.cloudinary.com/fig3bixy/image/upload/v1794965836/IMG_Lucid_o12i7a.png","image":"https://res.cloudinary.com/fig3bixy/image/upload/v1794965836/IMG_Lucid_o12i7a.png","description":"Boutique AI automation and digital systems studio.","founder":{"@type":"Person","name":"Laila Nasser"},"email":"info@hellolucidagency.com","telephone":"+201146199077","areaServed":"EG","knowsLanguage":["ar","en"],"sameAs":["https://www.facebook.com/share/1F1SmHqad8/?mibextid=wwXIfr","https://www.instagram.com/agencylucid?igsh=MW9qZndidHRvNmoyeg=="]}
+{"@context":"https://schema.org","@type":"ProfessionalService","name":"Lucid Agency","url":"https://hellolucidagency.com/","logo":"https://res.cloudinary.com/fig3bixy/image/upload/v1795109128/Logo_of_Lucid_Agency.jpg_bc0tlg.jpg","image":"https://res.cloudinary.com/fig3bixy/image/upload/v1795109128/Logo_of_Lucid_Agency.jpg_bc0tlg.jpg","description":"Boutique AI automation and digital systems studio.","founder":{"@type":"Person","name":"Laila Nasser"},"email":"info@hellolucidagency.com","telephone":"+201146199077","areaServed":"EG","knowsLanguage":["ar","en"],"sameAs":["https://www.facebook.com/share/1F1SmHqad8/?mibextid=wwXIfr","https://www.instagram.com/agencylucid?igsh=MW9qZndidHRvNmoyeg=="]}
 </script>
 
 <!-- Meta Pixel -->
@@ -58,7 +58,7 @@ h2{font-size:clamp(1.5rem,4vw,2.2rem);font-weight:700;margin-bottom:12px}
 header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--bd)}
 .nav{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:64px}
 .brand{display:flex;align-items:center;gap:10px;font-weight:700;text-decoration:none;min-height:48px}
-.brand img{height:36px;width:auto;object-fit:contain;border-radius:0}
+.brand img{height:36px;width:36px;object-fit:cover;border-radius:8px}
 .nav nav{display:none;gap:4px}
 .nav nav a{display:inline-flex;align-items:center;min-height:48px;padding:0 12px;color:var(--tx2);text-decoration:none;font-weight:500}
 .nav nav a:hover{color:var(--ac)}
@@ -102,21 +102,33 @@ footer button{min-height:48px;border:0;background:none;color:var(--tx2);font:inh
 #optin label{display:flex;gap:10px;align-items:center;min-height:48px;font-size:.92rem;color:var(--tx2)}
 #optin input[type=checkbox]{width:22px;height:22px;accent-color:var(--ac)}
 #optin .acts{padding:0}
-/* chat */
-#chatBtn{position:fixed;bottom:16px;inset-inline-end:16px;z-index:70;width:56px;height:56px;border-radius:50%;border:0;background:var(--ac);color:#fff;font-size:1.5rem;cursor:pointer;box-shadow:0 6px 20px rgba(37,99,235,.4)}
-#chatBtn:hover{background:var(--ach)}
-#chat{position:fixed;z-index:80;inset-inline-end:16px;bottom:84px;width:min(380px,calc(100vw - 32px));height:min(540px,calc(100dvh - 110px));background:#fff;border:1px solid var(--bd);border-radius:16px;box-shadow:0 12px 40px rgba(15,23,42,.2);display:none;flex-direction:column;overflow:hidden}
+/* chat launcher & window */
+#chatWrap{position:fixed;bottom:16px;inset-inline-end:16px;z-index:70;display:flex;align-items:center;gap:10px}
+#chatTip{background:#fff;color:var(--tx);border:1px solid var(--bd);border-radius:999px;padding:8px 14px;font-size:.88rem;font-weight:600;box-shadow:0 4px 16px rgba(15,23,42,.12);cursor:pointer;white-space:nowrap}
+#chatBtn{width:60px;height:60px;border-radius:50%;border:2px solid #fff;background:var(--ac);padding:0;overflow:hidden;cursor:pointer;box-shadow:0 6px 20px rgba(37,99,235,.4);display:flex;align-items:center;justify-content:center}
+#chatBtn:hover{background:var(--ach);transform:scale(1.03)}
+#chatBtn img{width:100%;height:100%;object-fit:cover}
+#chat{position:fixed;z-index:80;inset-inline-end:16px;bottom:86px;width:min(380px,calc(100vw - 32px));height:min(540px,calc(100dvh - 110px));background:#fff;border:1px solid var(--bd);border-radius:16px;box-shadow:0 12px 40px rgba(15,23,42,.2);display:none;flex-direction:column;overflow:hidden}
 #chat.on{display:flex}
-.ch{display:flex;align-items:center;justify-content:space-between;padding:8px 8px 8px 16px;padding-inline:16px 8px;border-bottom:1px solid var(--bd);font-weight:600}
-.ch button{width:48px;height:48px;border:0;background:none;font-size:1.4rem;cursor:pointer}
+.ch{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid var(--bd);background:#fff;font-weight:600}
+.ch-info{display:flex;align-items:center;gap:10px;min-width:0}
+.ch-info img{width:38px;height:38px;border-radius:50%;object-fit:cover;border:1px solid var(--bd);flex:none}
+.ch-meta{display:flex;flex-direction:column;line-height:1.25}
+.ch-meta span{font-size:.95rem;color:var(--tx)}
+.ch-meta small{font-size:.76rem;color:var(--ok);font-weight:500}
+.ch button{width:40px;height:40px;border:0;background:none;font-size:1.4rem;cursor:pointer;color:var(--tx2)}
 #msgs{flex:1;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:10px;background:var(--alt)}
-.m{max-width:85%;padding:10px 14px;border-radius:14px;font-size:.95rem;white-space:pre-wrap;word-break:break-word}
-.m.u{align-self:flex-end;background:var(--ac);color:#fff}
-.m.b{align-self:flex-start;background:#fff;border:1px solid var(--bd)}
-.hum{align-self:flex-start;display:flex;align-items:center;gap:8px;font-size:.85rem;color:var(--tx2);font-weight:600}
-.hum svg{width:32px;height:32px;flex:none}
-.hum i{font-style:normal;color:var(--ok)}
-#cf{display:flex;gap:8px;padding:10px;border-top:1px solid var(--bd)}
+.m-row{display:flex;align-items:flex-end;gap:8px;max-width:88%}
+.m-row.u{align-self:flex-end;flex-direction:row-reverse}
+.m-row.b{align-self:flex-start}
+.m-av{width:28px;height:28px;border-radius:50%;object-fit:cover;flex:none;border:1px solid var(--bd)}
+.m{padding:10px 14px;border-radius:14px;font-size:.94rem;white-space:pre-wrap;word-break:break-word}
+.m-row.u .m{background:var(--ac);color:#fff;border-bottom-inline-end-radius:4px}
+.m-row.b .m{background:#fff;border:1px solid var(--bd);color:var(--tx);border-bottom-inline-start-radius:4px}
+.hum{align-self:center;background:var(--acs);border:1px solid #BFDBFE;border-radius:999px;padding:4px 12px;display:flex;align-items:center;gap:8px;font-size:.8rem;color:var(--ach);font-weight:600;margin:4px 0}
+.hum img{width:24px;height:24px;border-radius:50%;object-fit:cover}
+.sys-note{align-self:center;font-size:.8rem;color:var(--tx2);background:#fff;border:1px dashed var(--bd);padding:4px 12px;border-radius:999px}
+#cf{display:flex;gap:8px;padding:10px;border-top:1px solid var(--bd);background:#fff}
 #cf input{flex:1;min-height:48px;border:1px solid var(--bd);border-radius:10px;padding:0 14px;font:inherit;min-width:0}
 /* modals */
 dialog{border:1px solid var(--bd);border-radius:16px;max-width:620px;width:calc(100% - 32px);padding:0;color:var(--tx)}
@@ -130,7 +142,7 @@ dialog form{padding:0 24px 24px}
 </head>
 <body>
 <header><div class="wrap nav">
-  <a class="brand" href="#top"><img src="https://res.cloudinary.com/fig3bixy/image/upload/v1794965836/IMG_Lucid_o12i7a.png" alt="Lucid Agency" height="36"><span>Lucid Agency</span></a>
+  <a class="brand" href="#top"><img src="https://res.cloudinary.com/fig3bixy/image/upload/v1795109128/Logo_of_Lucid_Agency.jpg_bc0tlg.jpg" alt="Lucid Agency" width="36" height="36"><span>Lucid Agency</span></a>
   <nav aria-label="Main"><a href="#services" data-i="nav_s">الخدمات</a><a href="#work" data-i="nav_w">سابقة الأعمال</a><a href="#contact" data-i="nav_c">تواصل</a></nav>
   <div class="lang" role="group" aria-label="Language"><button id="bAR" aria-pressed="true">AR</button><button id="bEN" aria-pressed="false">EN</button></div>
 </div></header>
@@ -179,9 +191,21 @@ dialog form{padding:0 24px 24px}
 </div>
 
 <!-- Chat -->
-<button id="chatBtn" aria-label="Chat" data-aria="chat">💬</button>
+<div id="chatWrap">
+  <span id="chatTip" data-i="ask_milo">اسأل ميلو</span>
+  <button id="chatBtn" aria-label="Chat"><img src="https://res.cloudinary.com/fig3bixy/image/upload/v1795107265/MILo_bot_cvaied.png" alt="Milo"></button>
+</div>
 <div id="chat" role="dialog" aria-label="Chat">
-  <div class="ch"><span data-i="ch_t">دردشة لوسيد</span><button id="chatX" aria-label="Close">×</button></div>
+  <div class="ch">
+    <div class="ch-info">
+      <img id="chAv" src="https://res.cloudinary.com/fig3bixy/image/upload/v1795107265/milo_bot2.jpg_fvftt2.jpg" alt="Milo">
+      <div class="ch-meta">
+        <span id="chName" data-i="ch_t">ميلو — مساعد لوسيد الذكي</span>
+        <small id="chSub" data-i="ch_sub">متاح الآن 24/7</small>
+      </div>
+    </div>
+    <button id="chatX" aria-label="Close">×</button>
+  </div>
   <div id="msgs" aria-live="polite"></div>
   <form id="cf"><input id="ci" autocomplete="off" data-ip="ch_ph" placeholder="اكتب رسالتك…"><button class="btn p" data-i="ch_s">إرسال</button></form>
 </div>
@@ -212,11 +236,17 @@ dialog form{padding:0 24px 24px}
 </div><form method="dialog"><button class="btn" data-i="close">إغلاق</button></form></dialog>
 
 <script>
-/* ===== Config: replace with your n8n / Apps Script URLs ===== */
-const DATA_API_URL = "https://n8n.hellolucidagency.com/webhook/lucid-website-api";      // → { services:[], portfolio:[] }
-const TRACKING_WEBHOOK_URL = "https://n8n.hellolucidagency.com/webhook/lucid-tracking";  // → tab تفاعل_الزوار
-const CHAT_WEBHOOK_URL = "YOUR_N8N_CHAT_WEBHOOK";            // → tab محادثات_البوت
-const LOGO = "https://res.cloudinary.com/fig3bixy/image/upload/v1794965836/IMG_Lucid_o12i7a.png";
+/* ===== Config & Cloudinary Assets ===== */
+const DATA_API_URL = "https://n8n.hellolucidagency.com/webhook/lucid-website-api";
+const TRACKING_WEBHOOK_URL = "https://n8n.hellolucidagency.com/webhook/lucid-tracking";
+const CHAT_WEBHOOK_URL = "https://n8n.hellolucidagency.com/webhook/lucid-03-site-bot";
+
+const LOGO = "https://res.cloudinary.com/fig3bixy/image/upload/v1795109128/Logo_of_Lucid_Agency.jpg_bc0tlg.jpg";
+const MILO_LAUNCHER = "https://res.cloudinary.com/fig3bixy/image/upload/v1795107265/MILo_bot_cvaied.png";
+const MILO_AVATAR = "https://res.cloudinary.com/fig3bixy/image/upload/v1795107265/milo_bot2.jpg_fvftt2.jpg";
+const LAYLA_AVATAR = "https://res.cloudinary.com/fig3bixy/image/upload/v1795107264/IMG_laylanasser.jpg_fgotla.jpg";
+const SESSION_TIMEOUT_MS = 120000; // 120 seconds inactivity timeout
+
 const configured = u => u && !u.startsWith("YOUR_");
 
 /* ===== Safe storage + ids ===== */
@@ -224,16 +254,23 @@ const ls = { get(k,d){try{const v=localStorage.getItem(k);return v===null?d:v}ca
 const uid = p => p + "_" + Date.now().toString(36) + Math.random().toString(36).slice(2,8);
 let visitorId = ls.get("lucid_vid"); if(!visitorId){visitorId=uid("v");ls.set("lucid_vid",visitorId)}
 let sessionId = ls.get("lucid_sid"); if(!sessionId){sessionId=uid("s");ls.set("lucid_sid",sessionId)}
-const utm = new URLSearchParams(location.search).get("utm_source") || "";
+
+const params = new URLSearchParams(location.search);
+const utm = params.get("utm_source") || "";
+const takeoverSession = params.get("takeover_session") || "";
+const takeoverKey = params.get("key") || params.get("admin_key") || "";
+const isAdminMode = Boolean(takeoverSession);
+if(isAdminMode) sessionId = takeoverSession;
+
 let wish = []; try{wish=JSON.parse(ls.get("lucid_wishlist","[]"))||[]}catch(e){}
 
 /* ===== i18n ===== */
 const T = {
-ar:{nav_s:"الخدمات",nav_w:"سابقة الأعمال",nav_c:"تواصل",pill:"استوديو أتمتة ذكي",h1:"نحوّل أعمالك إلى أنظمة رقمية تعمل بالذكاء الاصطناعي",lead:"أتمتة المبيعات والمحادثات والعمليات، وبناء مواقع وأنظمة جاهزة للنمو، بإشراف مباشر من ليلى ناصر.",cta1:"ابدأ محادثة الآن",cta2:"استعرض الخدمات",s_h:"خدماتنا",s_p:"اختر الخدمة، واحفظ المفضلة منها، واطلبها بضغطة واحدة.",w_h:"سابقة الأعمال",w_p:"مشكلات حقيقية، حلول واضحة، ونتائج قابلة للقياس.",c_h:"تواصل معنا",c_p:"نرد عادةً خلال ساعات العمل. المساعد الذكي متاح على مدار الساعة.",wa1:"مساعد لوسيد الذكي (24/7)",wa2:"ليلى ناصر — مؤسسة لوسيد",em:"البريد الإلكتروني",f_a:"من نحن",f_p:"سياسة الخصوصية",f_t:"الشروط والأحكام",close:"إغلاق",o_h:"تم حفظ الخدمة ♥",o_ph:"واتساب أو بريد (اختياري)",o_l:"أوافق على إشعاري بالعروض المستقبلية",o_s:"حفظ",o_x:"لاحقًا",ch_t:"دردشة لوسيد",ch_ph:"اكتب رسالتك…",ch_s:"إرسال",req:"اطلب الخدمة",demo:"معاينة حية",similar:"اطلب نظام مماثل",ch:"التحدي",so:"الحل",re:"النتيجة",fe:"المميزات",none:"لا توجد عناصر لعرضها حاليًا.",hi:"أهلًا! كيف نساعدك؟",err:"تعذّر الإرسال. حاول مرة أخرى أو راسلنا على واتساب.",fav:"حفظ في المفضلة",
+ar:{nav_s:"الخدمات",nav_w:"سابقة الأعمال",nav_c:"تواصل",pill:"استوديو أتمتة ذكي",h1:"نحوّل أعمالك إلى أنظمة رقمية تعمل بالذكاء الاصطناعي",lead:"أتمتة المبيعات والمحادثات والعمليات، وبناء مواقع وأنظمة جاهزة للنمو، بإشراف مباشر من ليلى ناصر.",cta1:"ابدأ محادثة الآن",cta2:"استعرض الخدمات",s_h:"خدماتنا",s_p:"اختر الخدمة، واحفظ المفضلة منها، واطلبها بضغطة واحدة.",w_h:"سابقة الأعمال",w_p:"مشكلات حقيقية، حلول واضحة، ونتائج قابلة للقياس.",c_h:"تواصل معنا",c_p:"نرد عادةً خلال ساعات العمل. المساعد الذكي متاح على مدار الساعة.",wa1:"مساعد لوسيد الذكي (24/7)",wa2:"ليلى ناصر — مؤسسة لوسيد",em:"البريد الإلكتروني",f_a:"من نحن",f_p:"سياسة الخصوصية",f_t:"الشروط والأحكام",close:"إغلاق",o_h:"تم حفظ الخدمة ♥",o_ph:"واتساب أو بريد (اختياري)",o_l:"أوافق على إشعاري بالعروض المستقبلية",o_s:"حفظ",o_x:"لاحقًا",ask_milo:"اسأل ميلو",ch_t:"ميلو — مساعد لوسيد الذكي",ch_sub:"متاح الآن 24/7",layla_t:"ليلى ناصر — مؤسسة لوسيد",layla_sub:"انضمت للمحادثة الآن",ch_ph:"اكتب رسالتك…",ch_s:"إرسال",req:"اطلب الخدمة",demo:"معاينة حية",similar:"اطلب نظام مماثل",ch:"التحدي",so:"الحل",re:"النتيجة",fe:"المميزات",none:"لا توجد عناصر لعرضها حاليًا.",hi:"أهلًا! أنا ميلو، مساعد لوسيد الذكي. كيف أقدر أساعدك النهاردة؟",err:"تعذّر الإرسال. حاول مرة أخرى أو راسلنا على واتساب.",fav:"حفظ في المفضلة",sess_exp:"انتهت الجلسة لعدم النشاط. اكتب رسالة جديدة لبدء جلسة جديدة.",
 ab:"لوسيد استوديو بوتيكي يربط بين الأتمتة بالذكاء الاصطناعي والتنفيذ الرقمي الفعلي، أسّسته وتقوده ليلى ناصر بنفسها، فتتعاملون مباشرةً مع من يبني نظامكم.",
 pv:"<ul><li>نحفظ قائمة مفضلتك (رموز الخدمات) في التخزين المحلي <code>localStorage</code> على جهازك فقط، ويمكنك مسحها من المتصفح.</li><li>إشعارات العروض اختيارية: لا نحفظ وسيلة تواصلك ولا نراسلك إلا بموافقتك (<code>notify_consent</code>).</li><li>نستخدم Meta Pixel وGoogle Tag لقياس الزيارات والتحويلات (مثل حفظ خدمة أو إرسال استفسار).</li><li>عند التواصل عبر الدردشة نحفظ الرسائل لنرد عليك.</li><li>لطلب حذف بياناتك راسل <a href=\"mailto:info@hellolucidagency.com\">info@hellolucidagency.com</a>.</li></ul>",
 tm:"<ul><li><b>النطاق:</b> يُحدَّد نطاق العمل والتسليمات والمدة والتكلفة كتابيًا قبل البدء.</li><li><b>الأسبقية:</b> عند التعارض، يسود الاتفاق المكتوب الموقّع على محتوى هذا الموقع.</li><li><b>الملكية الفكرية:</b> تبقى أدوات لوسيد ومنهجيتها وقوالبها ملكًا لها، وتنتقل ملكية التسليمات النهائية للعميل بعد السداد الكامل.</li><li><b>السرية:</b> نحمي بيانات العميل ولا نشاركها دون إذن.</li></ul>"},
-en:{nav_s:"Services",nav_w:"Case studies",nav_c:"Contact",pill:"AI automation studio",h1:"We turn your business into AI-powered digital systems",lead:"We automate sales, conversations and operations, and build websites and systems ready to grow, led directly by Laila Nasser.",cta1:"Start a chat",cta2:"Browse services",s_h:"Our services",s_p:"Pick a service, save your favorites, and request it in one tap.",w_h:"Case studies",w_p:"Real problems, clear solutions, measurable results.",c_h:"Get in touch",c_p:"We usually reply within business hours. The AI assistant is on 24/7.",wa1:"Lucid AI Assistant (24/7)",wa2:"Laila Nasser — Founder",em:"Email",f_a:"About",f_p:"Privacy Policy",f_t:"Terms of Service",close:"Close",o_h:"Service saved ♥",o_ph:"WhatsApp or email (optional)",o_l:"Notify me about future discounts",o_s:"Save",o_x:"Not now",ch_t:"Lucid chat",ch_ph:"Type your message…",ch_s:"Send",req:"Request Service",demo:"Live Demo",similar:"Request Similar System",ch:"Challenge",so:"Solution",re:"Result",fe:"Features",none:"Nothing to show right now.",hi:"Hi! How can we help?",err:"Couldn’t send. Please try again or message us on WhatsApp.",fav:"Save to favorites",
+en:{nav_s:"Services",nav_w:"Case studies",nav_c:"Contact",pill:"AI automation studio",h1:"We turn your business into AI-powered digital systems",lead:"We automate sales, conversations and operations, and build websites and systems ready to grow, led directly by Laila Nasser.",cta1:"Start a chat",cta2:"Browse services",s_h:"Our services",s_p:"Pick a service, save your favorites, and request it in one tap.",w_h:"Case studies",w_p:"Real problems, clear solutions, measurable results.",c_h:"Get in touch",c_p:"We usually reply within business hours. The AI assistant is on 24/7.",wa1:"Lucid AI Assistant (24/7)",wa2:"Laila Nasser — Founder",em:"Email",f_a:"About",f_p:"Privacy Policy",f_t:"Terms of Service",close:"Close",o_h:"Service saved ♥",o_ph:"WhatsApp or email (optional)",o_l:"Notify me about future discounts",o_s:"Save",o_x:"Not now",ask_milo:"Ask Milo",ch_t:"Milo — Lucid AI Assistant",ch_sub:"Online 24/7",layla_t:"Laila Nasser — Founder",layla_sub:"Joined the conversation",ch_ph:"Type your message…",ch_s:"Send",req:"Request Service",demo:"Live Demo",similar:"Request Similar System",ch:"Challenge",so:"Solution",re:"Result",fe:"Features",none:"Nothing to show right now.",hi:"Hi! I'm Milo, Lucid's AI assistant. How can I help you today?",err:"Couldn’t send. Please try again or message us on WhatsApp.",fav:"Save to favorites",sess_exp:"Session expired due to inactivity. Send a message to start a new session.",
 ab:"Lucid is a boutique studio bridging AI automation and hands-on digital execution. It was founded and is led directly by Laila Nasser, so you work with the person building your system.",
 pv:"<ul><li>Your wishlist (service codes) is stored in your browser’s <code>localStorage</code> on your device only; you can clear it any time.</li><li>Discount notifications are optional: we store your contact and message you only with your consent (<code>notify_consent</code>).</li><li>We use Meta Pixel and Google Tag to measure visits and conversions (such as saving a service or sending an inquiry).</li><li>When you use chat, we keep the messages so we can reply.</li><li>To request deletion of your data, email <a href=\"mailto:info@hellolucidagency.com\">info@hellolucidagency.com</a>.</li></ul>",
 tm:"<ul><li><b>Scope:</b> Work scope, deliverables, timeline and cost are agreed in writing before work starts.</li><li><b>Precedence:</b> If anything conflicts, the signed written agreement overrides this website’s content.</li><li><b>IP protection:</b> Lucid’s tools, methods and templates remain Lucid’s; final deliverables transfer to the client after full payment.</li><li><b>Confidentiality:</b> We protect client data and don’t share it without permission.</li></ul>"}};
@@ -243,7 +280,7 @@ const pick = (o,k) => (lang==="ar" ? o[k+"_ar"] : o[k+"_en"]) || o[k+"_ar"] || o
 const esc = s => String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const $ = s => document.querySelector(s);
 
-/* ===== Fallback data (used if API is empty/offline) ===== */
+/* ===== Fallback data ===== */
 const FB = {
 services:[
 {service_code:"SVC-BOT",category:"Automation",title_ar:"بوت محادثات ذكي",title_en:"AI Chatbot",short_desc_ar:"مساعد يرد على عملائك على واتساب وموقعك 24/7.",short_desc_en:"An assistant answering customers on WhatsApp and your site 24/7.",features_ar:"رد فوري|تسليم للموظف|تقارير",features_en:"Instant replies|Human handover|Reports",offer_active:"Yes",offer_text_ar:"خصم الإطلاق",status:"Active"},
@@ -294,6 +331,7 @@ function applyLang(){
   document.querySelectorAll("[data-ip]").forEach(e=>e.placeholder=t(e.dataset.ip));
   $("#bAR").setAttribute("aria-pressed",lang==="ar"); $("#bEN").setAttribute("aria-pressed",lang==="en");
   document.title = lang==="ar" ? "لوسيد إيجنسي | أتمتة بالذكاء الاصطناعي وأنظمة رقمية — Lucid Agency" : "Lucid Agency | AI Automation & Digital Systems";
+  updateChatHeader();
   renderServices(); renderPortfolio();
 }
 $("#bAR").onclick=()=>{lang="ar";ls.set("lucid_lang",lang);applyLang()};
@@ -327,38 +365,146 @@ $("#osave").onclick=()=>{
 };
 $("#oskip").onclick=()=>$("#optin").classList.remove("on");
 
-/* ===== Chat ===== */
-let activeRef="General", mode="Bot", pollT=null, greeted=false, humanShown=false;
+/* ===== Chat + 120s Timeout + Live Takeover ===== */
+let activeRef="General", mode=isAdminMode?"HUMAN":"AI", pollT=null, idleT=null, greeted=false, humanShown=false, sessionExpired=false;
 const msgs=$("#msgs");
-function addMsg(txt,who){const d=document.createElement("div");d.className="m "+who;d.textContent=txt;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight}
-function showHuman(){ if(humanShown) return; humanShown=true;
-  const d=document.createElement("div");d.className="hum";
-  d.innerHTML='<svg viewBox="0 0 32 32" role="img" aria-label="Layla Nasser"><circle cx="16" cy="16" r="16" fill="#2563EB"/><text x="16" y="16" text-anchor="middle" dominant-baseline="central" font-family="Inter,Arial,sans-serif" font-size="13" font-weight="700" fill="#fff" letter-spacing=".5">LN</text></svg><span>Layla Nasser <i title="Verified" aria-label="Verified">✔</i></span>';
-  msgs.appendChild(d); }
-function handle(r){ if(!r) return;
-  if(r.mode) mode=r.mode;
+
+function updateChatHeader(){
+  const isHum = String(mode).toUpperCase()==="HUMAN";
+  $("#chAv").src = isHum ? LAYLA_AVATAR : MILO_AVATAR;
+  $("#chName").textContent = isHum ? t("layla_t") : t("ch_t");
+  $("#chSub").textContent = isHum ? t("layla_sub") : t("ch_sub");
+}
+
+function resetIdleTimer(){
+  if(isAdminMode) return;
+  clearTimeout(idleT);
+  idleT = setTimeout(()=>{
+    sessionExpired = true;
+    clearInterval(pollT); pollT = null;
+    const note = document.createElement("div");
+    note.className = "sys-note";
+    note.textContent = t("sess_exp");
+    msgs.appendChild(note);
+    msgs.scrollTop = msgs.scrollHeight;
+  }, SESSION_TIMEOUT_MS);
+}
+
+function addMsg(txt, who, senderMode){
+  const row = document.createElement("div");
+  row.className = "m-row " + who;
+  if(who === "b"){
+    const av = document.createElement("img");
+    av.className = "m-av";
+    av.src = String(senderMode||mode).toUpperCase()==="HUMAN" ? LAYLA_AVATAR : MILO_AVATAR;
+    av.alt = "Avatar";
+    row.appendChild(av);
+  }
+  const d = document.createElement("div");
+  d.className = "m";
+  d.textContent = txt;
+  row.appendChild(d);
+  msgs.appendChild(row);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function showHuman(){
+  updateChatHeader();
+  if(humanShown) return;
+  humanShown = true;
+  const d = document.createElement("div");
+  d.className = "hum";
+  d.innerHTML = '<img src="'+LAYLA_AVATAR+'" alt="Layla"><span>'+esc(t("layla_t"))+' — '+esc(t("layla_sub"))+' ✔</span>';
+  msgs.appendChild(d);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function handle(r){
+  if(!r) return;
+  if(r.mode){
+    mode = String(r.mode).toUpperCase();
+    updateChatHeader();
+    if(mode === "HUMAN") showHuman();
+  }
   const rep = r.reply || r.message || r.text;
-  if(mode==="Human" && rep) showHuman();
-  if(rep) addMsg(rep, mode==="Human"?"b":"b"); }
+  if(rep){
+    addMsg(rep, "b", mode);
+    resetIdleTimer();
+  }
+}
+
 function openChat(ref){
-  if(ref) activeRef=ref;
+  if(ref) activeRef = ref;
+  if(sessionExpired){
+    sessionId = uid("s");
+    ls.set("lucid_sid", sessionId);
+    sessionExpired = false;
+    mode = "AI";
+    humanShown = false;
+    updateChatHeader();
+  }
   $("#chat").classList.add("on");
-  if(!greeted){addMsg(t("hi"),"b");greeted=true}
+  if(!greeted && !isAdminMode){
+    addMsg(t("hi"), "b", "AI");
+    greeted = true;
+  }
   $("#ci").focus();
-  if(configured(CHAT_WEBHOOK_URL) && !pollT) pollT=setInterval(()=>{ if(mode==="Human") post(CHAT_WEBHOOK_URL,{action:"poll",session_id:sessionId,visitor_id:visitorId}).then(handle)},8000);
+  resetIdleTimer();
+  if(configured(CHAT_WEBHOOK_URL) && !pollT){
+    pollT = setInterval(()=>{
+      if(String(mode).toUpperCase()==="HUMAN" || isAdminMode){
+        post(CHAT_WEBHOOK_URL, {action:"poll", session_id:sessionId, visitor_id:visitorId, is_admin:isAdminMode, admin_key:takeoverKey}).then(handle);
+      }
+    }, 5000);
+  }
 }
-function closeChat(){$("#chat").classList.remove("on");clearInterval(pollT);pollT=null}
+
+function closeChat(){
+  $("#chat").classList.remove("on");
+  clearInterval(pollT); pollT = null;
+}
+
 function sendChat(text){
-  addMsg(text,"u");
-  if(window.fbq) fbq("track","Lead");
-  if(window.gtag) gtag("event","generate_lead",{ref_tag:activeRef});
-  if(!configured(CHAT_WEBHOOK_URL)){return}
-  post(CHAT_WEBHOOK_URL,{session_id:sessionId,visitor_id:visitorId,source:"Website",ref_tag:activeRef,client_name:"",mode:mode,last_message:text,updated_at:new Date().toISOString()})
-    .then(r=>{ if(r) handle(r); else addMsg(t("err"),"b") });
+  if(sessionExpired){
+    sessionId = uid("s");
+    ls.set("lucid_sid", sessionId);
+    sessionExpired = false;
+    mode = "AI";
+    humanShown = false;
+    updateChatHeader();
+  }
+  addMsg(text, "u");
+  resetIdleTimer();
+  if(!isAdminMode){
+    if(window.fbq) fbq("track","Lead");
+    if(window.gtag) gtag("event","generate_lead",{ref_tag:activeRef});
+  }
+  if(!configured(CHAT_WEBHOOK_URL)) return;
+  post(CHAT_WEBHOOK_URL, {
+    action: isAdminMode ? "admin_reply" : "message",
+    session_id: sessionId,
+    visitor_id: visitorId,
+    source: "Website",
+    ref_tag: activeRef,
+    client_name: isAdminMode ? "Layla Nasser" : "",
+    mode: isAdminMode ? "HUMAN" : mode,
+    is_admin: isAdminMode,
+    admin_key: takeoverKey,
+    last_message: text,
+    updated_at: new Date().toISOString()
+  }).then(r=>{ if(r) handle(r); else if(!isAdminMode) addMsg(t("err"),"b","AI") });
 }
+
 $("#cf").onsubmit=e=>{e.preventDefault();const v=$("#ci").value.trim();if(!v)return;$("#ci").value="";sendChat(v)};
 $("#chatBtn").onclick=()=>$("#chat").classList.contains("on")?closeChat():openChat();
+$("#chatTip").onclick=()=>openChat();
 $("#chatX").onclick=closeChat;
+
+/* Auto-open chat in Admin Takeover mode if URL has ?takeover_session=... */
+if(isAdminMode){
+  showHuman();
+  openChat("AdminTakeover");
+}
 
 /* ===== Delegated clicks ===== */
 document.addEventListener("click",e=>{
