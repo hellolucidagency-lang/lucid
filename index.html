@@ -40,7 +40,7 @@ fbq('init','1403682451738875');fbq('track','PageView');
 <style>
 :root{--bg:#fff;--alt:#F8FAFC;--bd:#E2E8F0;--tx:#0F172A;--tx2:#475569;--ac:#2563EB;--ach:#1D4ED8;--acs:#EFF6FF;--ok:#059669;--sh:0 1px 2px rgba(15,23,42,.05),0 4px 16px rgba(15,23,42,.05);--r:12px}
 *{box-sizing:border-box;margin:0}
-html{scroll-behavior:smooth;scroll-padding-top:76px}
+html{scroll-behavior:smooth;scroll-padding-top:104px}
 body{font-family:'IBM Plex Sans Arabic',system-ui,sans-serif;background:var(--bg);color:var(--tx);line-height:1.7;-webkit-text-size-adjust:100%}
 html[lang=en] body{font-family:Inter,system-ui,sans-serif;line-height:1.6}
 a{color:inherit}
@@ -55,16 +55,23 @@ h2{font-size:clamp(1.5rem,4vw,2.2rem);font-weight:700;margin-bottom:12px}
 .btn:hover{background:var(--alt)}
 .btn.p{background:var(--ac);border-color:var(--ac);color:#fff}.btn.p:hover{background:var(--ach)}
 /* nav */
-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--bd)}
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--bd)}
 .nav{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:64px}
 .brand{display:flex;align-items:center;gap:10px;font-weight:700;text-decoration:none;min-height:48px}
 .brand img{height:36px;width:36px;object-fit:cover;border-radius:8px}
 .nav nav{display:none;gap:4px}
 .nav nav a{display:inline-flex;align-items:center;min-height:48px;padding:0 12px;color:var(--tx2);text-decoration:none;font-weight:500}
 .nav nav a:hover{color:var(--ac)}
-@media(min-width:820px){.nav nav{display:flex}}
+.mob-nav{display:flex;align-items:center;justify-content:center;gap:6px;padding:6px 12px;border-top:1px solid var(--bd);background:var(--alt)}
+.mob-nav a{flex:1;text-align:center;padding:6px 8px;border-radius:8px;font-size:.9rem;font-weight:600;color:var(--tx2);text-decoration:none}
+.mob-nav a:hover,.mob-nav a:active{background:#fff;color:var(--ac)}
+@media(min-width:820px){
+  html{scroll-padding-top:76px}
+  .nav nav{display:flex}
+  .mob-nav{display:none}
+}
 .lang{display:inline-flex;border:1px solid var(--bd);border-radius:999px;padding:3px;background:var(--alt)}
-.lang button{min-height:48px;min-width:48px;border:0;border-radius:999px;background:transparent;font:600 .9rem Inter,sans-serif;color:var(--tx2);cursor:pointer}
+.lang button{min-height:44px;min-width:44px;border:0;border-radius:999px;background:transparent;font:600 .9rem Inter,sans-serif;color:var(--tx2);cursor:pointer}
 .lang button[aria-pressed=true]{background:var(--ac);color:#fff}
 /* hero */
 .hero{padding:64px 0 56px;background:linear-gradient(180deg,var(--alt),#fff)}
@@ -110,9 +117,15 @@ footer button{min-height:48px;border:0;background:none;color:var(--tx2);font:inh
 #chatBtn img{width:100%;height:100%;object-fit:cover}
 #chat{position:fixed;z-index:80;inset-inline-end:16px;bottom:86px;width:min(380px,calc(100vw - 32px));height:min(540px,calc(100dvh - 110px));background:#fff;border:1px solid var(--bd);border-radius:16px;box-shadow:0 12px 40px rgba(15,23,42,.2);display:none;flex-direction:column;overflow:hidden}
 #chat.on{display:flex}
+/* milo-hide-launcher-mobile */
+@media (max-width:640px){
+  body.chat-open #chatWrap,
+  body:has(#chat.on) #chatWrap{display:none!important}
+  #chat{bottom:12px;inset-inline:12px;width:auto;height:min(560px,calc(100dvh - 76px))}
+}
 .ch{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid var(--bd);background:#fff;font-weight:600}
 .ch-info{display:flex;align-items:center;gap:10px;min-width:0}
-.ch-info img{width:38px;height:38px;border-radius:50%;object-fit:cover;border:1px solid var(--bd);flex:none}
+.ch-info img{width:40px;height:40px;border-radius:50%;object-fit:cover;object-position:center top;border:1.5px solid var(--bd);flex:none}
 .ch-meta{display:flex;flex-direction:column;line-height:1.25}
 .ch-meta span{font-size:.95rem;color:var(--tx)}
 .ch-meta small{font-size:.76rem;color:var(--ok);font-weight:500}
@@ -121,12 +134,12 @@ footer button{min-height:48px;border:0;background:none;color:var(--tx2);font:inh
 .m-row{display:flex;align-items:flex-end;gap:8px;max-width:88%}
 .m-row.u{align-self:flex-end;flex-direction:row-reverse}
 .m-row.b{align-self:flex-start}
-.m-av{width:28px;height:28px;border-radius:50%;object-fit:cover;flex:none;border:1px solid var(--bd)}
+.m-av{width:30px;height:30px;border-radius:50%;object-fit:cover;object-position:center top;flex:none;border:1px solid var(--bd)}
 .m{padding:10px 14px;border-radius:14px;font-size:.94rem;white-space:pre-wrap;word-break:break-word}
 .m-row.u .m{background:var(--ac);color:#fff;border-bottom-inline-end-radius:4px}
 .m-row.b .m{background:#fff;border:1px solid var(--bd);color:var(--tx);border-bottom-inline-start-radius:4px}
-.hum{align-self:center;background:var(--acs);border:1px solid #BFDBFE;border-radius:999px;padding:4px 12px;display:flex;align-items:center;gap:8px;font-size:.8rem;color:var(--ach);font-weight:600;margin:4px 0}
-.hum img{width:24px;height:24px;border-radius:50%;object-fit:cover}
+.hum{align-self:center;background:var(--acs);border:1px solid #BFDBFE;border-radius:999px;padding:5px 14px;display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--ach);font-weight:600;margin:4px 0}
+.hum img{width:26px;height:26px;border-radius:50%;object-fit:cover;object-position:center top;border:1px solid #93C5FD}
 .sys-note{align-self:center;font-size:.8rem;color:var(--tx2);background:#fff;border:1px dashed var(--bd);padding:4px 12px;border-radius:999px}
 #cf{display:flex;gap:8px;padding:10px;border-top:1px solid var(--bd);background:#fff}
 #cf input{flex:1;min-height:48px;border:1px solid var(--bd);border-radius:10px;padding:0 14px;font:inherit;min-width:0}
@@ -141,11 +154,18 @@ dialog form{padding:0 24px 24px}
 </style>
 </head>
 <body>
-<header><div class="wrap nav">
-  <a class="brand" href="#top"><img src="https://res.cloudinary.com/fig3bixy/image/upload/v1795109128/Logo_of_Lucid_Agency.jpg_bc0tlg.jpg" alt="Lucid Agency" width="36" height="36"><span>Lucid Agency</span></a>
-  <nav aria-label="Main"><a href="#services" data-i="nav_s">الخدمات</a><a href="#work" data-i="nav_w">سابقة الأعمال</a><a href="#contact" data-i="nav_c">تواصل</a></nav>
-  <div class="lang" role="group" aria-label="Language"><button id="bAR" aria-pressed="true">AR</button><button id="bEN" aria-pressed="false">EN</button></div>
-</div></header>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top"><img src="https://res.cloudinary.com/fig3bixy/image/upload/v1795109128/Logo_of_Lucid_Agency.jpg_bc0tlg.jpg" alt="Lucid Agency" width="36" height="36"><span>Lucid Agency</span></a>
+    <nav aria-label="Main"><a href="#services" data-i="nav_s">الخدمات</a><a href="#work" data-i="nav_w">سابقة الأعمال</a><a href="#contact" data-i="nav_c">تواصل</a></nav>
+    <div class="lang" role="group" aria-label="Language"><button id="bAR" aria-pressed="true">AR</button><button id="bEN" aria-pressed="false">EN</button></div>
+  </div>
+  <nav class="mob-nav" aria-label="Mobile Navigation">
+    <a href="#services" data-i="nav_s">الخدمات</a>
+    <a href="#work" data-i="nav_w">سابقة الأعمال</a>
+    <a href="#contact" data-i="nav_c">تواصل</a>
+  </nav>
+</header>
 
 <main id="top">
 <section class="hero"><div class="wrap">
@@ -193,12 +213,12 @@ dialog form{padding:0 24px 24px}
 <!-- Chat -->
 <div id="chatWrap">
   <span id="chatTip" data-i="ask_milo">اسأل ميلو</span>
-  <button id="chatBtn" aria-label="Chat"><img src="https://res.cloudinary.com/fig3bixy/image/upload/v1795107265/MILo_bot_cvaied.png" alt="Milo"></button>
+  <button id="chatBtn" aria-label="Chat"><img src="https://res.cloudinary.com/fig3bixy/image/upload/c_fill,w_180,h_180,q_auto:best,f_auto/v1795107265/MILo_bot_cvaied.png" alt="Milo"></button>
 </div>
 <div id="chat" role="dialog" aria-label="Chat">
   <div class="ch">
     <div class="ch-info">
-      <img id="chAv" src="https://res.cloudinary.com/fig3bixy/image/upload/v1795107265/milo_bot2.jpg_fvftt2.jpg" alt="Milo">
+      <img id="chAv" src="https://res.cloudinary.com/fig3bixy/image/upload/c_fill,w_240,h_240,q_auto:best,f_auto/v1795107265/milo_bot2.jpg_fvftt2.jpg" alt="Milo">
       <div class="ch-meta">
         <span id="chName" data-i="ch_t">ميلو — مساعد لوسيد الذكي</span>
         <small id="chSub" data-i="ch_sub">متاح الآن 24/7</small>
@@ -242,9 +262,9 @@ const TRACKING_WEBHOOK_URL = "https://n8n.hellolucidagency.com/webhook/lucid-tra
 const CHAT_WEBHOOK_URL = "https://n8n.hellolucidagency.com/webhook/lucid-03-site-bot";
 
 const LOGO = "https://res.cloudinary.com/fig3bixy/image/upload/v1795109128/Logo_of_Lucid_Agency.jpg_bc0tlg.jpg";
-const MILO_LAUNCHER = "https://res.cloudinary.com/fig3bixy/image/upload/v1795107265/MILo_bot_cvaied.png";
-const MILO_AVATAR = "https://res.cloudinary.com/fig3bixy/image/upload/v1795107265/milo_bot2.jpg_fvftt2.jpg";
-const LAYLA_AVATAR = "https://res.cloudinary.com/fig3bixy/image/upload/v1795107264/IMG_laylanasser.jpg_fgotla.jpg";
+const MILO_LAUNCHER = "https://res.cloudinary.com/fig3bixy/image/upload/c_fill,w_180,h_180,q_auto:best,f_auto/v1795107265/MILo_bot_cvaied.png";
+const MILO_AVATAR = "https://res.cloudinary.com/fig3bixy/image/upload/c_fill,w_240,h_240,q_auto:best,f_auto/v1795107265/milo_bot2.jpg_fvftt2.jpg";
+const LAYLA_AVATAR = "https://res.cloudinary.com/fig3bixy/image/upload/c_fill,g_face,w_240,h_240,q_auto:best,f_auto/v1795107264/IMG_laylanasser.jpg_fgotla.jpg";
 const SESSION_TIMEOUT_MS = 120000; // 120 seconds inactivity timeout
 
 const configured = u => u && !u.startsWith("YOUR_");
@@ -258,7 +278,7 @@ let sessionId = ls.get("lucid_sid"); if(!sessionId){sessionId=uid("s");ls.set("l
 const params = new URLSearchParams(location.search);
 const utm = params.get("utm_source") || "";
 const takeoverSession = params.get("takeover_session") || "";
-const takeoverKey = params.get("key") || params.get("admin_key") || "";
+const takeoverKey = params.get("k") || params.get("key") || params.get("admin_key") || "";
 const isAdminMode = Boolean(takeoverSession);
 if(isAdminMode) sessionId = takeoverSession;
 
@@ -266,11 +286,11 @@ let wish = []; try{wish=JSON.parse(ls.get("lucid_wishlist","[]"))||[]}catch(e){}
 
 /* ===== i18n ===== */
 const T = {
-ar:{nav_s:"الخدمات",nav_w:"سابقة الأعمال",nav_c:"تواصل",pill:"استوديو أتمتة ذكي",h1:"نحوّل أعمالك إلى أنظمة رقمية تعمل بالذكاء الاصطناعي",lead:"أتمتة المبيعات والمحادثات والعمليات، وبناء مواقع وأنظمة جاهزة للنمو، بإشراف مباشر من ليلى ناصر.",cta1:"ابدأ محادثة الآن",cta2:"استعرض الخدمات",s_h:"خدماتنا",s_p:"اختر الخدمة، واحفظ المفضلة منها، واطلبها بضغطة واحدة.",w_h:"سابقة الأعمال",w_p:"مشكلات حقيقية، حلول واضحة، ونتائج قابلة للقياس.",c_h:"تواصل معنا",c_p:"نرد عادةً خلال ساعات العمل. المساعد الذكي متاح على مدار الساعة.",wa1:"مساعد لوسيد الذكي (24/7)",wa2:"ليلى ناصر — مؤسسة لوسيد",em:"البريد الإلكتروني",f_a:"من نحن",f_p:"سياسة الخصوصية",f_t:"الشروط والأحكام",close:"إغلاق",o_h:"تم حفظ الخدمة ♥",o_ph:"واتساب أو بريد (اختياري)",o_l:"أوافق على إشعاري بالعروض المستقبلية",o_s:"حفظ",o_x:"لاحقًا",ask_milo:"اسأل ميلو",ch_t:"ميلو — مساعد لوسيد الذكي",ch_sub:"متاح الآن 24/7",layla_t:"ليلى ناصر — مؤسسة لوسيد",layla_sub:"انضمت للمحادثة الآن",ch_ph:"اكتب رسالتك…",ch_s:"إرسال",req:"اطلب الخدمة",demo:"معاينة حية",similar:"اطلب نظام مماثل",ch:"التحدي",so:"الحل",re:"النتيجة",fe:"المميزات",none:"لا توجد عناصر لعرضها حاليًا.",hi:"أهلًا! أنا ميلو، مساعد لوسيد الذكي. كيف أقدر أساعدك النهاردة؟",err:"تعذّر الإرسال. حاول مرة أخرى أو راسلنا على واتساب.",fav:"حفظ في المفضلة",sess_exp:"انتهت الجلسة لعدم النشاط. اكتب رسالة جديدة لبدء جلسة جديدة.",
+ar:{nav_s:"الخدمات",nav_w:"سابقة الأعمال",nav_c:"تواصل",pill:"استوديو أتمتة ذكي",h1:"نحوّل أعمالك إلى أنظمة رقمية تعمل بالذكاء الاصطناعي",lead:"أتمتة المبيعات والمحادثات والعمليات، وبناء مواقع وأنظمة جاهزة للنمو، بإشراف مباشر من ليلى ناصر.",cta1:"ابدأ محادثة الآن",cta2:"استعرض الخدمات",s_h:"خدماتنا",s_p:"اختر الخدمة، واحفظ المفضلة منها، واطلبها بضغطة واحدة.",w_h:"سابقة الأعمال",w_p:"مشكلات حقيقية، حلول واضحة، ونتائج قابلة للقياس.",c_h:"تواصل معنا",c_p:"نرد عادةً خلال ساعات العمل. المساعد الذكي متاح على مدار الساعة.",wa1:"مساعد لوسيد الذكي (24/7)",wa2:"ليلى ناصر — مؤسسة لوسيد",em:"البريد الإلكتروني",f_a:"من نحن",f_p:"سياسة الخصوصية",f_t:"الشروط والأحكام",close:"إغلاق",o_h:"تم حفظ الخدمة ♥",o_ph:"واتساب أو بريد (اختياري)",o_l:"أوافق على إشعاري بالعروض المستقبلية",o_s:"حفظ",o_x:"لاحقًا",ask_milo:"اسأل ميلو",ch_t:"ميلو — مساعد لوسيد الذكي",ch_sub:"متاح الآن 24/7",layla_t:"ليلى",layla_sub:"انضمت للمحادثة الآن",ch_ph:"اكتب رسالتك…",ch_s:"إرسال",req:"اطلب الخدمة",demo:"معاينة حية",similar:"اطلب نظام مماثل",ch:"التحدي",so:"الحل",re:"النتيجة",fe:"المميزات",none:"لا توجد عناصر لعرضها حاليًا.",hi:"أهلًا! أنا ميلو، مساعد لوسيد الذكي. كيف أقدر أساعدك النهاردة؟",err:"تعذّر الإرسال. حاول مرة أخرى أو راسلنا على واتساب.",fav:"حفظ في المفضلة",sess_exp:"انتهت الجلسة لعدم النشاط. اكتب رسالة جديدة لبدء جلسة جديدة.",
 ab:"لوسيد استوديو بوتيكي يربط بين الأتمتة بالذكاء الاصطناعي والتنفيذ الرقمي الفعلي، أسّسته وتقوده ليلى ناصر بنفسها، فتتعاملون مباشرةً مع من يبني نظامكم.",
 pv:"<ul><li>نحفظ قائمة مفضلتك (رموز الخدمات) في التخزين المحلي <code>localStorage</code> على جهازك فقط، ويمكنك مسحها من المتصفح.</li><li>إشعارات العروض اختيارية: لا نحفظ وسيلة تواصلك ولا نراسلك إلا بموافقتك (<code>notify_consent</code>).</li><li>نستخدم Meta Pixel وGoogle Tag لقياس الزيارات والتحويلات (مثل حفظ خدمة أو إرسال استفسار).</li><li>عند التواصل عبر الدردشة نحفظ الرسائل لنرد عليك.</li><li>لطلب حذف بياناتك راسل <a href=\"mailto:info@hellolucidagency.com\">info@hellolucidagency.com</a>.</li></ul>",
 tm:"<ul><li><b>النطاق:</b> يُحدَّد نطاق العمل والتسليمات والمدة والتكلفة كتابيًا قبل البدء.</li><li><b>الأسبقية:</b> عند التعارض، يسود الاتفاق المكتوب الموقّع على محتوى هذا الموقع.</li><li><b>الملكية الفكرية:</b> تبقى أدوات لوسيد ومنهجيتها وقوالبها ملكًا لها، وتنتقل ملكية التسليمات النهائية للعميل بعد السداد الكامل.</li><li><b>السرية:</b> نحمي بيانات العميل ولا نشاركها دون إذن.</li></ul>"},
-en:{nav_s:"Services",nav_w:"Case studies",nav_c:"Contact",pill:"AI automation studio",h1:"We turn your business into AI-powered digital systems",lead:"We automate sales, conversations and operations, and build websites and systems ready to grow, led directly by Laila Nasser.",cta1:"Start a chat",cta2:"Browse services",s_h:"Our services",s_p:"Pick a service, save your favorites, and request it in one tap.",w_h:"Case studies",w_p:"Real problems, clear solutions, measurable results.",c_h:"Get in touch",c_p:"We usually reply within business hours. The AI assistant is on 24/7.",wa1:"Lucid AI Assistant (24/7)",wa2:"Laila Nasser — Founder",em:"Email",f_a:"About",f_p:"Privacy Policy",f_t:"Terms of Service",close:"Close",o_h:"Service saved ♥",o_ph:"WhatsApp or email (optional)",o_l:"Notify me about future discounts",o_s:"Save",o_x:"Not now",ask_milo:"Ask Milo",ch_t:"Milo — Lucid AI Assistant",ch_sub:"Online 24/7",layla_t:"Laila Nasser — Founder",layla_sub:"Joined the conversation",ch_ph:"Type your message…",ch_s:"Send",req:"Request Service",demo:"Live Demo",similar:"Request Similar System",ch:"Challenge",so:"Solution",re:"Result",fe:"Features",none:"Nothing to show right now.",hi:"Hi! I'm Milo, Lucid's AI assistant. How can I help you today?",err:"Couldn’t send. Please try again or message us on WhatsApp.",fav:"Save to favorites",sess_exp:"Session expired due to inactivity. Send a message to start a new session.",
+en:{nav_s:"Services",nav_w:"Case studies",nav_c:"Contact",pill:"AI automation studio",h1:"We turn your business into AI-powered digital systems",lead:"We automate sales, conversations and operations, and build websites and systems ready to grow, led directly by Laila Nasser.",cta1:"Start a chat",cta2:"Browse services",s_h:"Our services",s_p:"Pick a service, save your favorites, and request it in one tap.",w_h:"Case studies",w_p:"Real problems, clear solutions, measurable results.",c_h:"Get in touch",c_p:"We usually reply within business hours. The AI assistant is on 24/7.",wa1:"Lucid AI Assistant (24/7)",wa2:"Laila Nasser — Founder",em:"Email",f_a:"About",f_p:"Privacy Policy",f_t:"Terms of Service",close:"Close",o_h:"Service saved ♥",o_ph:"WhatsApp or email (optional)",o_l:"Notify me about future discounts",o_s:"Save",o_x:"Not now",ask_milo:"Ask Milo",ch_t:"Milo — Lucid AI Assistant",ch_sub:"Online 24/7",layla_t:"Laila",layla_sub:"Joined the chat",ch_ph:"Type your message…",ch_s:"Send",req:"Request Service",demo:"Live Demo",similar:"Request Similar System",ch:"Challenge",so:"Solution",re:"Result",fe:"Features",none:"Nothing to show right now.",hi:"Hi! I'm Milo, Lucid's AI assistant. How can I help you today?",err:"Couldn’t send. Please try again or message us on WhatsApp.",fav:"Save to favorites",sess_exp:"Session expired due to inactivity. Send a message to start a new session.",
 ab:"Lucid is a boutique studio bridging AI automation and hands-on digital execution. It was founded and is led directly by Laila Nasser, so you work with the person building your system.",
 pv:"<ul><li>Your wishlist (service codes) is stored in your browser’s <code>localStorage</code> on your device only; you can clear it any time.</li><li>Discount notifications are optional: we store your contact and message you only with your consent (<code>notify_consent</code>).</li><li>We use Meta Pixel and Google Tag to measure visits and conversions (such as saving a service or sending an inquiry).</li><li>When you use chat, we keep the messages so we can reply.</li><li>To request deletion of your data, email <a href=\"mailto:info@hellolucidagency.com\">info@hellolucidagency.com</a>.</li></ul>",
 tm:"<ul><li><b>Scope:</b> Work scope, deliverables, timeline and cost are agreed in writing before work starts.</li><li><b>Precedence:</b> If anything conflicts, the signed written agreement overrides this website’s content.</li><li><b>IP protection:</b> Lucid’s tools, methods and templates remain Lucid’s; final deliverables transfer to the client after full payment.</li><li><b>Confidentiality:</b> We protect client data and don’t share it without permission.</li></ul>"}};
@@ -366,7 +386,7 @@ $("#osave").onclick=()=>{
 $("#oskip").onclick=()=>$("#optin").classList.remove("on");
 
 /* ===== Chat + 120s Timeout + Live Takeover ===== */
-let activeRef="General", mode=isAdminMode?"HUMAN":"AI", pollT=null, idleT=null, greeted=false, humanShown=false, sessionExpired=false;
+let activeRef="General", mode=isAdminMode?"HUMAN":"AI", pollT=null, idleT=null, greeted=false, humanShown=false, sessionExpired=false, lastMsgId=0;
 const msgs=$("#msgs");
 
 function updateChatHeader(){
@@ -414,7 +434,7 @@ function showHuman(){
   humanShown = true;
   const d = document.createElement("div");
   d.className = "hum";
-  d.innerHTML = '<img src="'+LAYLA_AVATAR+'" alt="Layla"><span>'+esc(t("layla_t"))+' — '+esc(t("layla_sub"))+' ✔</span>';
+  d.innerHTML = '<img src="'+LAYLA_AVATAR+'" alt="Layla"><span>'+esc(t("layla_t"))+' – '+esc(t("layla_sub"))+' ✔</span>';
   msgs.appendChild(d);
   msgs.scrollTop = msgs.scrollHeight;
 }
@@ -425,6 +445,28 @@ function handle(r){
     mode = String(r.mode).toUpperCase();
     updateChatHeader();
     if(mode === "HUMAN") showHuman();
+  }
+  if(typeof r.last_id === "number" && r.last_id > lastMsgId){
+    lastMsgId = r.last_id;
+  }
+  if(Array.isArray(r.messages) && r.messages.length){
+    r.messages.forEach(m=>{
+      const mid = Number(m.id || 0);
+      if(mid && mid <= lastMsgId) return;
+      if(mid > lastMsgId) lastMsgId = mid;
+      const txt = m.content || m.text || m.message || "";
+      if(!txt) return;
+      const sender = String(m.sender || m.role || "").toLowerCase();
+      if(sender === "user" || sender === "visitor"){
+        if(isAdminMode) addMsg(txt, "b", "AI");
+      } else if(sender === "admin" || sender === "human"){
+        if(!isAdminMode) addMsg(txt, "b", "HUMAN");
+      } else {
+        addMsg(txt, "b", mode);
+      }
+    });
+    resetIdleTimer();
+    return;
   }
   const rep = r.reply || r.message || r.text;
   if(rep){
@@ -439,11 +481,13 @@ function openChat(ref){
     sessionId = uid("s");
     ls.set("lucid_sid", sessionId);
     sessionExpired = false;
+    lastMsgId = 0;
     mode = "AI";
     humanShown = false;
     updateChatHeader();
   }
   $("#chat").classList.add("on");
+  document.body.classList.add("chat-open");
   if(!greeted && !isAdminMode){
     addMsg(t("hi"), "b", "AI");
     greeted = true;
@@ -453,14 +497,15 @@ function openChat(ref){
   if(configured(CHAT_WEBHOOK_URL) && !pollT){
     pollT = setInterval(()=>{
       if(String(mode).toUpperCase()==="HUMAN" || isAdminMode){
-        post(CHAT_WEBHOOK_URL, {action:"poll", session_id:sessionId, visitor_id:visitorId, is_admin:isAdminMode, admin_key:takeoverKey}).then(handle);
+        post(CHAT_WEBHOOK_URL, {action:"poll", session_id:sessionId, visitor_id:visitorId, last_id:lastMsgId, is_admin:isAdminMode, admin_key:takeoverKey}).then(handle);
       }
-    }, 5000);
+    }, 4000);
   }
 }
 
 function closeChat(){
   $("#chat").classList.remove("on");
+  document.body.classList.remove("chat-open");
   clearInterval(pollT); pollT = null;
 }
 
@@ -469,6 +514,7 @@ function sendChat(text){
     sessionId = uid("s");
     ls.set("lucid_sid", sessionId);
     sessionExpired = false;
+    lastMsgId = 0;
     mode = "AI";
     humanShown = false;
     updateChatHeader();
@@ -484,9 +530,10 @@ function sendChat(text){
     action: isAdminMode ? "admin_reply" : "message",
     session_id: sessionId,
     visitor_id: visitorId,
+    last_id: lastMsgId,
     source: "Website",
     ref_tag: activeRef,
-    client_name: isAdminMode ? "Layla Nasser" : "",
+    client_name: isAdminMode ? "Laila" : "",
     mode: isAdminMode ? "HUMAN" : mode,
     is_admin: isAdminMode,
     admin_key: takeoverKey,
