@@ -265,7 +265,7 @@ const LOGO = "https://res.cloudinary.com/fig3bixy/image/upload/v1795109128/Logo_
 const MILO_LAUNCHER = "https://res.cloudinary.com/fig3bixy/image/upload/c_fill,w_180,h_180,q_auto:best,f_auto/v1795107265/MILo_bot_cvaied.png";
 const MILO_AVATAR = "https://res.cloudinary.com/fig3bixy/image/upload/c_fill,w_240,h_240,q_auto:best,f_auto/v1795107265/milo_bot2.jpg_fvftt2.jpg";
 const LAYLA_AVATAR = "https://res.cloudinary.com/fig3bixy/image/upload/c_fill,g_face,w_240,h_240,q_auto:best,f_auto/v1795107264/IMG_laylanasser.jpg_fgotla.jpg";
-const SESSION_TIMEOUT_MS = 120000; // 120 seconds inactivity timeout
+const SESSION_TIMEOUT_MS = 120000;
 
 const configured = u => u && !u.startsWith("YOUR_");
 
@@ -477,16 +477,6 @@ function handle(r){
     }
   }
   if(rendered) resetIdleTimer();
-}
-    });
-    resetIdleTimer();
-    return;
-  }
-  const rep = r.reply || r.message || r.text;
-  if(rep){
-    addMsg(rep, "b", mode);
-    resetIdleTimer();
-  }
 }
 
 function openChat(ref){
