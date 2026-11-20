@@ -446,24 +446,38 @@ function handle(r){
     updateChatHeader();
     if(mode === "HUMAN") showHuman();
   }
-  if(typeof r.last_id === "number" && r.last_id > lastMsgId){
-    lastMsgId = r.last_id;
-  }
+  const prevLastId = lastMsgId;
+  let rendered = false;
   if(Array.isArray(r.messages) && r.messages.length){
     r.messages.forEach(m=>{
       const mid = Number(m.id || 0);
-      if(mid && mid <= lastMsgId) return;
+      if(mid && mid <= prevLastId) return;
       if(mid > lastMsgId) lastMsgId = mid;
       const txt = m.content || m.text || m.message || "";
       if(!txt) return;
       const sender = String(m.sender || m.role || "").toLowerCase();
       if(sender === "user" || sender === "visitor"){
-        if(isAdminMode) addMsg(txt, "b", "AI");
+        if(isAdminMode){ addMsg(txt, "b", "AI"); rendered = true; }
       } else if(sender === "admin" || sender === "human"){
-        if(!isAdminMode) addMsg(txt, "b", "HUMAN");
+        if(!isAdminMode){ addMsg(txt, "b", "HUMAN"); rendered = true; }
       } else {
         addMsg(txt, "b", mode);
+        rendered = true;
       }
+    });
+  }
+  if(typeof r.last_id === "number" && r.last_id > lastMsgId){
+    lastMsgId = r.last_id;
+  }
+  if(!rendered){
+    const rep = r.reply || r.message || r.text;
+    if(rep){
+      addMsg(rep, "b", mode);
+      rendered = true;
+    }
+  }
+  if(rendered) resetIdleTimer();
+}
     });
     resetIdleTimer();
     return;
